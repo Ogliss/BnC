@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DeterminePregnancy.label>임신 진단</DeterminePregnancy.label>
+  <DeterminePregnancy.description>정착민의 임신 여부를 진단합니다.</DeterminePregnancy.description>
+  <DeterminePregnancy.jobString>임신 여부를 진단 중</DeterminePregnancy.jobString>
+</LanguageData>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Recipe Defs -->
+  
+  <rep>
+    <path>PerformAbortion.label</path>
+    <trans>выполнить аборт</trans>
+  </rep>
+  <rep>
+    <path>PerformAbortion.description</path>
+    <trans>Прерывает нежелательную беременность.</trans>
+  </rep>
+  <rep>
+    <path>PerformAbortion.successfullyRemovedHediffMessage</path>
+    <trans>{0} успешно прервана {1} 's плода.</trans>
+  </rep>
+
+</LanguageData>

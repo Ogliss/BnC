@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ScoldChild.label>scold</ScoldChild.label>
+  <ScoldChild.logRulesInitiator.rulesStrings.0>logentry->는[other_nameShortIndef]를 혼냈다.</ScoldChild.logRulesInitiator.rulesStrings.0>
+  <ScoldChild.logRulesRecipient.rulesStrings.0>logentry->는[other_nameShortIndef]를 혼냈다.</ScoldChild.logRulesRecipient.rulesStrings.0>
+
+  <HugFriend.label>hug</HugFriend.label>
+  <HugFriend.logRulesInitiator.rulesStrings.0>logentry->는[other_nameShortIndef]를 끌어 안았다.</HugFriend.logRulesInitiator.rulesStrings.0>
+  <HugFriend.logRulesRecipient.rulesStrings.0>logentry->는[other_nameShortIndef]를 끌어 안았다.</HugFriend.logRulesRecipient.rulesStrings.0>
+
+
+</LanguageData>

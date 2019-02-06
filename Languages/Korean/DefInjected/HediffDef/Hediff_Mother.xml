@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <HumanPregnancy.label>임신</HumanPregnancy.label>
+  <HumanPregnancy.stages.0.label>임신초기</HumanPregnancy.stages.0.label>
+  <HumanPregnancy.stages.1.label>임신중기</HumanPregnancy.stages.1.label>
+  <HumanPregnancy.stages.2.label>임신후기</HumanPregnancy.stages.2.label>
+  <HumanPregnancy.stages.3.label>진통</HumanPregnancy.stages.3.label>
+  <GivingBirth.label>출산</GivingBirth.label>
+  <GivingBirth.comps.0.labelTendedWell>분만</GivingBirth.comps.0.labelTendedWell>
+  <GivingBirth.comps.0.labelTendedWellInner>자궁구열림</GivingBirth.comps.0.labelTendedWellInner>
+  <GivingBirth.comps.0.labelSolidTendedWell>태반만출(후산)</GivingBirth.comps.0.labelSolidTendedWell>
+  <PregnancyTear.label>양막이 찢어짐(경미)</PregnancyTear.label>
+  <PregnancyTear.comps.0.labelTendedWell>처치됨</PregnancyTear.comps.0.labelTendedWell>
+  <PregnancyTear.comps.0.labelTendedWellInner>처치됨</PregnancyTear.comps.0.labelTendedWellInner>
+  <PregnancyTear.comps.0.labelSolidTendedWell>처치됨</PregnancyTear.comps.0.labelSolidTendedWell>
+  <PregnancyTear.injuryProps.destroyedLabel>양막이 찢어짐</PregnancyTear.injuryProps.destroyedLabel>
+  <PregnancyTearMajor.label>양막이 찢어짐(심각)</PregnancyTearMajor.label>
+  <PregnancyTearMajor.comps.0.labelTendedWell>처치됨</PregnancyTearMajor.comps.0.labelTendedWell>
+  <PregnancyTearMajor.comps.0.labelTendedWellInner>처치됨</PregnancyTearMajor.comps.0.labelTendedWellInner>
+  <PregnancyTearMajor.comps.0.labelSolidTendedWell>처치됨</PregnancyTearMajor.comps.0.labelSolidTendedWell>
+  <PregnancyTearMajor.injuryProps.destroyedLabel>양막이 찢어짐</PregnancyTearMajor.injuryProps.destroyedLabel>
+  <PlacentaBleed.label>태반유착</PlacentaBleed.label>
+  <PlacentaBleed.comps.0.labelTendedWell>해결됨</PlacentaBleed.comps.0.labelTendedWell>
+  <PlacentaBleed.comps.0.labelTendedWellInner>해결됨</PlacentaBleed.comps.0.labelTendedWellInner>
+  <PlacentaBleed.comps.0.labelSolidTendedWell>해결됨</PlacentaBleed.comps.0.labelSolidTendedWell>
+  <PlacentaBleed.injuryProps.destroyedLabel>태반출혈</PlacentaBleed.injuryProps.destroyedLabel>
+  <PostPregnancy.label>출산에서 회복</PostPregnancy.label>
+  <GaveBirthFlag.label>출산경험후</GaveBirthFlag.label>
+  <GaveBirthFlag.stages.0.label>이상징후</GaveBirthFlag.stages.0.label>
+</LanguageData>

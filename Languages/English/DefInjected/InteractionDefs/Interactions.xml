@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Child getting scolded by adult interaction -->
+  
+  <rep>
+    <path>ScoldChild.label</path>
+    <trans>scold</trans>
+  </rep>
+  <rep>
+    <path>ScoldChild.logRulesInitiator.rulesStrings[0]</path>
+    <trans>logentry->Scolded [other_nameShortIndef].</trans>
+  </rep>
+  <rep>
+    <path>ScoldChild.logRulesRecipient.rulesStrings[0]</path>
+    <trans>logentry->Was scolded by [other_nameShortIndef].</trans>
+  </rep>
+
+</LanguageData>

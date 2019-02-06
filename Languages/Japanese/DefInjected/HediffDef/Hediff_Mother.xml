@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <HumanPregnancy.label>妊娠</HumanPregnancy.label>
+  <HumanPregnancy.stages.0.label>妊娠初期</HumanPregnancy.stages.0.label>
+  <HumanPregnancy.stages.1.label>妊娠中期</HumanPregnancy.stages.1.label>
+  <HumanPregnancy.stages.2.label>妊娠後期</HumanPregnancy.stages.2.label>
+  <HumanPregnancy.stages.3.label>陣痛</HumanPregnancy.stages.3.label>
+
+  <GivingBirth.label>出産</GivingBirth.label>
+  <GivingBirth.comps.0.labelTendedWell>分娩</GivingBirth.comps.0.labelTendedWell>
+  <GivingBirth.comps.0.labelTendedWellInner>子宮口全開</GivingBirth.comps.0.labelTendedWellInner>
+  <GivingBirth.comps.0.labelSolidTendedWell>胎盤娩出</GivingBirth.comps.0.labelSolidTendedWell>
+
+  <PregnancyTear.label>分娩時裂傷</PregnancyTear.label>
+  <PregnancyTear.comps.0.labelTendedWell>包帯</PregnancyTear.comps.0.labelTendedWell>
+  <PregnancyTear.comps.0.labelTendedWellInner>縫合</PregnancyTear.comps.0.labelTendedWellInner>
+  <PregnancyTear.comps.0.labelSolidTendedWell>セット</PregnancyTear.comps.0.labelSolidTendedWell>
+  <PregnancyTear.injuryProps.destroyedLabel>引き裂かれた</PregnancyTear.injuryProps.destroyedLabel>
+
+  <PregnancyTearMajor.label>分娩時裂傷(深刻)</PregnancyTearMajor.label>
+  <PregnancyTearMajor.comps.0.labelTendedWell>包帯</PregnancyTearMajor.comps.0.labelTendedWell>
+  <PregnancyTearMajor.comps.0.labelTendedWellInner>縫合</PregnancyTearMajor.comps.0.labelTendedWellInner>
+  <PregnancyTearMajor.comps.0.labelSolidTendedWell>セット</PregnancyTearMajor.comps.0.labelSolidTendedWell>
+  <PregnancyTearMajor.injuryProps.destroyedLabel>引き裂かれた</PregnancyTearMajor.injuryProps.destroyedLabel>
+
+  <PlacentaBleed.label>癒着胎盤</PlacentaBleed.label>
+  <PlacentaBleed.comps.0.labelTendedWell>胎盤が排出された</PlacentaBleed.comps.0.labelTendedWell>
+  <PlacentaBleed.comps.0.labelTendedWellInner>胎盤が排出された</PlacentaBleed.comps.0.labelTendedWellInner>
+  <PlacentaBleed.comps.0.labelSolidTendedWell>胎盤が排出された</PlacentaBleed.comps.0.labelSolidTendedWell>
+  <PlacentaBleed.injuryProps.destroyedLabel>胎盤出血</PlacentaBleed.injuryProps.destroyedLabel>
+
+  <PostPregnancy.label>出産からの回復</PostPregnancy.label>
+  <Lactating.label>授乳中</Lactating.label>
+
+  <GaveBirthFlag.label>出産経験済</GaveBirthFlag.label>
+  <GaveBirthFlag.stages.0.label>妊娠兆候</GaveBirthFlag.stages.0.label>
+
+  <Sterile.label>不妊症</Sterile.label>
+
+
+</LanguageData>

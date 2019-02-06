@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <NA_Childhood_Disabled.Title>아기</NA_Childhood_Disabled.Title>
+  <NA_Childhood_Disabled.TitleShort>아기</NA_Childhood_Disabled.TitleShort>
+  <NA_Childhood_Disabled.baseDescription>아직 자라고 있습니다.</NA_Childhood_Disabled.baseDescription>
+  <NA_Childhood.Title>아이</NA_Childhood.Title>
+  <NA_Childhood.TitleShort>아이</NA_Childhood.TitleShort>
+  <NA_Childhood.baseDescription>아직 자라고 있습니다.</NA_Childhood.baseDescription>
+  <NA_Adulthood.Title>N/A</NA_Adulthood.Title>
+  <NA_Adulthood.TitleShort>N/A</NA_Adulthood.TitleShort>
+  <Rimchild.Title>림월드 아이</Rimchild.Title>
+  <Rimchild.TitleShort>림 차일드</Rimchild.TitleShort>
+  <Rimchild.baseDescription>NAME은(는) 은하계 바깥쪽 림월드에서 태어나고 자랐습니다.</Rimchild.baseDescription>
+</LanguageData>

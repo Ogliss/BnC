@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Custom Backstories -->
+  
+  <rep>
+    <path>NA_Childhood_Disabled.Title</path>
+    <trans>малыш</trans>
+  </rep>
+  <rep>
+    <path>NA_Childhood_Disabled.TitleShort</path>
+    <trans>малыш</trans>
+  </rep>
+  <rep>
+    <path>NA_Childhood_Disabled.baseDescription</path>
+    <trans>Еще растет. контрольная работа</trans>
+  </rep>
+  
+  <rep>
+    <path>NA_Childhood.Title</path>
+    <trans>ребенок</trans>
+  </rep>
+  <rep>
+    <path>NA_Childhood.TitleShort</path>
+    <trans>ребенок</trans>
+  </rep>
+  <rep>
+    <path>NA_Childhood.baseDescription</path>
+    <trans>Еще растет. контрольная работа</trans>
+  </rep>
+  
+  <rep>
+    <path>Rimchild.Title</path>
+    <trans>Rimworld ребенок</trans>
+  </rep>
+  <rep>
+    <path>Rimchild.TitleShort</path>
+    <trans>Римребенок</trans>
+  </rep>
+  <rep>
+    <path>Rimchild.baseDescription</path>
+    <trans>NAME родился и вырос на rimworld во внешних пределах галактики.</trans>
+  </rep>
+
+</LanguageData>

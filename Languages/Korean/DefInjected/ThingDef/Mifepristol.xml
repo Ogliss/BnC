@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <Mifepristol.label>임신중절약</Mifepristol.label>
+  <Mifepristol.description>임신중절약 (미페프리스톤)
+
+1분기(임신초기) 이하의 임신을 중절시키는 두 종류의 혼합 화학 물질입니다.</Mifepristol.description>
+  <Mifepristol.ingestible.ingestCommandString>{0}을 복용</Mifepristol.ingestible.ingestCommandString>
+  <Mifepristol.ingestible.ingestReportString>{0}을 복용하는 중</Mifepristol.ingestible.ingestReportString>
+</LanguageData>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Recipe Defs -->
+  
+  <rep>
+    <path>PerformAbortion.label</path>
+    <trans>perform abortion</trans>
+  </rep>
+  <rep>
+    <path>PerformAbortion.description</path>
+    <trans>Aborts unwanted pregnancy.</trans>
+  </rep>
+  <rep>
+    <path>PerformAbortion.successfullyRemovedHediffMessage</path>
+    <trans>{0} has successfully aborted {1}'s fetus.</trans>
+  </rep>
+
+</LanguageData>

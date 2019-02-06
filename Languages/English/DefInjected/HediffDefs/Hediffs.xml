@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Human Pregnancy -->
+  
+  <rep>
+    <path>HumanPregnancy.label</path>
+    <trans>pregnant</trans>
+  </rep>
+  <rep>
+    <path>HumanPregnancy.stages[0].label</path>
+    <trans>early-stage</trans>
+  </rep>
+  <rep>
+    <path>HumanPregnancy.stages[1].label</path>
+    <trans>middle-stage</trans>
+  </rep>
+  <rep>
+    <path>HumanPregnancy.stages[2].label</path>
+    <trans>later-stage</trans>
+  </rep>
+  <rep>
+    <path>HumanPregnancy.stages[3].label</path>
+    <trans>having contractions</trans>
+  </rep>
+  
+  <rep>
+    <path>GivingBirth.label</path>
+    <trans>giving birth</trans>
+  </rep>
+  
+  <!-- Pregnancy Tear -->
+  <rep>
+    <path>PregnancyTear.label</path>
+    <trans>pregnancy tear (minor)</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTear.comps[0].labelTendedWell</path>
+    <trans>sutured</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTear.comps[0].labelTendedWellInner</path>
+    <trans>sutured</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTear.comps[0].labelSolidTendedWell</path>
+    <trans>sutured</trans>
+  </rep>
+  
+  <rep>
+    <path>PregnancyTearMajor.label</path>
+    <trans>pregnancy tear (major)</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTearMajor.comps[0].labelTendedWell</path>
+    <trans>sutured</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTearMajor.comps[0].labelTendedWellInner</path>
+    <trans>sutured</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTearMajor.comps[0].labelSolidTendedWell</path>
+    <trans>sutured</trans>
+  </rep>
+  
+  
+  <!-- Placental Bleeding -->
+  
+  <rep>
+    <path>PlacentaBleed.label</path>
+    <trans>placenta accreta</trans>
+  </rep>
+  <rep>
+    <path>PlacentaBleed.comps[0].labelTendedWell</path>
+    <trans>resolved</trans>
+  </rep>
+  <rep>
+    <path>PlacentaBleed.comps[0].labelTendedWellInner</path>
+    <trans>resolved</trans>
+  </rep>
+  <rep>
+    <path>PlacentaBleed.comps[0].labelSolidTendedWell</path>
+    <trans>resolved</trans>
+  </rep>
+  
+  <!-- Post Pregnancy Recovery State -->
+  
+  <rep>
+    <path>PostPregnancy.label</path>
+    <trans>recovering from giving birth</trans>
+  </rep>
+  
+  <!-- Hidden "Gave Birth Before" Flag -->
+  
+  <rep>
+    <path>GaveBirthFlag.label</path>
+    <trans>has given birth before</trans>
+  </rep>
+  <rep>
+    <path>GaveBirthFlag.stages[0].label</path>
+    <trans>hidden</trans>
+  </rep>
+
+</LanguageData>

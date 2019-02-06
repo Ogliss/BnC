@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Pawn kinds -->
+  
+  <rep>
+    <path>ChildColonist.label</path>
+    <trans>колонист ребенок</trans>
+  </rep>
+
+</LanguageData>

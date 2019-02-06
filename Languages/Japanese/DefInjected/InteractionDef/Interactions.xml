@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ScoldChild.label>scold</ScoldChild.label>
+  <ScoldChild.logRulesInitiator.rulesStrings.0>logentry->は[other_nameShortIndef]を叱った。</ScoldChild.logRulesInitiator.rulesStrings.0>
+  <ScoldChild.logRulesRecipient.rulesStrings.0>logentry->は[other_nameShortIndef]に叱られた。</ScoldChild.logRulesRecipient.rulesStrings.0>
+
+  <HugFriend.label>hug</HugFriend.label>
+  <HugFriend.logRulesInitiator.rulesStrings.0>logentry->は[other_nameShortIndef]を抱きしめた。</HugFriend.logRulesInitiator.rulesStrings.0>
+  <HugFriend.logRulesRecipient.rulesStrings.0>logentry->は[other_nameShortIndef]に抱きしめられた。</HugFriend.logRulesRecipient.rulesStrings.0>
+
+
+</LanguageData>

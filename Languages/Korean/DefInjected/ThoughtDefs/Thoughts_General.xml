@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <GotHugged.stages.0.label>안아 주었다</GotHugged.stages.0.label>
+  <GotHugged.stages.0.description>신경 써 주는 사람이 있어 기뻐요.</GotHugged.stages.0.description>
+
+  <ChildDied.stages.0.label>내 아이가 죽었다</ChildDied.stages.0.label>
+  <ChildDied.stages.0.description>내 아이가 죽었다. 이것이 현실이라고는 생각되지 않는다.</ChildDied.stages.0.description>
+
+  <CryingBaby.stages.0.label>아기의 울음 소리</CryingBaby.stages.0.label>
+  <CryingBaby.stages.0.description>근처에 아기가 울고 있다. 좀 시끄럽다.</CryingBaby.stages.0.description>
+  <CryingBaby.stages.1.label>아기들이 울고 있다</CryingBaby.stages.1.label>
+  <CryingBaby.stages.1.description>근처에 울부 짖는 아기들이 있다. 누군가 우는 것 좀 멈춰줘!</CryingBaby.stages.1.description>
+  <CryingBaby.stages.2.label>아기들이 절규하고있다</CryingBaby.stages.2.label>
+  <CryingBaby.stages.2.description>나는 지금 작은 사람 모양의 공습 사이렌 떼거리에 둘러싸여있어! 차라리 나를 죽여줘!!!</CryingBaby.stages.2.description>
+
+
+</LanguageData>

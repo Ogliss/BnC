@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <Crib.label>ベビーベッド</Crib.label>
+  <Crib.description>赤ん坊や幼児を夜間に安全で暖かく保つのに最適な、かわいい子供用のベビーベッド。</Crib.description>
+  <Crib_Blueprint.label>ベビーベッド(設計)</Crib_Blueprint.label>
+  <Crib_Blueprint_Install.label>ベビーベッド(移動先)</Crib_Blueprint_Install.label>
+  <Crib_Frame.label>ベビーベッド(施工)</Crib_Frame.label>
+  <Crib_Frame.description>赤ん坊や幼児を夜間に安全で暖かく保つのに最適な、かわいい子供用のベビーベッド。</Crib_Frame.description>
+
+
+</LanguageData>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+
+  <FeedBaby.label>赤ん坊に食事を与える</FeedBaby.label>
+  <FeedBaby.verb>に食事を与える</FeedBaby.verb>
+  <FeedBaby.gerund>に食事を与える</FeedBaby.gerund>
+
+  <PlayWithBaby.label>赤ん坊をあやす</PlayWithBaby.label>
+  <PlayWithBaby.verb>をあやす</PlayWithBaby.verb>
+  <PlayWithBaby.gerund>をあやす</PlayWithBaby.gerund>
+
+
+</LanguageData>

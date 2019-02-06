@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PerformAbortion.label>임신 중절 수술</PerformAbortion.label>
+  <PerformAbortion.description>임신을 중절한다.</PerformAbortion.description>
+  <PerformAbortion.jobString>임신 중절 수술하는 중</PerformAbortion.jobString>
+  <PerformAbortion.successfullyRemovedHediffMessage>{0}는 {1}의 태아를 낙태했습니다.</PerformAbortion.successfullyRemovedHediffMessage>
+</LanguageData>

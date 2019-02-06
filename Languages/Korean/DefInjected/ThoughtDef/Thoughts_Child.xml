@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <NearParent.stages.0.label>near mom</NearParent.stages.0.label>
+  <NearParent.stages.0.description>My mother is near me. I feel safe.</NearParent.stages.0.description>
+  
+  <NearParent.stages.1.label>near dad</NearParent.stages.1.label>
+  <NearParent.stages.1.description>My father is near me. I feel safe.</NearParent.stages.1.description>
+  
+  <NearParent.stages.2.label>near mom and dad</NearParent.stages.2.label>
+  <NearParent.stages.2.description>My parents are with me. I feel safe and loved.</NearParent.stages.2.description>
+  
+  <ScaredOfTheDark.stages.0.label>어둠이 무서워</ScaredOfTheDark.stages.0.label>
+  <ScaredOfTheDark.stages.0.description>너무 어두워! 그림자에 괴물들이 기어다는게 보여!</ScaredOfTheDark.stages.0.description>
+
+  <GotToldOff.stages.0.label>문제가 생겼다</GotToldOff.stages.0.label>
+  <GotToldOff.stages.0.description>내가 뭔가 할려고 했는데 문제가 생겼어요.</GotToldOff.stages.0.description>
+
+  <GotDisciplined.stages.0.label>매맞았다</GotDisciplined.stages.0.label>
+  <GotDisciplined.stages.0.description>나는 벌로 매맞았다.</GotDisciplined.stages.0.description>
+
+
+</LanguageData>

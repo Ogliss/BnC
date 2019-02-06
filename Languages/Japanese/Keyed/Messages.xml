@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <WordHumanPregnancy>妊娠</WordHumanPregnancy>
+  <LabelGaveBirth>新生児</LabelGaveBirth>
+
+  <MessageIsPregnant>{0} は妊娠しました!</MessageIsPregnant>
+  <MessageHumanBirth>{0} が出産しました！彼女は子供の名前を「{1}」と付けました。</MessageHumanBirth>
+  <MessageHavingContractions>{0} の陣痛が始まりました。</MessageHavingContractions>
+
+  <MessageWeaponTooLarge>警告：{0}は{1}が安全に扱うには武器が大きすぎます。</MessageWeaponTooLarge>
+
+</LanguageData>

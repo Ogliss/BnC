@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Thought Defs -->
+  
+  <rep>
+    <path>PostPartumDepression.stages[0].label</path>
+    <trans>post partum depression</trans>
+  </rep>
+  <rep>
+    <path>PostPartumDepression.stages[0].description</path>
+    <trans>Shouldn't I feel happy about having a child...? I just feel overwhelmed. I don't think I can do this.</trans>
+  </rep>
+  <rep>
+    <path>PostPartumDepression.stages[1].label</path>
+    <trans>post partum depression</trans>
+  </rep>
+  <rep>
+    <path>PostPartumDepression.stages[1].description</path>
+    <trans>I can't take care of a child; I can't even take care of myself. I'm a horrible mother.</trans>
+  </rep>
+  
+  <!--  Dead children thoughts -->
+  <rep>
+    <path>ChildDied.stages[0].label</path>
+    <trans>a child died</trans>
+  </rep>
+  <rep>
+    <path>ChildDied.stages[0].description</path>
+    <trans>A child died. I can't believe this is happening.</trans>
+  </rep>
+  
+  <rep>
+    <path>BabyStillborn.stages[0].label</path>
+    <trans>my baby was stillborn</trans>
+  </rep>
+  <rep>
+    <path>BabyStillborn.stages[0].description</path>
+    <trans>My child died in utero.</trans>
+  </rep>
+  
+  <!--  Birth thoughts  -->
+  <rep>
+    <path>IGaveBirthFirstTime.stages[0].label</path>
+    <trans>new mother</trans>
+  </rep>
+  <rep>
+    <path>IGaveBirthFirstTime.stages[0].description</path>
+    <trans>I've brought a child into the world; I'm a mother now!</trans>
+  </rep>
+  
+  <rep>
+    <path>IGaveBirth.stages[0].label</path>
+    <trans>gave birth</trans>
+  </rep>
+  <rep>
+    <path>IGaveBirth.stages[0].description</path>
+    <trans>I've brought another child into the world!</trans>
+  </rep>
+  
+  <rep>
+    <path>PartnerGaveBirth.stages[0].label</path>
+    <trans>new child</trans>
+  </rep>
+  <rep>
+    <path>PartnerGaveBirth.stages[0].description</path>
+    <trans>My child was born!</trans>
+  </rep>
+  
+  <!--  Children thoughts  -->
+  <rep>
+    <path>ScaredOfTheDark.stages[0].label</path>
+    <trans>scared of the dark</trans>
+  </rep>
+  <rep>
+    <path>ScaredOfTheDark.stages[0].description</path>
+    <trans>It's too dark! I can see monsters creeping in the shadows!</trans>
+  </rep>
+  <rep>
+    <path>GotToldOff.stages[0].label</path>
+    <trans>got in trouble</trans>
+  </rep>
+  <rep>
+    <path>GotToldOff.stages[0].description</path>
+    <trans>I got in trouble for doing something I shouldn't have.</trans>
+  </rep>
+  <rep>
+    <path>GotDisciplined.stages[0].label</path>
+    <trans>got a beating</trans>
+  </rep>
+  <rep>
+    <path>GotDisciplined.stages[0].description</path>
+    <trans>I got beaten as punishment.</trans>
+  </rep>
+  
+  <!-- Crying Baby Thought -->
+  <rep>
+    <path>CryingBaby.stages[0].label</path>
+    <trans>crying baby</trans>
+  </rep>
+  <rep>
+    <path>CryingBaby.stages[0].description</path>
+    <trans>There's a screaming baby in the vicinity. It's not a pleasant noise.</trans>
+  </rep>
+  <rep>
+    <path>CryingBaby.stages[1].label</path>
+    <trans>crying babies</trans>
+  </rep>
+  <rep>
+    <path>CryingBaby.stages[1].description</path>
+    <trans>There's multiple screaming babies near me. Make it stop!</trans>
+  </rep>
+    <rep>
+    <path>CryingBaby.stages[2].label</path>
+    <trans>crying babies</trans>
+  </rep>
+  <rep>
+    <path>CryingBaby.stages[2].description</path>
+    <trans>I'm surrounded by a horde of air-raid sirens in miniature human form! Kill me now!!!</trans>
+  </rep>
+  
+  <!-- Near Parents Thought -->
+  <rep>
+    <path>NearParent.stages[0].label</path>
+    <trans>near mom</trans>
+  </rep>
+  <rep>
+    <path>NearParent.stages[0].description</path>
+    <trans>My mother is near me. I feel safe.</trans>
+  </rep>
+  
+  <rep>
+    <path>NearParent.stages[1].label</path>
+    <trans>near dad</trans>
+  </rep>
+  <rep>
+    <path>NearParent.stages[1].description</path>
+    <trans>My father is near me. I feel safe.</trans>
+  </rep>
+  
+  <rep>
+    <path>NearParent.stages[2].label</path>
+    <trans>near mom and dad</trans>
+  </rep>
+  <rep>
+    <path>NearParent.stages[2].description</path>
+    <trans>My parents are with me. I feel safe and loved.</trans>
+  </rep>
+  
+  
+  
+</LanguageData>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <BabyState.label>子育て</BabyState.label>
+  <BabyState.stages.0.label>赤ん坊</BabyState.stages.0.label>
+  <BabyState.stages.1.label>幼児</BabyState.stages.1.label>
+  <BabyState.stages.2.label>子供</BabyState.stages.2.label>
+
+
+  <!-- This only exists separately from BabyState to get around a bug making children drop their weapons on savegame load. -->
+
+  <NoManipulationFlag.label>子供の操作無効</NoManipulationFlag.label>
+  <UnhappyBaby.label>不幸な赤ん坊</UnhappyBaby.label>
+
+
+</LanguageData>

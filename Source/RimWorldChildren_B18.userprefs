@@ -1,0 +1,31 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="RimWorld-Children/Children_Core.cs">
+    <Files>
+      <File FileName="RimWorld-Children/Children_Core.cs" Line="198" Column="14" />
+      <File FileName="RimWorld-Children/Overrides/PawnRendering.cs" Line="22" Column="8" />
+      <File FileName="RimWorld-Children/Overrides/Wear.cs" Line="20" Column="13" />
+      <File FileName="RimWorld-Children/babygear/BabyApparelProperties.cs" Line="11" Column="1" />
+      <File FileName="RimWorld-Children/babygear/CompBabyGear.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="RimWorldChildren_B18" expanded="True">
+            <Node name="RimWorldChildren_B18" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="babygear" expanded="True" />
+              <Node name="Overrides" expanded="True" />
+              <Node name="Children_Core.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

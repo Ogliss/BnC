@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <DeterminePregnancy.label>妊娠を診断する</DeterminePregnancy.label>
+  <DeterminePregnancy.description>入植者が妊娠しているかどうかを診断します。</DeterminePregnancy.description>
+  <DeterminePregnancy.jobString>入植者が妊娠しているかどうかを診断する。</DeterminePregnancy.jobString>
+
+
+</LanguageData>

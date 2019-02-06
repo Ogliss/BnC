@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <Childcare.label>育児</Childcare.label>
+  <Childcare.description>赤ん坊の世話を行い、子供を管理します。</Childcare.description>
+  <Childcare.labelShort>育児</Childcare.labelShort>
+  <Childcare.pawnLabel>保育士</Childcare.pawnLabel>
+  <Childcare.gerundLabel>育児</Childcare.gerundLabel>
+  <Childcare.verb>育児</Childcare.verb>
+
+
+</LanguageData>

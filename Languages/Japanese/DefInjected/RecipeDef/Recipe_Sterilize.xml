@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <Sterilize.label>不妊化手術</Sterilize.label>
+  <Sterilize.description>患者に不妊化(断種)手術を行って永久に受精機能を無くします。</Sterilize.description>
+  <Sterilize.jobString>手術中</Sterilize.jobString>
+
+
+</LanguageData>

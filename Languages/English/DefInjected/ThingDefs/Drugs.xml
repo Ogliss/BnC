@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Drugs -->
+  
+  <rep>
+    <path>Mifepristol.label</path>
+    <trans>mifepristol</trans>
+  </rep>
+  <rep>
+    <path>Mifepristol.description</path>
+    <trans>A blend of two chemicals which in tandem reliably terminate pregnancies no older than one season.</trans>
+  </rep>
+
+  <rep>
+    <path>Contraceptive.label</path>
+    <trans>contraceptive</trans>
+  </rep>
+  <rep>
+    <path>Contraceptive.description</path>
+    <trans>An easily produced gender arbitrary contraceptive that reliably suppresses unwanted pregnancies for one season</trans>
+  </rep>
+  
+</LanguageData>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Custom Backstories -->
+  
+  <rep>
+    <path>NA_Childhood_Disabled.Title</path>
+    <trans>Baby</trans>
+  </rep>
+  <rep>
+    <path>NA_Childhood_Disabled.TitleShort</path>
+    <trans>Baby</trans>
+  </rep>
+  <rep>
+    <path>NA_Childhood_Disabled.baseDescription</path>
+    <trans>Still growing. test</trans>
+  </rep>
+  
+  <rep>
+    <path>NA_Childhood.Title</path>
+    <trans>Child</trans>
+  </rep>
+  <rep>
+    <path>NA_Childhood.TitleShort</path>
+    <trans>Child</trans>
+  </rep>
+  <rep>
+    <path>NA_Childhood.baseDescription</path>
+    <trans>Still growing. test</trans>
+  </rep>
+  
+  <rep>
+    <path>Rimchild.Title</path>
+    <trans>Rimworld child</trans>
+  </rep>
+  <rep>
+    <path>Rimchild.TitleShort</path>
+    <trans>Rimchild</trans>
+  </rep>
+  <rep>
+    <path>Rimchild.baseDescription</path>
+    <trans>NAME was born and raised on a rimworld in the outer reaches of the galaxy.</trans>
+  </rep>
+
+</LanguageData>

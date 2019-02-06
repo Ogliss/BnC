@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <Mifepristol.label>ミフェプリストール</Mifepristol.label>
+  <Mifepristol.description>1シーズン以上の間、妊娠を中絶させる2種類の混合化学物質です。</Mifepristol.description>
+  <Mifepristol.ingestible.ingestCommandString>{0}を飲む</Mifepristol.ingestible.ingestCommandString>
+  <Mifepristol.ingestible.ingestReportString>{0}を飲んでいる。</Mifepristol.ingestible.ingestReportString>
+
+
+</LanguageData>

@@ -1,0 +1,17 @@
+﻿<Properties StartupItem="RimWorld-Children/RimWorldChildren_A17.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RimWorld-Children/Overrides/Children_Drawing.cs">
+    <Files>
+      <File FileName="RimWorld-Children/Children_Core.cs" Line="16" Column="16" />
+      <File FileName="RimWorld-Children/Overrides/Children_DrawingOld.cs" Line="64" Column="64" />
+      <File FileName="RimWorld-Children/Overrides/Children_Drawing.cs" Line="4" Column="4" />
+      <File FileName="RimWorld-Children/Jobs/Driver_BreastfeedBaby.cs" Line="18" Column="18" />
+      <File FileName="RimWorld-Children/Hediffs/Hediff_HumanPregnancy.cs" Line="5" Column="5" />
+      <File FileName="RimWorld-Children/Hediffs/Hediff_Baby.cs" Line="57" Column="57" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

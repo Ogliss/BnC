@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Punishing children -->
+  
+  <rep>
+    <path>DisciplineChild.reportString</path>
+    <trans>disciplining TargetA.</trans>
+  </rep>
+  <rep>
+    <path>ScoldChild.reportString</path>
+    <trans>scolding TargetA.</trans>
+  </rep>
+
+</LanguageData>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Human Pregnancy -->
+  
+  <rep>
+    <path>HumanPregnancy.label</path>
+    <trans>беременная</trans>
+  </rep>
+  <rep>
+    <path>HumanPregnancy.stages[0].label</path>
+    <trans>ранняя стадия</trans>
+  </rep>
+  <rep>
+    <path>HumanPregnancy.stages[1].label</path>
+    <trans>средняя стадия</trans>
+  </rep>
+  <rep>
+    <path>HumanPregnancy.stages[2].label</path>
+    <trans>поздняя стадия</trans>
+  </rep>
+  <rep>
+    <path>HumanPregnancy.stages[3].label</path>
+    <trans>схватки</trans>
+  </rep>
+  
+  <rep>
+    <path>GivingBirth.label</path>
+    <trans>рождение</trans>
+  </rep>
+  
+  <!-- Pregnancy Tear -->
+  <rep>
+    <path>PregnancyTear.label</path>
+    <trans>беременные слезы (незначительные)</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTear.comps[0].labelTendedWell</path>
+    <trans>ушивают</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTear.comps[0].labelTendedWellInner</path>
+    <trans>ушивают</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTear.comps[0].labelSolidTendedWell</path>
+    <trans>ушивают</trans>
+  </rep>
+  
+  <rep>
+    <path>PregnancyTearMajor.label</path>
+    <trans>беременный разрыв (основной)</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTearMajor.comps[0].labelTendedWell</path>
+    <trans>ушивают</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTearMajor.comps[0].labelTendedWellInner</path>
+    <trans>ушивают</trans>
+  </rep>
+  <rep>
+    <path>PregnancyTearMajor.comps[0].labelSolidTendedWell</path>
+    <trans>ушивают</trans>
+  </rep>
+  
+  
+  <!-- Placental Bleeding -->
+  
+  <rep>
+    <path>PlacentaBleed.label</path>
+    <trans>Приросшая плацента</trans>
+  </rep>
+  <rep>
+    <path>PlacentaBleed.comps[0].labelTendedWell</path>
+    <trans>решены</trans>
+  </rep>
+  <rep>
+    <path>PlacentaBleed.comps[0].labelTendedWellInner</path>
+    <trans>решены</trans>
+  </rep>
+  <rep>
+    <path>PlacentaBleed.comps[0].labelSolidTendedWell</path>
+    <trans>решены</trans>
+  </rep>
+  
+  <!-- Post Pregnancy Recovery State -->
+  
+  <rep>
+    <path>PostPregnancy.label</path>
+    <trans>восстановление после родов</trans>
+  </rep>
+  
+  <!-- Hidden "Gave Birth Before" Flag -->
+  
+  <rep>
+    <path>GaveBirthFlag.label</path>
+    <trans>родила до того</trans>
+  </rep>
+  <rep>
+    <path>GaveBirthFlag.stages[0].label</path>
+    <trans>скрытый</trans>
+  </rep>
+
+</LanguageData>

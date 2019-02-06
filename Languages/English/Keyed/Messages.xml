@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <WordHumanPregnancy>Pregnancy</WordHumanPregnancy>
+  <LabelGaveBirth>Newborn baby</LabelGaveBirth>
+  
+  <MessageIsPregnant>{0} is pregnant!</MessageIsPregnant>
+  <MessageHumanBirth>{0} has given birth! She has decided to name the child "{1}".</MessageHumanBirth>
+  <MessageHavingContractions>{0} has started having contractions.</MessageHavingContractions>
+  
+  <MessageWeaponTooLarge>Warning: A {0} is too large a weapon for {1} to safely handle.</MessageWeaponTooLarge>
+
+  <MessageAdultClothesOnBaby>Normal clothes are too large for {0}.</MessageAdultClothesOnBaby>
+  <MessageBabyClothesOnAdult>Baby clothes are too small for {0}.</MessageBabyClothesOnAdult>
+  
+</LanguageData>

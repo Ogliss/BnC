@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <Mifepristol.label>사후피임약</Mifepristol.label>
+  <Mifepristol.description>1시즌 이상 동안 임신을 중절시키는 두 종류의 혼합 화학 물질입니다.</Mifepristol.description>
+  <Mifepristol.ingestible.ingestCommandString>{0}을 먹는다</Mifepristol.ingestible.ingestCommandString>
+  <Mifepristol.ingestible.ingestReportString>{0}을 먹고 있다.</Mifepristol.ingestible.ingestReportString>
+
+
+</LanguageData>

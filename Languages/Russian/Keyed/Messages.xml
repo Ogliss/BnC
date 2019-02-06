@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <WordHumanPregnancy>беременность</WordHumanPregnancy>
+  <LabelGaveBirth>Родила</LabelGaveBirth>
+  
+  <MessageIsPregnant>{0} беременна!!</MessageIsPregnant>
+  <MessageHumanBirth>{0} родила. Она назвала ребенка {1}.</MessageHumanBirth>
+  <MessageHavingContractions>{0} начала схватки.</MessageHavingContractions>
+  
+  <MessageWeaponTooLarge>Предупреждение: {0} слишком большой для {1}.</MessageWeaponTooLarge>
+  
+</LanguageData>

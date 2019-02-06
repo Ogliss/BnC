@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <PostPartumDepression.stages.0.label>産後うつ病(軽度)</PostPartumDepression.stages.0.label>
+  <PostPartumDepression.stages.0.description>とても子供を持つことが喜べない...不安に押し潰されそうになる。私にはこれをどうする事もできない。</PostPartumDepression.stages.0.description>
+  <PostPartumDepression.stages.1.label>産後うつ病(重度)</PostPartumDepression.stages.1.label>
+  <PostPartumDepression.stages.1.description>子供を世話できないし、自分自身を世話することさえできません。私はダメな母親なんです。</PostPartumDepression.stages.1.description>
+
+  <BabyStillborn.stages.0.label>私の赤ちゃんが死産だった</BabyStillborn.stages.0.label>
+  <BabyStillborn.stages.0.description>私の赤ちゃんは生まれる前に死亡しました。</BabyStillborn.stages.0.description>
+
+  <IGaveBirthFirstTime.stages.0.label>新米ママ</IGaveBirthFirstTime.stages.0.label>
+  <IGaveBirthFirstTime.stages.0.description>私は赤ちゃんを初めてこの世界に産みだした。そう私はもう母親！</IGaveBirthFirstTime.stages.0.description>
+
+  <IGaveBirth.stages.0.label>出産した</IGaveBirth.stages.0.label>
+  <IGaveBirth.stages.0.description>私は別の赤ちゃんを世界に産みだした！</IGaveBirth.stages.0.description>
+
+  <PartnerGaveBirth.stages.0.label>新しい子供</PartnerGaveBirth.stages.0.label>
+  <PartnerGaveBirth.stages.0.description>私の子供が生まれた！</PartnerGaveBirth.stages.0.description>
+
+  <LateTermAbortion.stages.0.label>妊娠中絶</LateTermAbortion.stages.0.label>
+  <LateTermAbortion.stages.0.description>私の胎児は中絶させられました。それは小さな赤ちゃんのように見えたのに息をしてません。</LateTermAbortion.stages.0.description>
+  <LateTermAbortion.stages.1.label>私の赤ん坊は中絶された</LateTermAbortion.stages.1.label>
+  <LateTermAbortion.stages.1.description>私の赤ん坊は生まれる直前に中絶されました。死産ではないのに嘘をつかれて私の心には突き刺さった痛みが残って消えません。</LateTermAbortion.stages.1.description>
+
+
+</LanguageData>

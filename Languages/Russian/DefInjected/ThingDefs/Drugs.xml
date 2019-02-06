@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Drugs -->
+  
+  <rep>
+    <path>Mifepristol.label</path>
+    <trans>мифепристон</trans>
+  </rep>
+  <rep>
+    <path>Mifepristol.description</path>
+    <trans>Смесь двух химических веществ, которые в тандеме надежно прерывают беременность не старше одного сезона.</trans>
+  </rep>
+
+  <rep>
+    <path>Contraceptive.label</path>
+    <trans>контрацептивы</trans>
+  </rep>
+  <rep>
+    <path>Contraceptive.description</path>
+    <trans>Контрацептив, который надежно подавляет нежелательную беременность в течение одного сезона</trans>
+  </rep>
+  
+</LanguageData>

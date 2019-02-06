@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Thought Defs -->
+  
+  <rep>
+    <path>PostPartumDepression.stages[0].label</path>
+    <trans>послеродовая депрессия</trans>
+  </rep>
+  <rep>
+    <path>PostPartumDepression.stages[0].description</path>
+    <trans>Разве я не должна чувствовать себя счастливым в наличии ребенка ...? Я просто чувствую себя разбитым. Я не думаю, что я могу это сделать.</trans>
+  </rep>
+  <rep>
+    <path>PostPartumDepression.stages[1].label</path>
+    <trans>послеродовая депрессия</trans>
+  </rep>
+  <rep>
+    <path>PostPartumDepression.stages[1].description</path>
+    <trans>Я не могу заботиться о ребенке; Я даже не могу о себе позаботиться. Я ужасная мать.</trans>
+  </rep>
+  
+  <!--  Dead children thoughts -->
+  <rep>
+    <path>ChildDied.stages[0].label</path>
+    <trans>ребенок умер</trans>
+  </rep>
+  <rep>
+    <path>ChildDied.stages[0].description</path>
+    <trans>Ребенок умер. Я не могу поверить, что это происходит.</trans>
+  </rep>
+  
+  <rep>
+    <path>BabyStillborn.stages[0].label</path>
+    <trans>мой ребенок был мертворожденным</trans>
+  </rep>
+  <rep>
+    <path>BabyStillborn.stages[0].description</path>
+    <trans>Мой ребенок умер в утробе матери.</trans>
+  </rep>
+  
+  <!--  Birth thoughts  -->
+  <rep>
+    <path>IGaveBirthFirstTime.stages[0].label</path>
+    <trans>новая мать</trans>
+  </rep>
+  <rep>
+    <path>IGaveBirthFirstTime.stages[0].description</path>
+    <trans>Я принесла ребенка в мир; Я мать!</trans>
+  </rep>
+  
+  <rep>
+    <path>IGaveBirth.stages[0].label</path>
+    <trans>родила</trans>
+  </rep>
+  <rep>
+    <path>IGaveBirth.stages[0].description</path>
+    <trans>Я привела еще одного ребенка в мир!</trans>
+  </rep>
+  
+  <rep>
+    <path>PartnerGaveBirth.stages[0].label</path>
+    <trans>новый ребенок</trans>
+  </rep>
+  <rep>
+    <path>PartnerGaveBirth.stages[0].description</path>
+    <trans>Мой ребенок родился!</trans>
+  </rep>
+  
+  <!--  Children thoughts  -->
+  <rep>
+    <path>ScaredOfTheDark.stages[0].label</path>
+    <trans>боюсь темноты</trans>
+  </rep>
+  <rep>
+    <path>ScaredOfTheDark.stages[0].description</path>
+    <trans>Слишком темно! Я могу видеть монстров ползучего в тени!</trans>
+  </rep>
+  <rep>
+    <path>GotToldOff.stages[0].label</path>
+    <trans>попал в беду</trans>
+  </rep>
+  <rep>
+    <path>GotToldOff.stages[0].description</path>
+    <trans>Я попал в беду за то, что-то я не должен иметь.</trans>
+  </rep>
+  <rep>
+    <path>GotDisciplined.stages[0].label</path>
+    <trans>получил избиение</trans>
+  </rep>
+  <rep>
+    <path>GotDisciplined.stages[0].description</path>
+    <trans>Я получил наказание в виде избиения.</trans>
+  </rep>
+  
+  <!-- Crying Baby Thought -->
+  <rep>
+    <path>CryingBaby.stages[0].label</path>
+    <trans>плачущий ребенок</trans>
+  </rep>
+  <rep>
+    <path>CryingBaby.stages[0].description</path>
+    <trans>В окрестностях есть кричащий ребенок. Это не приятный шум.</trans>
+  </rep>
+  <rep>
+    <path>CryingBaby.stages[1].label</path>
+    <trans>плачущие младенцы</trans>
+  </rep>
+  <rep>
+    <path>CryingBaby.stages[1].description</path>
+    <trans>Рядом со мной много кричащих младенцев. Останови это!</trans>
+  </rep>
+    <rep>
+    <path>CryingBaby.stages[2].label</path>
+    <trans>плачущие младенцы</trans>
+  </rep>
+  <rep>
+    <path>CryingBaby.stages[2].description</path>
+    <trans>Я окружен ордой воздушных сирен в миниатюрной человеческой форме! Убей меня сейчас!!!</trans>
+  </rep>
+  
+  <!-- Near Parents Thought -->
+  <rep>
+    <path>NearParent.stages[0].label</path>
+    <trans>рядом с мамой</trans>
+  </rep>
+  <rep>
+    <path>NearParent.stages[0].description</path>
+    <trans>Моя мать рядом со мной. Я чувствую себя в безопасности.</trans>
+  </rep>
+  
+  <rep>
+    <path>NearParent.stages[1].label</path>
+    <trans>рядом с папой</trans>
+  </rep>
+  <rep>
+    <path>NearParent.stages[1].description</path>
+    <trans>Мой отец рядом со мной. Я чувствую себя в безопасности.</trans>
+  </rep>
+  
+  <rep>
+    <path>NearParent.stages[2].label</path>
+    <trans>рядом с мамой и папой</trans>
+  </rep>
+  <rep>
+    <path>NearParent.stages[2].description</path>
+    <trans>Я с родителями. Я чувствую себя в безопасности и любим.</trans>
+  </rep>
+  
+</LanguageData>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <BirthDefectTracker.label>선천성 장애의 보고</BirthDefectTracker.label>
+  <DefectBlind.label>장님(선천성 장애)</DefectBlind.label>
+  <DefectDeaf.label>청력 손실(선천성 장애)</DefectDeaf.label>
+  <DefectHeart.label>심장 장애(선천성 장애)</DefectHeart.label>
+  <DefectStillborn.label>사산</DefectStillborn.label>
+  <FetalAlcoholSyndrome.label>태아 알코올 증후군</FetalAlcoholSyndrome.label>
+
+
+</LanguageData>

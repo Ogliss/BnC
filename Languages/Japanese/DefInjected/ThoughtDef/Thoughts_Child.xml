@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <NearParent.stages.0.label>お母さんが居る</NearParent.stages.0.label>
+  <NearParent.stages.0.description>お母さんが近くに居るから安心できる。</NearParent.stages.0.description>
+  <NearParent.stages.1.label>お父さんが居る</NearParent.stages.1.label>
+  <NearParent.stages.1.description>お父さんが近くに居るから安心できる。</NearParent.stages.1.description>
+  <NearParent.stages.2.label>親が二人とも居る</NearParent.stages.2.label>
+  <NearParent.stages.2.description>私の親が一緒に居てくれる。私は愛されて安心できる。</NearParent.stages.2.description>
+
+  <ScaredOfTheDark.stages.0.label>暗いの怖い</ScaredOfTheDark.stages.0.label>
+  <ScaredOfTheDark.stages.0.description>暗すぎ！私には影に忍び寄る怪物が見えちゃう！</ScaredOfTheDark.stages.0.description>
+
+  <GotToldOff.stages.0.label>トラブルになった</GotToldOff.stages.0.label>
+  <GotToldOff.stages.0.description>私がやってはいけない事をしてしまい、トラブルになってしまった。</GotToldOff.stages.0.description>
+
+  <GotDisciplined.stages.0.label>殴られた</GotDisciplined.stages.0.label>
+  <GotDisciplined.stages.0.description>私は罰として殴られた。</GotDisciplined.stages.0.description>
+
+
+</LanguageData>

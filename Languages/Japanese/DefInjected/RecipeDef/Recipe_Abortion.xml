@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <PerformAbortion.label>中絶をする</PerformAbortion.label>
+  <PerformAbortion.description>妊娠を中止する</PerformAbortion.description>
+  <PerformAbortion.jobString>中絶を実行する。</PerformAbortion.jobString>
+  <PerformAbortion.successfullyRemovedHediffMessage>{0}は{1}の胎児を中絶しました。</PerformAbortion.successfullyRemovedHediffMessage>
+
+
+</LanguageData>

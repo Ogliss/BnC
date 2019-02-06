@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <BirthDefectTracker.label>先天性障害の報告</BirthDefectTracker.label>
+  <DefectBlind.label>盲目(先天障害)</DefectBlind.label>
+  <DefectDeaf.label>聴力損失(先天障害)</DefectDeaf.label>
+  <DefectHeart.label>心臓障害(先天障害)</DefectHeart.label>
+  <DefectStillborn.label>死産</DefectStillborn.label>
+  <FetalAlcoholSyndrome.label>胎児アルコール症候群</FetalAlcoholSyndrome.label>
+
+
+</LanguageData>

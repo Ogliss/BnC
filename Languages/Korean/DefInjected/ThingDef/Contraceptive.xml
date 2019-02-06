@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <Contraceptive.label>경구피임약</Contraceptive.label>
+  <Contraceptive.description>쉽게 생산할 수 있는 성별 불문 피임약. 복용하면 1분기 동안 불필요한 임신을 확실하게 억제합니다.</Contraceptive.description>
+  <Contraceptive.ingestible.ingestCommandString>{0}을 복용</Contraceptive.ingestible.ingestCommandString>
+  <Contraceptive.ingestible.ingestReportString>{0}을 복용하는 중</Contraceptive.ingestible.ingestReportString>
+</LanguageData>

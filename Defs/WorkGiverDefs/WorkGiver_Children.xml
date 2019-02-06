@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  	
+  <WorkGiverDef>
+	<defName>FeedBaby</defName>
+	<label>feed baby</label>
+	<giverClass>RimWorldChildren.WorkGiver_FeedBaby</giverClass>
+	<workType>Childcare</workType>
+	<verb>feed baby</verb>
+	<gerund>feeding baby</gerund>
+	<priorityInType>75</priorityInType>
+	<requiredCapacities>
+	  <li>Manipulation</li>
+	</requiredCapacities>
+  </WorkGiverDef>
+
+  <WorkGiverDef>
+	<defName>PlayWithBaby</defName>
+	<label>play with baby</label>
+	<giverClass>RimWorldChildren.WorkGiver_PlayWithBaby</giverClass>
+	<workType>Childcare</workType>
+	<verb>play with baby</verb>
+	<gerund>playing with baby</gerund>
+	<priorityInType>50</priorityInType>
+	<requiredCapacities>
+	  <li>Manipulation</li>
+	</requiredCapacities>
+  </WorkGiverDef>
+  
+</Defs>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ScaredOfTheDark.stages.0.label>어둠이 무서워</ScaredOfTheDark.stages.0.label>
+  <ScaredOfTheDark.stages.0.description>너무 어두워! 그림자에 괴물들이 기어다는게 보여!</ScaredOfTheDark.stages.0.description>
+
+  <GotToldOff.stages.0.label>문제가 생겼다</GotToldOff.stages.0.label>
+  <GotToldOff.stages.0.description>내가 뭔가 할려고 했는데 문제가 생겼어요.</GotToldOff.stages.0.description>
+
+  <GotDisciplined.stages.0.label>매맞았다</GotDisciplined.stages.0.label>
+  <GotDisciplined.stages.0.description>나는 벌로 매맞았다.</GotDisciplined.stages.0.description>
+
+
+</LanguageData>

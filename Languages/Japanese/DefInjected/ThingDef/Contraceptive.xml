@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <Contraceptive.label>避妊薬</Contraceptive.label>
+  <Contraceptive.description>容易に生産できる性別を問わない避妊薬。服用すると1シーズン中は不要な妊娠を確実に抑えます。</Contraceptive.description>
+  <Contraceptive.ingestible.ingestCommandString>{0}を飲む</Contraceptive.ingestible.ingestCommandString>
+  <Contraceptive.ingestible.ingestReportString>{0}を飲んでいる。</Contraceptive.ingestible.ingestReportString>
+
+
+</LanguageData>
