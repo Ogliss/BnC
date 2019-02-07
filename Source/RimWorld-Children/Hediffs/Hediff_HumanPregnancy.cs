@@ -533,8 +533,11 @@ namespace RimWorldChildren
 					return;
 				}
 			}
-
-			GestationProgress += (1.0f) / (pawn.RaceProps.gestationPeriodDays * TicksPerDay);
+			
+			// Advance the gestation
+			//GestationProgress += (1.0f) / (pawn.RaceProps.gestationPeriodDays * TicksPerDay);
+			GestationProgress += (1.0f) / (ChildrenBase.Instance.gestation_days * TicksPerDay);
+			
 
 			// Check if pregnancy is far enough along to "show" for the body type
 			if (!is_discovered) {

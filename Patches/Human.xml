@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Patch>
   
   <Operation Class="PatchOperationReplace">
@@ -7,13 +7,14 @@
       <minAge>0.5</minAge>
     </value>
   </Operation>
+	
   <Operation Class="PatchOperationReplace">
     <xpath>/Defs/ThingDef[defName = "Human"]/race/lifeStageAges/li[3]/minAge</xpath>
     <value>
       <minAge>3</minAge>
     </value>
   </Operation>
-  
+	
   <Operation Class="PatchOperationReplace">
     <xpath>/Defs/ThingDef[defName = "Human"]/race/ageGenerationCurve/points</xpath>
     <value>
@@ -32,5 +33,18 @@
       </points>
     </value>
   </Operation>
-  
-</Patch> 
+	
+  <!-- No children for pirates -->
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <li Class="PatchOperationAdd">
+        <xpath>Defs/PawnKindDef[@Name="MercenaryBase" or @Name="PirateBase"]</xpath>
+        <value>
+          <minGenerationAge>13</minGenerationAge>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+
+</Patch>

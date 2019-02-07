@@ -3,8 +3,8 @@
 
   <ThingDef ParentName="ApparelMakeableBase">
     <defName>Apparel_Baby_Beanie</defName>
-    <label>Beanie</label>
-    <description>A tiny, adorable cap. Great for keeping toddlers warm in winter.</description>
+    <label>beanie</label>
+    <description>A tiny, adorable cap. Great for keeping toddlers warm in the winter.</description>
     <recipeMaker>
       <researchPrerequisite />
       <recipeUsers>

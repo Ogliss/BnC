@@ -4,6 +4,7 @@ using Verse.AI;
 using System.Reflection;
 using System.Collections.Generic;
 using HugsLib;
+using HugsLib.Settings;
 using Harmony;
 using System.Reflection.Emit;
 using System.Linq;
@@ -14,11 +15,19 @@ namespace RimWorldChildren
 {
 	public class ChildrenBase : ModBase
 	{
+		public static ChildrenBase Instance { get; private set; }
 		public override string ModIdentifier {
-			get {
-				return "Children_and_Pregnancy_testing";
-			}
+			get { return "Children_and_Pregnancy_testing"; }
 		}
+		public SettingHandle<bool> pregnancy_disabled;
+		public SettingHandle<int> gestation_days;
+		public SettingHandle<float> impregnation_chance;
+		public override void DefsLoaded() {
+			pregnancy_disabled = Settings.GetHandle<bool>("pregnancy_disabled", "PregnancyDisabled_title".Translate(), "PregnancyDisabled_desc".Translate(), false, null);
+			gestation_days = Settings.GetHandle<int>("gestation_days", "GestateDaysSetting_title".Translate(), "GestateDaysSetting_desc".Translate(), 45, Validators.IntRangeValidator(15,60));
+			impregnation_chance = Settings.GetHandle<float>("impregnation_chance", "ImpregnationChanceSetting_title".Translate(), "ImpregnationChanceSetting_desc".Translate(), 0.33f, Validators.FloatRangeValidator(0.1f,1f));
+		}
+		public ChildrenBase() { Instance = this; }
 	}
 
 	[StaticConstructorOnStartup]
@@ -58,13 +67,31 @@ namespace RimWorldChildren
 		// Determines if a pawn is capable of currently breastfeeding
 		public static bool CanBreastfeed(Pawn pawn)
 		{
-			if (pawn.gender == Gender.Female &&
-				pawn.ageTracker.CurLifeStage.reproductive &&
-				pawn.ageTracker.AgeBiologicalYears < 50 &&
-				pawn.health.hediffSet.HasHediff (HediffDef.Named ("Lactating")))
-				return true;
-			else
-				return false;
+			return pawn.health.hediffSet.HasHediff(HediffDef.Named("Lactating"));
+		}
+		
+		public static Building_Bed FindCribFor(Pawn baby, Pawn traveler){
+			Building_Bed crib = null;
+			// Is a crib already assigned to the baby?
+			if (baby.ownership != null && baby.ownership.OwnedBed != null && ChildrenUtility.IsBedCrib(baby.ownership.OwnedBed)){
+				Building_Bed bedThing = baby.ownership.OwnedBed;
+				if (RestUtility.IsValidBedFor(bedThing, baby, traveler, false,false)){
+					crib = baby.ownership.OwnedBed;
+				}
+			}
+			// If not, let's look for one
+			else {
+				foreach (var thingDef in RestUtility.AllBedDefBestToWorst) {
+					if (RestUtility.CanUseBedEver(baby, thingDef) && thingDef.building.bed_maxBodySize <= 0.6f) {
+						Building_Bed find_crib = (Building_Bed)GenClosest.ClosestThingReachable(baby.Position, baby.Map, ThingRequest.ForDef(thingDef), PathEndMode.OnCell, TraverseParms.For(traveler), 9999f, (Thing b) => (RestUtility.IsValidBedFor(b, baby, traveler, false, false)), null);
+						if(find_crib != null) crib = find_crib;
+					}
+				}
+			}
+			return crib;
+		}
+		public static bool IsBedCrib(Building_Bed bed){
+			return (bed.def.building.bed_humanlike && bed.def.building.bed_maxBodySize <= 0.6f);
 		}
 		
 		// Returns whether a race can become pregnant/have kids etc.
@@ -111,7 +138,7 @@ namespace RimWorldChildren
 		}
 
 		[HarmonyPatch(typeof(JobGiver_OptimizeApparel), "TryGiveJob")]
-		class JobDriver_OptimizeApparel_Patch
+		static class JobDriver_OptimizeApparel_Patch
 		{
 			[HarmonyPostfix]
 			static void TryGiveJob_Patch(JobGiver_OptimizeApparel __instance, ref Job __result, Pawn pawn)
@@ -153,9 +180,7 @@ namespace RimWorldChildren
 		}
 		
 		internal static bool RecipeHasNoIngredients(RecipeDef recipe){
-			if(recipe.ingredients.Count == 0)
-				return true;
-			return false;
+			return recipe.ingredients.Count == 0;
 		}
 	}
 

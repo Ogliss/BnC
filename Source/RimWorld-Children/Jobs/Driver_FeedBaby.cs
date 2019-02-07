@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace RimWorldChildren
 {
 
-	public class WorkGiver_FeedBaby : WorkGiver_Scanner
+	public class WorkGiver_BreastfeedBaby : WorkGiver_Scanner
 	{
 		//
 		// Properties
@@ -47,11 +47,9 @@ namespace RimWorldChildren
 			if (!pawn.CanReserveAndReach (t, PathEndMode.ClosestTouch, Danger.Deadly, 1, -1, null, forced)) {
 				return false;
 			}
-			Thing thing;
-			ThingDef thingDef;
-			if (!FoodUtility.TryFindBestFoodSourceFor(pawn, pawn2, pawn2.needs.food.CurCategory == HungerCategory.UrgentlyHungry, out thing, out thingDef, false, true, false, false, false) && !ChildrenUtility.CanBreastfeed(pawn))
+			if (!ChildrenUtility.CanBreastfeed(pawn))
 			{
-				JobFailReason.Is("NoFood".Translate());
+				JobFailReason.Is("ReasonCannotBreastfeed".Translate(pawn.LabelShort));
 				return false;
 			}
 			return true;
@@ -67,20 +65,6 @@ namespace RimWorldChildren
 					return new Job (DefDatabase<JobDef>.GetNamed ("BreastfeedBaby")) {
 						targetA = pawn2,
 					};
-				}
-				else{
-					Thing t2;
-					ThingDef def1;
-					if (FoodUtility.TryFindBestFoodSourceFor(pawn, pawn2, pawn2.needs.food.CurCategory == HungerCategory.UrgentlyHungry, out t2, out def1, false, true, false, false, false))
-					{
-						//Log.Message("Deciding to feed normal food to baby.");
-						return new Job(JobDefOf.FeedPatient)
-						{
-							targetA = t2,
-							targetB = pawn2,
-							count = FoodUtility.WillIngestStackCountOf(pawn2, def1, t2.def.ingestible.CachedNutrition)
-						};
-					}
 				}
 			}
 			return null;
@@ -105,7 +89,7 @@ namespace RimWorldChildren
 		
 		public override bool TryMakePreToilReservations(bool errorOnFailed)
 		{
-			return this.pawn.Reserve(this.Victim, this.job, 1, -1, null);
+			return pawn.Reserve(Victim, job, 1, -1, null);
 		}
 
 //		public override void ExposeData ()
@@ -129,7 +113,8 @@ namespace RimWorldChildren
 			Toil prepare = new Toil();
 			prepare.initAction = delegate
 			{
-				PawnUtility.ForceWait(Victim, breastFeedDuration, Victim);
+				if(Victim.ageTracker.CurLifeStageIndex > AgeStage.Baby)
+					PawnUtility.ForceWait(Victim, breastFeedDuration, Victim);
 			};
 			prepare.defaultCompleteMode = ToilCompleteMode.Delay;
 			prepare.defaultDuration = breastFeedDuration;

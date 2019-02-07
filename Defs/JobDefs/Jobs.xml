@@ -24,6 +24,13 @@
     <driverClass>RimWorldChildren.JobDriver_BreastfeedBaby</driverClass>
     <reportString>Breastfeeding TargetA.</reportString>
   </JobDef>
+	
+  <JobDef>
+    <defName>TakeBabyToCrib</defName>
+    <driverClass>JobDriver_TakeToBed</driverClass>
+    <reportString>taking TargetA to crib.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
 
   <JobDef>
     <defName>PlayWithBaby</defName>

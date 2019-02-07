@@ -3,8 +3,8 @@
 
   <ThingDef ParentName="ApparelMakeableBase">
     <defName>Apparel_Baby_Onesie</defName>
-    <label>Onesie</label>
-    <description>A simple garment worn by an infant</description>
+    <label>onesie</label>
+    <description>A simple garment worn by an infant.</description>
     <recipeMaker>
       <researchPrerequisite />
       <recipeUsers>
