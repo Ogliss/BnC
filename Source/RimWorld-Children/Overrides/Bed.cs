@@ -12,7 +12,8 @@ namespace RimWorldChildren
 {
 	// This makes it so only children are possible candidates to sleep in a crib-style bed (1x1)
 	[HarmonyPatch(typeof(Building_Bed))]
-    [HarmonyPatch("AssigningCandidates", MethodType.Getter)]
+	[HarmonyPatch("AssigningCandidates", MethodType.Getter)]
+    //[HarmonyPatch("AssigningCandidates", PropertyMethod.Getter)]
     public static class BedCandidateOverride
 	{
 		[HarmonyTranspiler]

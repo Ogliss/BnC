@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Defs>
-    
+    <!--
   <RecipeDef>
     <defName>Sterilize</defName>
     <label>sterilize</label>
@@ -41,5 +41,5 @@
   	</fixedIngredientFilter>
   	<addsHediff>Sterile</addsHediff>
   </RecipeDef>
-  
+  -->
 </Defs>

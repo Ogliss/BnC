@@ -60,7 +60,7 @@
     <defName>Rimchild</defName>
     <title>Rimworld child</title>
     <titleShort>Rimchild</titleShort>
-    <baseDescription>NAME was born and raised on a rimworld in the outer reaches of the galaxy.</baseDescription>
+    <baseDescription>[PAWN_nameDef] was born and raised on a rimworld in the outer reaches of the galaxy.</baseDescription>
     <slot>Childhood</slot>
     <workDisables />
     <spawnCategories>

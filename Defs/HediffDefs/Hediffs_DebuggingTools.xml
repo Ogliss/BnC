@@ -6,11 +6,13 @@
     <label>I'm ready to fuck my suit's so tight</label>
   </HediffDef>
   
+  <!--
   <HediffDef>
     <defName>ImmediateBirth</defName>
     <hediffClass>RimWorldChildren.Hediff_MakePregnateLate</hediffClass>
     <label>birth soon</label>
   </HediffDef>
+  -->
   
   <HediffDef>
     <defName>GiveJobDebug</defName>

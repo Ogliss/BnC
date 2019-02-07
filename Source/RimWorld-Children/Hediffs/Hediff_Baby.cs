@@ -8,22 +8,26 @@ namespace RimWorldChildren
 {
 	public class Hediff_Baby : HediffWithComps
 	{
-		//
-		// Fields
-		//
+        //
+        // Fields
+        //
+        // private const int TicksPerYear = 3600000;
+        public bool hediff_isOn = true;
+        public int accelerated_factor;
+        //private long babystatetick = 0;
 
-		// Keeps track of what stage the pawn has grown to
-		private int grown_to = 0;
+        // Keeps track of what stage the pawn has grown to
+        private int grown_to = 0;
 
-		//
-		// Static Fields
-		//
+        //
+        // Static Fields
+        //
 
-		//
-		// Methods
-		//
-
-		public int HediffStage(){
+        //
+        // Methods
+        //
+        
+        public int HediffStage(){
 			return grown_to;
 		}
 
@@ -57,20 +61,22 @@ namespace RimWorldChildren
 		internal void GrowUpTo (int stage, bool generated)
 		{
 			grown_to = stage;
+            accelerated_factor = ChildrenUtility.Setting_Accelerated_Factor(grown_to);
 
-			// Update the Colonist Bar
-			PortraitsCache.SetDirty (pawn);
+            // Update the Colonist Bar
+            PortraitsCache.SetDirty (pawn);
 			LongEventHandler.ExecuteWhenFinished (delegate {
 				pawn.Drawer.renderer.graphics.ResolveAllGraphics ();
 			});
-
-			// At the toddler stage. Now we can move and talk.
-			if (stage == 1) {
-				Severity = Math.Max(0.5f, Severity);
-				//pawn.needs.food.
-			}
-			// Re-enable skills that were locked out from toddlers
-			if (stage == 2) {
+                        
+            // At the toddler stage. Now we can move and talk.
+            if (stage == 1)
+            {
+                Severity = Math.Max(0.5f, Severity);
+                //pawn.needs.food.
+            }
+            // Re-enable skills that were locked out from toddlers
+            if (stage == 2) {
 				if (!generated) {
 					pawn.story.childhood = BackstoryDatabase.allBackstories ["CustomBackstory_Rimchild"];
 					// Remove the hidden hediff stopping pawns from manipulating
@@ -158,9 +164,25 @@ namespace RimWorldChildren
 		}
 
 		public void TickRare (){
-			// Update the graphics set
-			if(pawn.ageTracker.CurLifeStageIndex == AgeStage.Toddler)
-				pawn.Drawer.renderer.graphics.ResolveAllGraphics ();
+
+            if (pawn.ageTracker.CurLifeStageIndex > grown_to)
+            {
+                GrowUpTo(grown_to + 1, false);
+            }            
+
+            // Accelerated Growth
+            if (BnC_Settings.option_accelerated_growth && (pawn.ageTracker.AgeBiologicalYearsFloat < (float)BnC_Settings.option_accelerated_growth_end_age))
+            {
+                pawn.ageTracker.AgeBiologicalTicks = pawn.ageTracker.AgeBiologicalTicks + ((long)(accelerated_factor)*60);
+                //pawn.ageTracker.AgeBiologicalTicks = pawn.ageTracker.AgeBiologicalTicks + ((long)(accelerated_factor) * 100000);
+                //Log.Message("" + pawn.LabelIndefinite() + " *** +180 Bio tick : " + pawn.ageTracker.AgeBiologicalTicks);
+            }
+            else
+            {   hediff_isOn = false;   }            
+
+            // Update the graphics set
+            if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Toddler)
+			pawn.Drawer.renderer.graphics.ResolveAllGraphics ();
 
 			if (pawn.ageTracker.CurLifeStageIndex <= 1) {
 				// Check if the baby is hungry, and if so, add the whiny baby hediff
@@ -180,14 +202,14 @@ namespace RimWorldChildren
 				if (pawn.IsHashIntervalTick (60)) {
 					TickRare ();
 				}
-				if (pawn.ageTracker.CurLifeStageIndex > grown_to) {
-					GrowUpTo (grown_to + 1, false);
-				}
-			}
-		}
+               // babystatetick += 4;
+                //Log.Message("" + "baby state tick : " + babystatetick);
+                //Log.Message("" + pawn.LabelIndefinite() + " Bio tick : " + pawn.ageTracker.AgeBiologicalTicks);
+            }
+        }
 
 		public override bool Visible {
-			get { return false; }
+			get { return hediff_isOn; }
 		}
 	}
 }

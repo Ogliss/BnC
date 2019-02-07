@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <FeedBaby.label>feed baby</FeedBaby.label>
+  <FeedBaby.verb>feed baby</FeedBaby.verb>
+  <FeedBaby.gerund>feeding baby</FeedBaby.gerund>
+
+  <PlayWithBaby.label>play with baby</PlayWithBaby.label>
+  <PlayWithBaby.verb>play with baby</PlayWithBaby.verb>
+  <PlayWithBaby.gerund>playing with baby</PlayWithBaby.gerund>
+
+
+</LanguageData>

@@ -47,6 +47,7 @@
     </stages>
   </HediffDef>
   
+  <!--
   <HediffDef>
     <defName>GivingBirth</defName>
     <hediffClass>HediffWithComps</hediffClass>
@@ -136,8 +137,9 @@
     <label>recovering from giving birth</label>
     <initialSeverity>0.001</initialSeverity>
     <defaultLabelColor>(1.0, 1.0, 1.0)</defaultLabelColor>
-    <comps>
+    <comps> --> 
       <!-- Disappears after half a day's time -->
+	  <!--
       <li Class="HediffCompProperties_Disappears">
 	<disappearsAfterTicks>
 	  <min>28000</min>
@@ -156,7 +158,7 @@
       </li>
     </stages>
   </HediffDef>
-  
+  -->
   <HediffDef>
     <defName>Lactating</defName>
     <hediffClass>HediffWithComps</hediffClass>
@@ -174,6 +176,7 @@
     </comps>
   </HediffDef>
   
+  <!--
   <HediffDef>
     <defName>GaveBirthFlag</defName>
     <hediffClass>HediffWithComps</hediffClass>
@@ -185,7 +188,9 @@
       </li>
     </stages>
   </HediffDef>
+  -->
 
+  <!--
   <HediffDef>
     <defName>Sterile</defName>
     <hediffClass>HediffWithComps</hediffClass>
@@ -193,5 +198,5 @@
     <initialSeverity>0.001</initialSeverity>
     <defaultLabelColor>(1.0, 1.0, 1.0)</defaultLabelColor>
   </HediffDef>
-  
+  -->
 </Defs>

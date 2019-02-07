@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>NewRatkinPlus</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>//PawnKindDef[@Name = "RKBasePawnKind"]/minGenerationAge</xpath>
+      <value>
+        <minGenerationAge>5</minGenerationAge>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>NewRatkinPlus</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName = "Ratkin"]/race/ageGenerationCurve/points</xpath>
+      <value>
+        <points>
+          <li>(4,0)</li>
+          <li>(5,12)</li>
+          <li>(8,40)</li>
+          <li>(14,60)</li>
+          <li>(23,80)</li>
+          <li>(30,20)</li>
+          <li>(60,3)</li>
+          <li>(70,0)</li>
+          <li>(80,0)</li>
+          <li>(90,0)</li>
+          <li>(100,0)</li>
+        </points>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>NewRatkinPlus</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName = "Ratkin"]/race/litterSizeCurve/points</xpath>
+      <value>
+        <points>
+          <li>(0.5, 0)</li>
+          <li>(1, 1)</li>
+          <li>(1.01, 0.02)</li>
+          <li>(3.5, 0)</li>
+        </points>
+      </value>
+    </match>
+  </Operation>
+
+  <!--<Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>NewRatkinPlus</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName = "Ratkin"]/alienRace/generalSettings/alienPartGenerator/bodyAddons</xpath>
+      <value>
+        <bodyAddons>
+          <li>
+            <drawSize>1</drawSize>
+            <path>Body/RK_Tail</path>
+            <bodyPart>tail</bodyPart>
+            <inFrontOfBody>false</inFrontOfBody>
+            <useSkinColor>true</useSkinColor>
+            <offsets>
+              <south>
+                <bodyTypes>
+                  <Thin>(-0.1,-0.2)</Thin>
+                </bodyTypes>
+              </south>
+              <north>
+                <bodyTypes>
+                  <Thin>(0,-0.05)</Thin>
+                </bodyTypes>
+              </north>
+              <east>
+                <bodyTypes>
+                  <Thin>(-0.05,-0.05)</Thin>
+                </bodyTypes>
+              </east>
+            </offsets>
+          </li>
+          <li>
+            <drawSize>1</drawSize>
+            <path>Body/RK_EarLeft</path>
+            <bodyPart>left ear</bodyPart>
+            <inFrontOfBody>true</inFrontOfBody>
+            <useSkinColor>true</useSkinColor>
+            <offsets>
+              <south>
+                <bodyTypes>
+                  <Thin>(-0.475,0.67)</Thin>
+                </bodyTypes>
+                <portraitBodyTypes>
+                  <Thin>(-0.45,0.67)</Thin>
+                </portraitBodyTypes>
+              </south>
+              <north>
+                <bodyTypes>
+                  <Thin>(0.05,0.98)</Thin>
+                </bodyTypes>
+                <portraitBodyTypes>
+                  <Thin>(-0.04,0.89)</Thin>
+                </portraitBodyTypes>
+              </north>
+              <east>
+                <bodyTypes>
+                  <Thin>(-0.44,0.75)</Thin>
+                </bodyTypes>
+                <portraitBodyTypes>
+                  <Thin>(-0.44,0.58)</Thin>
+                </portraitBodyTypes>
+              </east>
+            </offsets>
+            <hiddenUnderApparelFor>
+              <li>FullHead</li>
+            </hiddenUnderApparelFor>
+          </li>
+          <li>
+            <drawSize>1</drawSize>
+            <path>Body/RK_EarRight</path>
+            <bodyPart>right ear</bodyPart>
+            <inFrontOfBody>true</inFrontOfBody>
+            <useSkinColor>true</useSkinColor>
+            <offsets>
+              <south>
+                <bodyTypes>
+                  <Thin>(-0.375,0.67)</Thin>
+                </bodyTypes>
+                <portraitBodyTypes>
+                  <Thin>(-0.4,0.67)</Thin>
+                </portraitBodyTypes>
+              </south>
+              <north>
+                <bodyTypes>
+                  <Thin>(-0.038,0.98)</Thin>
+                </bodyTypes>
+                <portraitBodyTypes>
+                  <Thin>(-0.01,1)</Thin>
+                </portraitBodyTypes>
+              </north>
+              <east>
+                <bodyTypes>
+                  <Thin>(-0.44,0.75)</Thin>
+                </bodyTypes>
+                <portraitBodyTypes>
+                  <Thin>(-0.44,0.58)</Thin>
+                </portraitBodyTypes>
+              </east>
+            </offsets>
+            <hiddenUnderApparelFor>
+              <li>FullHead</li>
+            </hiddenUnderApparelFor>
+          </li>
+        </bodyAddons>
+      </value>
+    </match>
+  </Operation> -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Ratkin and Facial Stuff Compatibility Patch</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName = "Ratkin"]/alienRace/generalSettings/alienPartGenerator/bodyAddons</xpath>
+      <value>
+        <bodyAddons>
+          <li>
+            <drawSize>1</drawSize>
+            <path>Body/RK_Tail</path>
+            <bodyPart>tail</bodyPart>
+            <inFrontOfBody>false</inFrontOfBody>
+            <useSkinColor>true</useSkinColor>
+            <offsets>
+              <south>
+                <bodyTypes>
+                  <Thin>(-0.1,-0.2)</Thin>
+                </bodyTypes>
+              </south>
+              <north>
+                <bodyTypes>
+                  <Thin>(0,-0.05)</Thin>
+                </bodyTypes>
+              </north>
+              <east>
+                <bodyTypes>
+                  <Thin>(-0.02,-0.2)</Thin>
+                </bodyTypes>
+              </east>
+            </offsets>
+          </li>
+        </bodyAddons>
+      </value>
+    </match>
+  </Operation>
+</Patch>

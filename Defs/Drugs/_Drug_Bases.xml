@@ -2,6 +2,8 @@
  
 <Defs>
 
+<!--
+
   <ThingDef Name="DrugBase" Abstract="True">
     <thingClass>ThingWithComps</thingClass>
     <category>Item</category>
@@ -56,5 +58,5 @@
       <ingestReportString>Taking {0}.</ingestReportString>
     </ingestible>
   </ThingDef>
-
+-->
 </Defs>

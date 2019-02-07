@@ -1,11 +1,8 @@
-﻿using RimWorld;
+﻿/*using RimWorld;
+using System;
 using Verse;
 using Verse.AI;
 using Harmony;
-using HugsLib;
-using HugsLib.Utils;
-using HugsLib.Settings;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
@@ -39,10 +36,9 @@ namespace RimWorldChildren
 		}
 
 		internal static void TryToImpregnate(Pawn initiator, Pawn partner){
-			// Check Mod Settings to ensure pregnancy isn't disabled
-			if (ChildrenBase.Instance.pregnancy_disabled) return;
             // Lesbian/gay couples. Those cases should never result in pregnancy
-            if (initiator.gender == partner.gender) return;
+            if(initiator.gender == partner.gender)
+                return;
             
             // One of the two is sterile, so don't continue
             foreach(Pawn pawn in new List<Pawn>{initiator,partner}){
@@ -67,8 +63,7 @@ namespace RimWorldChildren
 			}
 			// Check the pawn's age to see how likely it is she can carry a fetus
 			// 25 and below is guaranteed, 50 and above is impossible, 37.5 is 50% chance
-			float preg_chance = Math.Max (1 - (Math.Max (female.ageTracker.AgeBiologicalYearsFloat - 25, 0) / 25), 0) * ChildrenBase.Instance.gestation_days;;
-			
+			float preg_chance = Math.Max (1 - (Math.Max (female.ageTracker.AgeBiologicalYearsFloat - 25, 0) / 25), 0) * 0.33f;
 			// For debug testing
 			//float preg_chance = 1;
 			if (preg_chance < Rand.Value) {
@@ -99,3 +94,4 @@ namespace RimWorldChildren
 	}
 }
 
+*/

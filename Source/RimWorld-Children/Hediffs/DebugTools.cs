@@ -27,7 +27,7 @@ namespace RimWorldChildren
 	}
 
 	// Makes the pawn pregnant (if not already) and sets the pregnancy to near its end
-	public class Hediff_MakePregnateLate :HediffWithComps
+	/*public class Hediff_MakePregnateLate :HediffWithComps
 	{
 		public override void Tick ()
 		{
@@ -38,7 +38,7 @@ namespace RimWorldChildren
 
 			pawn.health.RemoveHediff (this);
 		}
-	}
+	}*/
 
 	// Play with baby
 	public class Hediff_GiveJobTest : HediffWithComps

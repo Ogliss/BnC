@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>Children and Pregnancy - v0.5a</name>
-  <author>Thirite, Cheran, Jarry1250, lellel, Kori</author>
-  <url>https://ludeon.com/forums/index.php?topic=28747.0</url>
-  <supportedVersions>
+	<name>Baby and Children</name>
+	<author>Thirite. compilation NyaamZ</author>
+	<url>https://ludeon.com/forums/index.php?topic=28747.0</url>
+	<supportedVersions> 
 	<li>1.0</li>
-  </supportedVersions>
-  <description>Adds children and human reproduction to the game.\n\nRussian Translation: Modg of lttlword.ru\n\nJapanese Translation: Proxyer\n\nKorean Translation: lellel \n\n\n Credit to Jarry1250 for reworking the tolerance level of social joy for babies and toddlers.</description>
-</ModMetaData>
+	</supportedVersions>
+	<description>Adds Baby and children In game.\n\nRussian Translation: Modg of lttlword.ru\n\nJapanese Translation: Proxyer\n\nKorean Translation: Lellel \n\n\n - Remove prognancy from original. \n - Baby and Children grow faster.\n - Adds control panel.\n - Now can make alien race Baby and Children.\n - Fix children texture Issue.</description>
+	</ModMetaData>

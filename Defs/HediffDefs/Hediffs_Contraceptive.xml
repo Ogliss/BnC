@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+<!--
   <HediffDef>
     <defName>Contraceptive</defName>
     <hediffClass>HediffWithComps</hediffClass>
     <label>contraceptive</label>
     <defaultLabelColor>(0.75, 0.75, 1.0)</defaultLabelColor>
-    <comps>
+    <comps> -->
       <!-- Disappears after a season's time -->
+	  <!--
       <li Class="HediffCompProperties_Disappears">
 	<disappearsAfterTicks>
 	  <min>900000</min>
@@ -15,4 +17,5 @@
       </li>
     </comps>
   </HediffDef>
+  -->
 </Defs>

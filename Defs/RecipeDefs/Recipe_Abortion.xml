@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Defs>
-  
+  <!--
   <RecipeDef Abstract="True" Name="SurgeryFlesh">
 	<effectWorking>Surgery</effectWorking>
 	<soundWorking>Recipe_Surgery</soundWorking>
@@ -44,5 +44,5 @@
 		<Medicine>10</Medicine>
 	</skillRequirements>
   </RecipeDef>
-  
+  -->
 </Defs>

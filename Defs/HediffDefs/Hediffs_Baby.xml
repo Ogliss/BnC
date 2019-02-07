@@ -3,6 +3,7 @@
   <HediffDef>
     <defName>BabyState</defName>
     <hediffClass>RimWorldChildren.Hediff_Baby</hediffClass>
+	<defaultLabelColor>(0.6, 0.6, 1.0)</defaultLabelColor>
     <label>child growing</label>
     <initialSeverity>0.1</initialSeverity>
     <stages>
@@ -42,7 +43,7 @@
 	<label>child</label>
 	<minSeverity>0.75</minSeverity>
       </li>
-    </stages>
+	</stages>
   </HediffDef>
   
   <!-- This only exists separately from BabyState to get around a bug making children drop their weapons on savegame load.-->

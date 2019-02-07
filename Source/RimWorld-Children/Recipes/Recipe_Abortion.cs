@@ -1,4 +1,4 @@
-﻿using RimWorld;
+﻿/*using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,11 +26,11 @@ namespace RimWorldChildren
 							text = string.Format (this.recipe.successfullyRemovedHediffMessage, billDoer.LabelShort, pawn.LabelShort);
 						}
 						else {
-                            text = "MessageSuccessfullyRemovedHediff".Translate(
-                                billDoer.LabelShort,
+							text = "MessageSuccessfullyRemovedHediff".Translate (new object[] {
+								billDoer.LabelShort,
 								pawn.LabelShort,
 								this.recipe.removesHediff.label
-							);
+							});
 						}
 						Messages.Message (text, pawn, MessageTypeDefOf.TaskCompletion);
 					}
@@ -66,4 +66,4 @@ namespace RimWorldChildren
 				pawn.health.RemoveHediff (preggo);
 		}
 	}
-}
+}*/

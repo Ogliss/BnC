@@ -24,163 +24,202 @@ namespace RimWorldChildren
         Toddler
     }*/
 
-	[HarmonyPatch(typeof(Pawn_ApparelTracker), "ApparelChanged")]
-	public static class Pawn_ApparelTracker_ApparelChanged_Patch{
-		[HarmonyPostfix]
-		internal static void ApparelChanged_Postfix(ref Pawn_ApparelTracker __instance){
-			Pawn_ApparelTracker _this = __instance;
-			LongEventHandler.ExecuteWhenFinished (delegate {
-				Children_Drawing.ResolveAgeGraphics (_this.pawn.Drawer.renderer.graphics);
-			});
-		}
-	}
+    [HarmonyPatch(typeof(Pawn_ApparelTracker), "ApparelChanged")]
+    public static class Pawn_ApparelTracker_ApparelChanged_Patch {
+        [HarmonyPostfix]
+        internal static void ApparelChanged_Postfix(ref Pawn_ApparelTracker __instance) {
+            Pawn_ApparelTracker _this = __instance;
+            LongEventHandler.ExecuteWhenFinished(delegate {
+                Children_Drawing.ResolveAgeGraphics(_this.pawn.Drawer.renderer.graphics);
+            });
+        }
+    }
 
-	[HarmonyPatch(typeof(PawnGraphicSet), "ResolveAllGraphics")]
-	public static class PawnGraphicSet_ResolveAllGraphics_Patch{
-		[HarmonyPostfix]
-		internal static void ResolveAllGraphics_Patch(ref PawnGraphicSet __instance){
-			Pawn pawn = __instance.pawn;
-			PawnGraphicSet _this = __instance;
-			if (pawn.RaceProps.Humanlike) {
-				Children_Drawing.ResolveAgeGraphics (__instance);
-				LongEventHandler.ExecuteWhenFinished (delegate {
-					_this.ResolveApparelGraphics ();
-				});
-			}
-		}
-	}
+    [HarmonyPatch(typeof(PawnGraphicSet), "ResolveAllGraphics")]
+    public static class PawnGraphicSet_ResolveAllGraphics_Patch {
+        [HarmonyPostfix]
+        internal static void ResolveAllGraphics_Patch(ref PawnGraphicSet __instance) {
+            Pawn pawn = __instance.pawn;
+            PawnGraphicSet _this = __instance;
+            if (pawn.RaceProps.Humanlike) {
+                Children_Drawing.ResolveAgeGraphics(__instance);
+                LongEventHandler.ExecuteWhenFinished(delegate {
+                    _this.ResolveApparelGraphics();
+                });
+            }
+        }
+    }
 
-	[HarmonyPatch(typeof(PawnGraphicSet), "ResolveApparelGraphics")]
-	public static class PawnGraphicSet_ResolveApparelGraphics_Patch{
-		[HarmonyPrefix]
-		internal static void ResolveApparelGraphics_Patch(ref PawnGraphicSet __instance){
-			Pawn pawn = __instance.pawn;
-			// Updates the beard
-			if (pawn.apparel != null && pawn.apparel.BodyPartGroupIsCovered (BodyPartGroupDefOf.UpperHead) && pawn.RaceProps.Humanlike) {
-				Children_Drawing.ResolveAgeGraphics (__instance);
-			}
-		}
-		[HarmonyTranspiler]
-		static IEnumerable<CodeInstruction> ResolveApparelGraphics_Transpiler(IEnumerable<CodeInstruction> instructions)
-		{
-			List<CodeInstruction> ILs = instructions.ToList ();
-			int injectIndex = ILs.FindIndex (ILs.FindIndex(x => x.opcode == OpCodes.Ldloca_S) + 1, x => x.opcode == OpCodes.Ldloca_S) - 2; // Second occurence
-			ILs.RemoveRange (injectIndex, 2);
-			MethodInfo childBodyCheck = typeof(Children_Drawing).GetMethod ("ModifyChildBodyType");
-			ILs.Insert(injectIndex, new CodeInstruction(OpCodes.Call, childBodyCheck));
+    [HarmonyPatch(typeof(PawnGraphicSet), "ResolveApparelGraphics")]
+    public static class PawnGraphicSet_ResolveApparelGraphics_Patch {
+        [HarmonyPrefix]
+        internal static void ResolveApparelGraphics_Patch(ref PawnGraphicSet __instance) {
+            Pawn pawn = __instance.pawn;
+            // Updates the beard
+            if (pawn.apparel != null && pawn.apparel.BodyPartGroupIsCovered(BodyPartGroupDefOf.UpperHead) && pawn.RaceProps.Humanlike) {
+                Children_Drawing.ResolveAgeGraphics(__instance);
+            }
+        }
+        [HarmonyTranspiler]
+        static IEnumerable<CodeInstruction> ResolveApparelGraphics_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> ILs = instructions.ToList();
+            int injectIndex = ILs.FindIndex(ILs.FindIndex(x => x.opcode == OpCodes.Ldloca_S) + 1, x => x.opcode == OpCodes.Ldloca_S) - 2; // Second occurence
+            ILs.RemoveRange(injectIndex, 2);
+            MethodInfo childBodyCheck = typeof(Children_Drawing).GetMethod("ModifyChildBodyType");
+            ILs.Insert(injectIndex, new CodeInstruction(OpCodes.Call, childBodyCheck));
 
-			foreach(CodeInstruction IL in ILs){
-				yield return IL;
-			}
-		}
-	}
+            foreach (CodeInstruction IL in ILs) {
+                yield return IL;
+            }
+        }
+    }
 
-	[HarmonyPatch(typeof(PawnRenderer), "RenderPawnInternal", new [] { typeof(Vector3), typeof(float), typeof(Boolean), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(Boolean), typeof(Boolean)})]
-	[HarmonyBefore(new string[] { "rimworld.erdelf.alien_race.main"})]
-	public static class PawnRenderer_RenderPawnInternal_Patch{
-		[HarmonyTranspiler]
-		static IEnumerable<CodeInstruction> RenderPawnInternal_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ILgen)
-		{
-			List<CodeInstruction> ILs = instructions.ToList ();
-			// Change the root location of the child's draw position
-			int injectIndex0 = ILs.FindIndex (x => x.opcode == OpCodes.Ldarg_1) + 1;
-			List<CodeInstruction> injection0 = new List<CodeInstruction> {
-				new CodeInstruction(OpCodes.Ldarg_0),
-				new CodeInstruction(OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
-				new CodeInstruction(OpCodes.Ldarg_S, 7), //portrait
+    [HarmonyPatch(typeof(PawnRenderer), "RenderPawnInternal", new[] { typeof(Vector3), typeof(float), typeof(Boolean), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(Boolean), typeof(Boolean) })]
+    [HarmonyBefore(new string[] { "rimworld.erdelf.alien_race.main" })]
+
+    public static class PawnRenderer_RenderPawnInternal_Patch {
+
+        // ShowHair Patch
+        private static FieldInfo PawnFI = typeof(PawnRenderer).GetField("pawn", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        [HarmonyBefore(new string[] { "com.showhair.rimworld.mod" })]
+        public static void Postfix(PawnRenderer __instance, ref Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
+        {
+            if (AnotherModPatch.ShowHair_On)
+            {
+                Pawn pawn = (Pawn)PawnFI.GetValue(__instance);
+                rootLoc = Children_Drawing.ModifyChildYPosOffset(rootLoc, pawn, portrait);
+            }
+        }
+        //
+
+        [HarmonyTranspiler]
+        static IEnumerable<CodeInstruction> RenderPawnInternal_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ILgen)
+        {
+            List<CodeInstruction> ILs = instructions.ToList();
+            // Change the root location of the child's draw position
+            int injectIndex0 = ILs.FindIndex(x => x.opcode == OpCodes.Ldarg_1) + 1;
+            List<CodeInstruction> injection0 = new List<CodeInstruction> {
+                new CodeInstruction(OpCodes.Ldarg_0),
+                new CodeInstruction(OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
+                new CodeInstruction(OpCodes.Ldarg_S, 7), //portrait
 				new CodeInstruction(OpCodes.Call, typeof(Children_Drawing).GetMethod("ModifyChildYPosOffset")),
-			};
+            };
 
-			// We actually have to change this in a lot of places, so we repeat the same injection
-			ILs.InsertRange (injectIndex0, injection0);
-			foreach(int i in new List<int>{6,7,8, 12, 31}){
-				ILs.InsertRange (ILs.FindIndex (x => x.opcode == OpCodes.Stloc_S && x.operand as LocalBuilder != null && ((LocalBuilder)x.operand).LocalIndex == i), injection0);
-			}
+            // We actually have to change this in a lot of places, so we repeat the same injection
+            ILs.InsertRange(injectIndex0, injection0);
+            foreach (int i in new List<int> { 6, 7, 8, 12, 31 }) {
+                ILs.InsertRange(ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand as LocalBuilder != null && ((LocalBuilder)x.operand).LocalIndex == i), injection0);
+            }
 
-			// Skip past the head drawing code if the pawn is a human toddler or younger
-			int injectIndex1 = ILs.FindIndex (x => x.opcode == OpCodes.Ldarg_3);
-			Label babyDrawBodyJump = ILgen.DefineLabel ();
-			ILs [injectIndex1 + 2].labels = new List<Label>{ babyDrawBodyJump };
-			List<CodeInstruction> injection1 = new List<CodeInstruction> {
-				new CodeInstruction (OpCodes.Ldarg_0),
-				new CodeInstruction (OpCodes.Ldfld, AccessTools.Field(typeof(PawnRenderer), "pawn")),
-				new CodeInstruction (OpCodes.Ldfld, AccessTools.Field(typeof(Pawn), "ageTracker")),
-				new CodeInstruction (OpCodes.Call, typeof(Pawn_AgeTracker).GetProperty("CurLifeStageIndex").GetGetMethod()),
-				new CodeInstruction (OpCodes.Ldc_I4_2),
-				new CodeInstruction (OpCodes.Blt, babyDrawBodyJump),
-			};
-			ILs.InsertRange (injectIndex1, injection1);
+            // Skip past the head drawing code if the pawn is a human toddler or younger
+            int injectIndex1 = ILs.FindIndex(x => x.opcode == OpCodes.Ldarg_3);
+            Label babyDrawBodyJump = ILgen.DefineLabel();
+            ILs[injectIndex1 + 2].labels = new List<Label> { babyDrawBodyJump };
+            List<CodeInstruction> injection1 = new List<CodeInstruction> {
+                new CodeInstruction (OpCodes.Ldarg_0),
+                new CodeInstruction (OpCodes.Ldfld, AccessTools.Field(typeof(PawnRenderer), "pawn")),
+                new CodeInstruction (OpCodes.Ldfld, AccessTools.Field(typeof(Pawn), "ageTracker")),
+                new CodeInstruction (OpCodes.Call, typeof(Pawn_AgeTracker).GetProperty("CurLifeStageIndex").GetGetMethod()),
+                new CodeInstruction (OpCodes.Ldc_I4_2),
+                new CodeInstruction (OpCodes.Blt, babyDrawBodyJump),
+            };
+            ILs.InsertRange(injectIndex1, injection1);
 
-			// Ensure pawn is a child or higher before drawing head
-			int injectIndex2 = ILs.FindIndex (x => x.opcode == OpCodes.Ldfld && x.operand == AccessTools.Field (typeof(PawnGraphicSet), "headGraphic")) + 2;
-			Label notHumanJump = ILgen.DefineLabel ();
-			List<CodeInstruction> injection2 = new List<CodeInstruction> {
-				new CodeInstruction (OpCodes.Ldarg_0),
-				new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
-				new CodeInstruction (OpCodes.Call, typeof(ChildrenUtility).GetMethod("RaceUsesChildren")),
-				new CodeInstruction (OpCodes.Brfalse, notHumanJump),
-				new CodeInstruction (OpCodes.Ldarg_0),
-				new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
-				new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod("EnsurePawnIsChildOrOlder")),
-				new CodeInstruction (OpCodes.Brfalse, ILs [injectIndex2 - 1].operand),
-				new CodeInstruction (OpCodes.Nop){labels = new List<Label>{notHumanJump}},
-			};
-			ILs.InsertRange (injectIndex2, injection2);
-			
-			// Modify the scale of a hat graphic when worn by a child
-			//int injectIndex3 = ILs.FindIndex (x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 18) + 1;
+            // Ensure pawn is a child or higher before drawing head
+            int injectIndex2 = ILs.FindIndex(x => x.opcode == OpCodes.Ldfld && x.operand == AccessTools.Field(typeof(PawnGraphicSet), "headGraphic")) + 2;
+            Label notHumanJump = ILgen.DefineLabel();
+            List<CodeInstruction> injection2 = new List<CodeInstruction> {
+                new CodeInstruction (OpCodes.Ldarg_0),
+                new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
+                new CodeInstruction (OpCodes.Call, typeof(ChildrenUtility).GetMethod("RaceUsesChildren")),
+                new CodeInstruction (OpCodes.Brfalse, notHumanJump),
+                new CodeInstruction (OpCodes.Ldarg_0),
+                new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
+                new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod("EnsurePawnIsChildOrOlder")),
+                new CodeInstruction (OpCodes.Brfalse, ILs [injectIndex2 - 1].operand),
+                new CodeInstruction (OpCodes.Nop){labels = new List<Label>{notHumanJump}},
+            };
+            ILs.InsertRange(injectIndex2, injection2);
 
-			int injectIndex3 = ILs.FindIndex (x => x.opcode == OpCodes.Call && x.operand == typeof(GenDraw).GetMethod("DrawMeshNowOrLater", AccessTools.all)) + 4;
-			List<CodeInstruction> injection3 = new List<CodeInstruction> {
-				new CodeInstruction (OpCodes.Ldloc_S, 19),
-				new CodeInstruction (OpCodes.Ldarg_0),
-				new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
-				new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod("ModifyHatForChild")),
-				new CodeInstruction (OpCodes.Stloc_S, 19),
-			};
-			ILs.InsertRange (injectIndex3, injection3);
+            // Modify the scale of a hat graphic when worn by a child
+            //int injectIndex3 = ILs.FindIndex (x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 18) + 1;
 
-			// Modify the scale of a hair graphic when drawn on a child
-			int injectIndex4 = ILs.FindIndex (x => x.opcode == OpCodes.Callvirt && x.operand == AccessTools.Method (typeof(PawnGraphicSet), "HairMatAt")) + 2;
-			List<CodeInstruction> injection4 = new List<CodeInstruction> {
-				new CodeInstruction (OpCodes.Ldloc_S, 25),
-				new CodeInstruction (OpCodes.Ldarg_0),
-				new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
-				new CodeInstruction (OpCodes.Call, AccessTools.Method(typeof(Children_Drawing), "ModifyHairForChild")),
-				new CodeInstruction (OpCodes.Stloc_S, 25),
-			};
-			ILs.InsertRange (injectIndex4, injection4);
+            int injectIndex3 = ILs.FindIndex(x => x.opcode == OpCodes.Call && x.operand == typeof(GenDraw).GetMethod("DrawMeshNowOrLater", AccessTools.all)) + 4;
+            List<CodeInstruction> injection3 = new List<CodeInstruction> {
+                new CodeInstruction (OpCodes.Ldloc_S, 19),
+                new CodeInstruction (OpCodes.Ldarg_0),
+                new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
+                new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod("ModifyHatForChild")),
+                new CodeInstruction (OpCodes.Stloc_S, 19),
+            };
+            ILs.InsertRange(injectIndex3, injection3);
 
-			// Modify the scale of clothing graphics when worn by a child
-			int injectIndex5 = ILs.FindIndex (x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 5) + 1;
-			List<CodeInstruction> injection5 = new List<CodeInstruction> {
-				new CodeInstruction (OpCodes.Ldloc_S, 5),
-				new CodeInstruction (OpCodes.Ldarg_0),
-				new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField ("pawn", AccessTools.all)),
-				new CodeInstruction (OpCodes.Ldarg_S, 4),
-				new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod ("ModifyClothingForChild")),
-				new CodeInstruction (OpCodes.Stloc_S, 5),
-			};
-			ILs.InsertRange (injectIndex5, injection5);
+            // Modify the scale of a hair graphic when drawn on a child
+            int injectIndex4 = ILs.FindIndex(x => x.opcode == OpCodes.Callvirt && x.operand == AccessTools.Method(typeof(PawnGraphicSet), "HairMatAt")) + 2;
+            List<CodeInstruction> injection4 = new List<CodeInstruction> {
+                new CodeInstruction (OpCodes.Ldloc_S, 25),
+                new CodeInstruction (OpCodes.Ldarg_0),
+                new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
+                new CodeInstruction (OpCodes.Call, AccessTools.Method(typeof(Children_Drawing), "ModifyHairForChild")),
+                new CodeInstruction (OpCodes.Stloc_S, 25),
+            };
+            ILs.InsertRange(injectIndex4, injection4);
 
+            // Modify the scale of clothing graphics when worn by a child
+            int injectIndex5 = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 5) + 1;
+            List<CodeInstruction> injection5 = new List<CodeInstruction> {
+                new CodeInstruction (OpCodes.Ldloc_S, 5),
+                new CodeInstruction (OpCodes.Ldarg_0),
+                new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField ("pawn", AccessTools.all)),
+                new CodeInstruction (OpCodes.Ldarg_S, 4),
+                new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod ("ModifyClothingForChild")),
+                new CodeInstruction (OpCodes.Stloc_S, 5),
+            };
+            ILs.InsertRange(injectIndex5, injection5);
+
+            // patch
             int injectIndex6 = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 28) + 1;
-            List < CodeInstruction > injection6 = new List<CodeInstruction> {
+            List<CodeInstruction> injection6 = new List<CodeInstruction> {
                new CodeInstruction (OpCodes.Ldloc_S, 28),
                new CodeInstruction (OpCodes.Ldarg_0),
                new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField ("pawn", AccessTools.all)),
                new CodeInstruction (OpCodes.Ldarg_S, 4),
                new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod ("ModifyClothingForChild")),
                new CodeInstruction (OpCodes.Stloc_S, 28),
-             };
+            };
             ILs.InsertRange(injectIndex6, injection6);
+            // 
 
             foreach (CodeInstruction IL in ILs) {
-				yield return IL;
-			}
-		}
-	}
+                yield return IL;
+            }
+        }
+    }
 
-	internal static class Children_Drawing
+    // change head Scale for alien race child
+    [HarmonyPatch(typeof(PawnGraphicSet), "HeadMatAt")]
+    public static class PawnGraphicSet_HeadMatAt_Patch
+    {
+        [HarmonyPostfix]
+        public static void AlienChildHeadMatAt(PawnGraphicSet __instance, ref Material __result)
+        {
+            Pawn pawn = __instance.pawn;
+            if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Child && !ChildrenUtility.HasHumanlikeHead(pawn))
+            {
+                const float TextureScaleX = 1.225f;     // CnP_Settings.option_debug_scale_X;
+                const float TextureScaleY = 1.225f;    // CnP_Settings.option_debug_scale_Y;
+                const float TextureOffsetX = -0.11f;  // CnP_Settings.option_debug_offset_X;
+                const float TextureOffsetY = -0.1f;   //CnP_Settings.option_debug_offset_Y; 
+
+                __result.mainTextureScale = new Vector2(TextureScaleX, TextureScaleY);
+                __result.mainTextureOffset = new Vector2(TextureOffsetX, TextureOffsetY);
+            }
+         }        
+    } 
+    
+    internal static class Children_Drawing
 	{
 		internal static void ResolveAgeGraphics(PawnGraphicSet graphics){
 			LongEventHandler.ExecuteWhenFinished (delegate {
@@ -232,21 +271,31 @@ namespace RimWorldChildren
 				// The pawn is a child
 				else if (graphics.pawn.ageTracker.CurLifeStageIndex == AgeStage.Child) {
 					graphics.nakedGraphic = Children_Drawing.GetChildBodyGraphics (graphics, ShaderDatabase.CutoutSkin, graphics.pawn.story.SkinColor);
-					graphics.headGraphic = Children_Drawing.GetChildHeadGraphics (ShaderDatabase.CutoutSkin, graphics.pawn.story.SkinColor);
+					graphics.headGraphic = Children_Drawing.GetChildHeadGraphics (graphics, ShaderDatabase.CutoutSkin, graphics.pawn.story.SkinColor);
 				}
 			});
 		}
-
+        
 		// My own methods
-		internal static Graphic GetChildHeadGraphics(Shader shader, Color skinColor)
+		internal static Graphic GetChildHeadGraphics(PawnGraphicSet graphicSet, Shader shader, Color skinColor)
 		{
-			Graphic_Multi graphic = null;
-				string str = "Male_Child";
-				string path = "Things/Pawn/Humanlike/Children/Heads/" + str;
-				graphic = GraphicDatabase.Get<Graphic_Multi> (path, shader, Vector2.one, skinColor) as Graphic_Multi;
+            Graphic_Multi graphic = null;
+            Pawn pawn = graphicSet.pawn;
+            if (ChildrenUtility.HasHumanlikeHead(pawn))
+            {                
+                string str = "Male_Child";
+                string path = "Things/Pawn/Humanlike/Children/Heads/" + str;
+                graphic = GraphicDatabase.Get<Graphic_Multi>(path, shader, Vector2.one, skinColor) as Graphic_Multi;
+            }
+            else
+            {
+                graphic = graphicSet.headGraphic as Graphic_Multi;
+                //graphic.drawSize = new Vector2(3, 3);
+            }
 			return graphic;
 		}
-		internal static Graphic GetChildBodyGraphics(PawnGraphicSet graphicSet, Shader shader, Color skinColor)
+        
+        internal static Graphic GetChildBodyGraphics(PawnGraphicSet graphicSet, Shader shader, Color skinColor)
 		{
 			Graphic_Multi graphic = null;
 				string str = "Naked_Boy";
@@ -333,27 +382,39 @@ namespace RimWorldChildren
 			}
 			return newMat;
 
-        }
-		public static Material ModifyClothingForChild(Material damagedMat, Pawn pawn, Rot4 bodyFacing)
-        {
-            Material newDamagedMat = damagedMat;
-            if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Child && pawn.RaceProps.Humanlike)
-            {
-                float TextureScaleX = 1;
-                float TextureScaleY = 1.3f;
-                float TextureOffsetX = 0;
-                float TextureOffsetY = -0.2f;
-                float TextureOffsetEWX = -0.015f;
-                Material xDamagedMat = new Material(damagedMat);
+		}
+		public static Material ModifyClothingForChild(Material damagedMat, Pawn pawn, Rot4 bodyFacing){
+            Material newDamagedMat= damagedMat;
+            if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Child && pawn.RaceProps.Humanlike) {
+                const float TextureScaleX = 1.1f;
+                const float TextureScaleY = 1.225f;
+                const float TextureOffsetX = -0.04f;
+                const float TextureOffsetY = -0.2f;
+                const float TextureOffsetEWX = -0.015f;
+                Material xDamagedMat = new Material(damagedMat);                
+                //
+                //PutValue(pawn, ref TextureScaleX, ref TextureScaleY, ref TextureOffsetX, ref TextureOffsetY, ref TextureOffsetEWX); 
                 //
                 xDamagedMat.mainTextureScale = new Vector2(TextureScaleX, TextureScaleY);
                 xDamagedMat.mainTextureOffset = new Vector2(TextureOffsetX, TextureOffsetY);
                 if (bodyFacing == Rot4.West || bodyFacing == Rot4.East)
-                { xDamagedMat.mainTextureOffset = new Vector2(TextureOffsetEWX, TextureOffsetY); }
+                    {  xDamagedMat.mainTextureOffset = new Vector2(TextureOffsetEWX, TextureOffsetY);  }
                 newDamagedMat = xDamagedMat;
             }
             return newDamagedMat;
-        }
-	}
+		}
+
+        //
+        //public static void PutValue(Pawn pawn, ref float TextureScaleX, ref float TextureScaleY, ref float TextureOffsetX, ref float TextureOffsetY, ref float TextureOffsetEWX)
+        //{
+        //    TextureScaleX = CnP_Settings.option_texture_scale_X;
+        //    TextureScaleY = CnP_Settings.option_texture_scale_Y;
+        //    TextureOffsetX = CnP_Settings.option_texture_offset_X;
+        //    TextureOffsetY = CnP_Settings.option_texture_offset_Y;
+        //    TextureOffsetEWX = CnP_Settings.option_texture_offset_westeast_X;
+        //}
+        
+    }
+    
 }
 

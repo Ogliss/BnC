@@ -19,8 +19,8 @@
     <statBases>
       <MaxHitPoints>100</MaxHitPoints>
       <Flammability>1.0</Flammability>
-      <Beauty>8</Beauty>
-      <WorkToMake>600</WorkToMake>
+      <Beauty>2</Beauty>
+      <WorkToBuild>800</WorkToBuild>
       <Mass>30</Mass>
       <BedRestEffectiveness>1.2</BedRestEffectiveness>
       <Comfort>0.8</Comfort>

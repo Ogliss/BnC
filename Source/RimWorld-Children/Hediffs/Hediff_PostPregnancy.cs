@@ -1,4 +1,4 @@
-﻿using RimWorld;
+﻿/* using RimWorld;
 using Verse;
 using System;
 using System.Text;
@@ -41,9 +41,10 @@ namespace RimWorldChildren
 			Severity = Math.Min((age / 2500) / 24, 1);
 		}*/
 
-		public override bool Visible {
+	/*	public override bool Visible {
 			get { return true; }
 		}
 	}
 }
 
+*/
