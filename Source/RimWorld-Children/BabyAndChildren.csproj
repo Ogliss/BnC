@@ -84,7 +84,6 @@
     <Compile Include="babygear\CompBabyGear.cs" />
     <Compile Include="babygear\CompProperties_BabyGear.cs" />
     <None Include="Harmony Another Mod\Optional\Harmony_ShowHair.cs" />
-    <Compile Include="Harmony Another Mod\Optional\Support_AlienRace.cs" />
     <Compile Include="Hediffs\Hediff_Lacrating.cs" />
     <Compile Include="RimWorldChildren.Defs\RimWorldChildren.Defs.cs" />
     <Compile Include="Harmony Another Mod\Optional\Harmony_AlienRace.cs" />

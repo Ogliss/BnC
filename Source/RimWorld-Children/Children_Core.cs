@@ -63,6 +63,9 @@ namespace RimWorldChildren
 
     public static class ChildrenUtility
     {
+        public static readonly HashSet<String> SupportAlienRaces = new HashSet<string>(DefDatabase<SupportAlienDef>.GetNamed("makeAlienChild").supportAlienRaces);
+        public static HashSet<String> CurrentAlienRaces = new HashSet<string>();
+
         // Returns the maximum possible mass of a weapon the specified child can use
         public static float ChildMaxWeaponMass(Pawn pawn)
         {
@@ -117,7 +120,7 @@ namespace RimWorldChildren
             { return true; }
 
             // alien races
-            if (AliensSupport.CurrentAlienRaces.Contains(pawn.def.defName))
+            if (CurrentAlienRaces.Contains(pawn.def.defName))
             //if (pawn.def.defName == "AFerian"
             //    || pawn.def.defName == "Alien_Callistan"
             //    || pawn.def.defName == "Alien_Cassowary"
@@ -183,24 +186,11 @@ namespace RimWorldChildren
         // hostile child growup
         public static void GrowupHostileChild(ref PawnGenerationRequest request, ref Pawn pawn)
         {
-            FactionDef def;
-            Faction faction;
-             
+            FactionDef def = pawn.Faction.def;
+            
             long num = (long)Rand.Range(0, 30) + 20;
             pawn.ageTracker.AgeBiologicalTicks = pawn.ageTracker.AgeBiologicalTicks + (num*3600000);
 
-            if (request.Faction != null)
-            {
-                def = request.Faction.def;
-            }
-            else if (Find.FactionManager.TryGetRandomNonColonyHumanlikeFaction(out faction, false, true, TechLevel.Undefined))
-            {
-                def = faction.def;
-            }
-            else
-            {
-                def = Faction.OfAncients.def;
-            }
             PawnBioAndNameGenerator.GiveAppropriateBioAndNameTo(pawn, request.FixedLastName, def);
 
             // Update the Colonist Bar
@@ -334,11 +324,15 @@ namespace RimWorldChildren
                 if (pawn.ageTracker.CurLifeStageIndex <= AgeStage.Child && ChildrenUtility.RaceUsesChildren(pawn))
                 {
                     // hostile children on/off
-                    if (pawn.HostileTo(Faction.OfPlayer) && !BnC_Settings.option_hostile_children_raider)
+                    if (!BnC_Settings.option_hostile_children_raider && Faction.OfPlayerSilentFail != null)
                     {
-                        ChildrenUtility.GrowupHostileChild(ref request, ref pawn);
-                        return;
-                    }
+                        if (pawn.Faction != null && pawn.HostileTo(Faction.OfPlayer))
+                        {
+                            Log.Message("[From BnC] hostile children growup : " + pawn.LabelIndefinite());
+                            ChildrenUtility.GrowupHostileChild(ref request, ref pawn);
+                            return;
+                        }
+                    }                   
 
                     // give innocence trait                    
                     ChildrenUtility.Give_Innocent_trait(ref pawn);

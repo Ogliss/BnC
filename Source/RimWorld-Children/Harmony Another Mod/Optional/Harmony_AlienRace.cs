@@ -34,12 +34,13 @@ namespace RimWorldChildren.Harmony.Optional
                             nameof(AlienRace.HarmonyPatches.DrawAddons)),                        
                         new HarmonyMethod(typeof(AlienRace_Patches), nameof(AlienRace_Patches.DrawAddons_Prefix)));
 
+                    AlienRace_Patches.ChangeAliensProperty();
                 }))();
             }
             catch (TypeLoadException)
             {
             }
-            AliensSupport.ChangeAliensProperty();
+
         }
     }
 
@@ -150,5 +151,104 @@ namespace RimWorldChildren.Harmony.Optional
             }
             return false;
          }
+
+        public static void ChangeAliensProperty()
+        {
+            List<ThingDef_AlienRace> CurrentAliensdef = new List<ThingDef_AlienRace>();
+            string st = "";
+            //set max lifeExpectancy = 400
+            const float Max_lifeExpectancy = 400f;
+            
+            foreach (ThingDef_AlienRace ar in DefDatabase<ThingDef_AlienRace>.AllDefs)
+            {
+                if ( ar!=null && ChildrenUtility.SupportAlienRaces.Contains(ar.defName))
+                {
+                    st = st + ar.defName + ", ";
+                    CurrentAliensdef.Add(ar);
+                    ChildrenUtility.CurrentAlienRaces.Add(ar.defName);
+                    if (ar.race.lifeExpectancy > Max_lifeExpectancy) ar.race.lifeExpectancy = Max_lifeExpectancy;
+                }
+            }
+
+            if (CurrentAliensdef.Count == 0)
+            {
+                Log.Message("[From BnC] CurrentAliens is null");
+                return;
+            }
+            
+            Log.Message("[From BnC] Using alien races now : " + st);
+            ChangeStageAgesCurve(CurrentAliensdef);
+
+            foreach (PawnKindDef pkd in from k in DefDatabase<PawnKindDef>.AllDefs
+                                        where k.RaceProps.Humanlike
+                                        select k)
+            {
+                if (pkd.RaceProps.lifeStageAges.Count > 3)
+                {
+                    if ((float)pkd.minGenerationAge > pkd.RaceProps.lifeStageAges[2].minAge + 2f)
+                    {
+                        pkd.minGenerationAge = (int)pkd.RaceProps.lifeStageAges[2].minAge + 2;
+                        //Log.Message("genAge Change - " + pkd.defName + "  to  >>  " + pkd.minGenerationAge);
+                    }
+
+                }
+            }
+        }
+
+        public static void ChangeStageAgesCurve(List<ThingDef_AlienRace> CurrentAliensdef)
+        {
+            foreach (ThingDef_AlienRace ar in CurrentAliensdef)
+            {
+                // change life stage
+                List<LifeStageAge> lifeStageAges = ar.race.lifeStageAges;
+                lifeStageAges[1].minAge *= 0.75f;
+                lifeStageAges[2].minAge *= 0.75f;                
+
+                if (ar.defName != "Ratkin")
+                {
+                    SimpleCurve newAgeCurve = new SimpleCurve
+                    {
+                        {
+                            new CurvePoint(ar.race.lifeStageAges[2].minAge, 0f),              //3
+                            true
+                        },
+                        {
+                            new CurvePoint(ar.race.lifeStageAges[2].minAge+2f, 10f),              //5  
+                            true
+                        },
+                        {
+                            new CurvePoint((ar.race.lifeStageAges[2].minAge+ar.race.lifeStageAges[3].minAge)/2f, 40f),              //6 
+                            true
+                        },
+                        {
+                            new CurvePoint(ar.race.lifeStageAges[3].minAge, 75f),          //14
+                            true
+                        },
+                        {
+                            new CurvePoint(ar.race.lifeStageAges[4].minAge + 3f, 95f),            //23
+                            true
+                        },
+                        {
+                            new CurvePoint(ar.race.lifeStageAges[3].minAge + 10f, 85f),           //30
+                            true
+                        },
+                        {
+                            new CurvePoint((ar.race.lifeStageAges[3].minAge+ ar.race.lifeExpectancy)/2f, 30f),            //60
+                            true
+                        },
+                        {
+                            new CurvePoint(ar.race.lifeExpectancy, 9f),             //80
+                            true
+                        },
+                        {
+                            new CurvePoint(ar.race.lifeExpectancy * 100f /80f, 0f),             //100
+                            true
+                        }
+                    };
+                    // change curve
+                    ar.race.ageGenerationCurve = newAgeCurve;
+                }                
+            }
+        }
     }
 }
