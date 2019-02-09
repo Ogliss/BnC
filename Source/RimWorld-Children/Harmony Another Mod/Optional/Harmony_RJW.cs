@@ -25,8 +25,8 @@ namespace RimWorldChildren.Harmony.Optional
                         return;
                     }
 
-                    Log.Message("[From BnC] RJW Detected");
-                    AnotherModPatch.RJW_On = true;
+                    Log.Message("[From BnC] RimJobWorld Detected");
+                    AnotherModCheck.RJW_On = true;
 
                     //Patch
                     harmony.Patch(

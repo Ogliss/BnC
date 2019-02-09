@@ -86,7 +86,7 @@ namespace RimWorldChildren
         [HarmonyBefore(new string[] { "com.showhair.rimworld.mod" })]
         public static void Postfix(PawnRenderer __instance, ref Vector3 rootLoc, float angle, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
         {
-            if (AnotherModPatch.ShowHair_On)
+            if (AnotherModCheck.ShowHair_On)
             {
                 Pawn pawn = (Pawn)PawnFI.GetValue(__instance);
                 rootLoc = Children_Drawing.ModifyChildYPosOffset(rootLoc, pawn, portrait);
@@ -197,27 +197,6 @@ namespace RimWorldChildren
             }
         }
     }
-
-    // change head Scale for alien race child
-    [HarmonyPatch(typeof(PawnGraphicSet), "HeadMatAt")]
-    public static class PawnGraphicSet_HeadMatAt_Patch
-    {
-        [HarmonyPostfix]
-        public static void AlienChildHeadMatAt(PawnGraphicSet __instance, ref Material __result)
-        {
-            Pawn pawn = __instance.pawn;
-            if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Child && !ChildrenUtility.HasHumanlikeHead(pawn))
-            {
-                const float TextureScaleX = 1.225f;     // CnP_Settings.option_debug_scale_X;
-                const float TextureScaleY = 1.225f;    // CnP_Settings.option_debug_scale_Y;
-                const float TextureOffsetX = -0.11f;  // CnP_Settings.option_debug_offset_X;
-                const float TextureOffsetY = -0.1f;   //CnP_Settings.option_debug_offset_Y; 
-
-                __result.mainTextureScale = new Vector2(TextureScaleX, TextureScaleY);
-                __result.mainTextureOffset = new Vector2(TextureOffsetX, TextureOffsetY);
-            }
-         }        
-    } 
     
     internal static class Children_Drawing
 	{
@@ -386,35 +365,46 @@ namespace RimWorldChildren
 		public static Material ModifyClothingForChild(Material damagedMat, Pawn pawn, Rot4 bodyFacing){
             Material newDamagedMat= damagedMat;
             if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Child && pawn.RaceProps.Humanlike) {
-                const float TextureScaleX = 1.1f;
-                const float TextureScaleY = 1.225f;
-                const float TextureOffsetX = -0.04f;
-                const float TextureOffsetY = -0.2f;
-                const float TextureOffsetEWX = -0.015f;
+                const float ApperalTextureScaleX = 1.06f;
+                const float ApperalTextureScaleY = 1.225f;
+                const float ApperalTextureOffsetX = -0.024f;
+                const float ApperalTextureOffsetY = -0.2f;
+                const float ApperalTextureOffsetEWX = -0.015f;
                 Material xDamagedMat = new Material(damagedMat);                
                 //
-                //PutValue(pawn, ref TextureScaleX, ref TextureScaleY, ref TextureOffsetX, ref TextureOffsetY, ref TextureOffsetEWX); 
-                //
-                xDamagedMat.mainTextureScale = new Vector2(TextureScaleX, TextureScaleY);
-                xDamagedMat.mainTextureOffset = new Vector2(TextureOffsetX, TextureOffsetY);
+                //PutValue(pawn, ref ApperalTextureScaleX, ref ApperalTextureScaleY, ref ApperalTextureOffsetX, ref ApperalTextureOffsetY, ref ApperalTextureOffsetEWX);                 
+                xDamagedMat.mainTextureScale = new Vector2(ApperalTextureScaleX, ApperalTextureScaleY);
+                xDamagedMat.mainTextureOffset = new Vector2(ApperalTextureOffsetX, ApperalTextureOffsetY);
                 if (bodyFacing == Rot4.West || bodyFacing == Rot4.East)
-                    {  xDamagedMat.mainTextureOffset = new Vector2(TextureOffsetEWX, TextureOffsetY);  }
+                    {  xDamagedMat.mainTextureOffset = new Vector2(ApperalTextureOffsetEWX, ApperalTextureOffsetY);  }
                 newDamagedMat = xDamagedMat;
             }
             return newDamagedMat;
 		}
 
         //
-        //public static void PutValue(Pawn pawn, ref float TextureScaleX, ref float TextureScaleY, ref float TextureOffsetX, ref float TextureOffsetY, ref float TextureOffsetEWX)
-        //{
-        //    TextureScaleX = CnP_Settings.option_texture_scale_X;
-        //    TextureScaleY = CnP_Settings.option_texture_scale_Y;
-        //    TextureOffsetX = CnP_Settings.option_texture_offset_X;
-        //    TextureOffsetY = CnP_Settings.option_texture_offset_Y;
-        //    TextureOffsetEWX = CnP_Settings.option_texture_offset_westeast_X;
-        //}
-        
+        public static void PutValue(Pawn pawn, ref float TextureScaleX, ref float TextureScaleY, ref float TextureOffsetX, ref float TextureOffsetY, ref float TextureOffsetEWX)
+        {
+            TextureScaleX = BnC_Settings.option_texture_scale_X;
+            TextureScaleY = BnC_Settings.option_texture_scale_Y;
+            TextureOffsetX = BnC_Settings.option_texture_offset_X;
+            TextureOffsetY = BnC_Settings.option_texture_offset_Y;
+            TextureOffsetEWX = BnC_Settings.option_texture_offset_westeast_X;
+        }
+
     }
     
 }
 
+//      float TextureScaleX = 1.06f;
+//      float TextureScaleY = 1.225f;
+//      float TextureOffsetX = -0.024f;
+//      float TextureOffsetY = -0.2f;
+//      float TextureOffsetEWX = -0.015f;
+
+
+//      float ApperalTextureScaleX = 1.1f;
+//      float ApperalTextureScaleY = 1.225f;
+//      float ApperalTextureOffsetX = -0.04f;
+//      float ApperalTextureOffsetY = -0.2f;
+//      float ApperalTextureOffsetEWX = -0.015f;

@@ -86,7 +86,7 @@
     <None Include="Harmony Another Mod\Optional\Harmony_ShowHair.cs" />
     <Compile Include="Hediffs\Hediff_Lacrating.cs" />
     <Compile Include="RimWorldChildren.Defs\RimWorldChildren.Defs.cs" />
-    <Compile Include="Harmony Another Mod\Optional\Harmony_AlienRace.cs" />
+    <None Include="Harmony Another Mod\Optional\Harmony_AlienRace.cs" />
     <Compile Include="Harmony Another Mod\Optional\Harmony_RJW.cs" />
     <Compile Include="Trait Innocent\Harmony_Innocent.cs" />
     <Compile Include="Trait Innocent\Defs_Trait_Innocent.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="Overrides\Bed.cs" />
     <Compile Include="Overrides\Wear.cs" />
     <Compile Include="Overrides\Lovin.cs" />
-    <Compile Include="Harmony Another Mod\AnotherModPatch.cs" />
+    <Compile Include="Harmony Another Mod\AnotherModCheck.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

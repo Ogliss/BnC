@@ -18,13 +18,13 @@ namespace RimWorldChildren
             if (def == PawnRelationDefOf.Parent )
             {
                 Pawn pawn = (Pawn)PawnFI.GetValue(__instance);
-                Pawn mother = pawn.GetMother();
+                Pawn mother = pawn.GetMother();                
                 //Log.Message("mother : " + pawn.LabelIndefinite());
-                if (mother == otherPawn)
+                if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Baby && mother == otherPawn)
                 {                                    
                     if (mother.RaceProps.Humanlike && !mother.health.hediffSet.HasHediff(HediffDef.Named("Lactating")))
                     {
-                        if (AnotherModPatch.RJW_On)
+                        if (AnotherModCheck.RJW_On)
                         {
                             mother.health.AddHediff(HediffDef.Named("Lactating"), ChildrenUtility.GetPawnBodyPart(pawn, "Chest"), null);
                         }

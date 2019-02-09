@@ -5,12 +5,13 @@ using Harmony;
 
 namespace RimWorldChildren
 {  
-    public class AnotherModPatch
+    public class AnotherModCheck
     {
-        //public static bool Humanoid_Alien_Races_On = false;
+        public static bool Alien_Races_On = false;
+        public static bool BnC_Al_On = false;
         public static bool RJW_On = false;
         public static bool ShowHair_On = false;
-        
+
         private static bool IsLoaded(string mod)
         {
             return LoadedModManager.RunningModsListForReading.Any(x => x.Name == mod);
@@ -18,35 +19,30 @@ namespace RimWorldChildren
 
         public static void AnotherModPatchRun(HarmonyInstance harmony)
         {
-
-            //if (IsLoaded("Humanoid Alien Races 2.0"))
-            //{
-                
-            //   //Humanoid_Alien_Races_On = true;
-            //    //var original = typeof(AlienRace.HarmonyPatches).GetMethod("DrawAddons");
-            //    //var prefix = typeof(AnotherModPatch).GetMethod("DrawAddons_PreA");
-            //    //harmony.Patch(original, new HarmonyMethod(prefix), null);
-            //}
-            //else
-           
-
-            //if (!(DefDatabase<HediffDef>.GetNamedSilentFail("RJW_BabyState") is null))
-            //{
-            //    Log.Message("[From BnC] RJW Detected");
-            //    RJW_On = true;
-            //    var original = typeof(PortraitsCache).GetMethod("SetDirty");
-            //    var postfix = typeof(AnotherModPatch).GetMethod("RJW_Heddiff_Replace");
-            //    harmony.Patch(original, null, new HarmonyMethod(postfix), null );
-            //}
-            //else
-            //{ Log.Message("[From BnC] RJW Not Detected"); }
-
             if (IsLoaded("[KV] Show Hair With Hats or Hide All Hats - 1.0"))
             {
                 Log.Message("[From BnC] Show Hair 1.0 Detected");
                 ShowHair_On = true;
             }
 
+            if (IsLoaded("Humanoid Alien Races 2.0"))
+            {
+                Log.Message("[From BnC] Humanoid Alien Races 2.0 Detected");
+                Alien_Races_On = true;
+            }
+
+            if (IsLoaded("BnC Alien Support"))
+            {
+                Log.Message("[From BnC] BnC Alien Support Detected");
+                BnC_Al_On = true;
+            }
+
+            if (!IsLoaded("NewRatkinPlus") && Alien_Races_On && !BnC_Al_On)
+            {
+                Log.Error("[From BnC] ** If you use Alien Race, plz use - BnC Alien Support - together.\n" +
+                                                "Or If you don't use Alien Race, take it out. Now that's not necessary anymore. and If you use Ratkin race Only, no needed - BnC Alien Support -**");
+            }
+                        
             //else
             //{ Log.Message("[From BnC] Show Hair 1.0 Not Detected"); }
 

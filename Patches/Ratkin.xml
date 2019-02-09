@@ -50,8 +50,39 @@
       </value>
     </match>
   </Operation>
-
-  <!--<Operation Class="PatchOperationFindMod">
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>NewRatkinPlus</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName = "Ratkin"]/race/lifeStageAges</xpath>
+      <value>
+        <lifeStageAges>
+          <li>
+            <def>HumanlikeBaby</def>
+            <minAge>0</minAge>
+          </li>
+          <li>
+            <def>HumanlikeToddler</def>
+            <minAge>0.4</minAge>
+          </li>
+          <li>
+            <def>HumanlikeChild</def>
+            <minAge>2.7</minAge>
+          </li>
+          <li>
+            <def>HumanlikeTeenager</def>
+            <minAge>11</minAge>
+          </li>
+          <li>
+            <def>HumanlikeAdult</def>
+            <minAge>16</minAge>
+          </li>
+        </lifeStageAges>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationFindMod">
     <mods>
       <li>NewRatkinPlus</li>
     </mods>
@@ -158,7 +189,7 @@
         </bodyAddons>
       </value>
     </match>
-  </Operation> -->
+  </Operation>
   <Operation Class="PatchOperationFindMod">
     <mods>
       <li>Ratkin and Facial Stuff Compatibility Patch</li>
@@ -186,7 +217,7 @@
               </north>
               <east>
                 <bodyTypes>
-                  <Thin>(-0.02,-0.2)</Thin>
+                  <Thin>(-0.05,-0.05)</Thin>
                 </bodyTypes>
               </east>
             </offsets>

@@ -29,7 +29,7 @@
       <li>Avali</li>
       <li>BearMan</li>
       <li>CamelMan</li>
-      <li>ChjAndroid</li>
+      <!--<li>ChjAndroid</li> -->
       <li>ElephantMan</li>
       <li>ElkMan</li>
       <li>Fantasy_Goblin</li>
@@ -43,6 +43,7 @@
       <li>RaccoonMan</li>
       <li>Ratkin</li>
       <li>WolfMan</li>
+	  <li>Dragonian</li>
     </supportAlienRaces>
   </RimWorldChildren.SupportAlienDef>
 </Defs>

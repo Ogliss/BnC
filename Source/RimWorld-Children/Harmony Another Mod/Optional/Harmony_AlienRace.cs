@@ -34,6 +34,13 @@ namespace RimWorldChildren.Harmony.Optional
                             nameof(AlienRace.HarmonyPatches.DrawAddons)),                        
                         new HarmonyMethod(typeof(AlienRace_Patches), nameof(AlienRace_Patches.DrawAddons_Prefix)));
 
+                    harmony.Patch(
+                        AccessTools.Method(
+                            typeof(PawnGraphicSet),
+                            nameof(PawnGraphicSet.HeadMatAt)),
+                        new HarmonyMethod(typeof(AlienRace_Patches), nameof(AlienRace_Patches.AlienChildHeadMatAt)));
+ 
+
                     AlienRace_Patches.ChangeAliensProperty();
                 }))();
             }
@@ -152,6 +159,22 @@ namespace RimWorldChildren.Harmony.Optional
             return false;
          }
 
+        // change head Scale for alien race child
+        public static void AlienChildHeadMatAt(PawnGraphicSet __instance, ref Material __result)
+        {
+            Pawn pawn = __instance.pawn;
+            if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Child && !ChildrenUtility.HasHumanlikeHead(pawn))
+            {
+                const float TextureScaleX = 1.225f;     // CnP_Settings.option_debug_scale_X;
+                const float TextureScaleY = 1.225f;    // CnP_Settings.option_debug_scale_Y;
+                const float TextureOffsetX = -0.11f;  // CnP_Settings.option_debug_offset_X;
+                const float TextureOffsetY = -0.1f;   //CnP_Settings.option_debug_offset_Y; 
+
+                __result.mainTextureScale = new Vector2(TextureScaleX, TextureScaleY);
+                __result.mainTextureOffset = new Vector2(TextureOffsetX, TextureOffsetY);
+            }
+        }
+
         public static void ChangeAliensProperty()
         {
             List<ThingDef_AlienRace> CurrentAliensdef = new List<ThingDef_AlienRace>();
@@ -250,5 +273,6 @@ namespace RimWorldChildren.Harmony.Optional
                 }                
             }
         }
+
     }
 }

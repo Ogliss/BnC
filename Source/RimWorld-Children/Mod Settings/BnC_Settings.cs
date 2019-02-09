@@ -14,10 +14,11 @@ namespace RimWorldChildren
         public static SettingHandle<int> option_toddler_accelerated_factor;
         public static SettingHandle<int> option_child_accelerated_factor;
 
-        //public static SettingHandle<float> option_texture_scale_X;
-        //public static SettingHandle<float> option_texture_scale_Y;
-        //public static SettingHandle<float> option_texture_offset_X;
-        //public static SettingHandle<float> option_texture_offset_Y;
+        public static SettingHandle<float> option_texture_scale_X;
+        public static SettingHandle<float> option_texture_scale_Y;
+        public static SettingHandle<float> option_texture_offset_X;
+        public static SettingHandle<float> option_texture_offset_Y;
+        public static SettingHandle<float> option_texture_offset_westeast_X;
         //public static SettingHandle<float> option_debug_scale_X;
         //public static SettingHandle<float> option_debug_scale_Y;
         //public static SettingHandle<float> option_debug_offset_X;
@@ -25,7 +26,7 @@ namespace RimWorldChildren
         //public static SettingHandle<float> option_debug_loc_X;
         //public static SettingHandle<float> option_debug_loc_Y;
         //public static SettingHandle<float> option_debug_loc_Z;
-        //public static SettingHandle<float> option_texture_offset_westeast_X;
+
         //public static SettingHandle<float> option_hair_offset_Y;
 
         public BnC_Settings(ModSettingsPack settings)

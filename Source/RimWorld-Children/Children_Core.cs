@@ -21,7 +21,7 @@ namespace RimWorldChildren
         {
             get
             {
-                return "Children_and_Pregnancy_testing";
+                return "BabyAndChildren";
             }
         }
 
@@ -47,7 +47,7 @@ namespace RimWorldChildren
             MethodInfo jobdriver_wear_transpiler = AccessTools.Method(typeof(Wear_Override), "JobDriver_Wear_MoveNext_Transpiler");
             harmonyInstance.Patch(typeof(JobDriver_Wear).GetNestedTypes(AccessTools.all)[0].GetMethod("MoveNext"), null, null, new HarmonyMethod(jobdriver_wear_transpiler));
 
-            AnotherModPatch.AnotherModPatchRun(harmonyInstance);
+            AnotherModCheck.AnotherModPatchRun(harmonyInstance);
         }
     }
 
@@ -116,7 +116,7 @@ namespace RimWorldChildren
         public static bool RaceUsesChildren(Pawn pawn)
         {
             if (!pawn.RaceProps.Humanlike) return false;
-            if (pawn.def.defName == "Human" )
+            if (pawn.def.defName == "Human" || pawn.def.defName == "Ratkin")
             { return true; }
 
             // alien races
@@ -358,7 +358,7 @@ namespace RimWorldChildren
                         //}
 
                         // if rjw is on return
-                        if (AnotherModPatch.RJW_On) return;                        
+                        if (AnotherModCheck.RJW_On) return;                        
                     }                            
 
                     // Children hediff being injected
