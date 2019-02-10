@@ -37,10 +37,10 @@ namespace RimWorldChildren
                 BnC_Al_On = true;
             }
 
-            if (!IsLoaded("NewRatkinPlus") && Alien_Races_On && !BnC_Al_On)
+            if (Alien_Races_On && !BnC_Al_On)
             {
                 Log.Error("[From BnC] ** If you use Alien Race, plz use - BnC Alien Support - together.\n" +
-                                                "Or If you don't use Alien Race, take it out. Now that's not necessary anymore. and If you use Ratkin race Only, no needed - BnC Alien Support -**");
+                                                "Or If you don't use Alien Race, take it out. Now that's not necessary anymore. and If you use Ratkin race only , Also needed - BnC Alien Support - Becourse of the baby ear problem**");
             }
                         
             //else

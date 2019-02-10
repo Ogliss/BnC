@@ -19,10 +19,11 @@ namespace RimWorldChildren
         public static SettingHandle<float> option_texture_offset_X;
         public static SettingHandle<float> option_texture_offset_Y;
         public static SettingHandle<float> option_texture_offset_westeast_X;
-        //public static SettingHandle<float> option_debug_scale_X;
-        //public static SettingHandle<float> option_debug_scale_Y;
-        //public static SettingHandle<float> option_debug_offset_X;
-        //public static SettingHandle<float> option_debug_offset_Y;
+
+        public static SettingHandle<float> option_debug_scale_X;
+        public static SettingHandle<float> option_debug_scale_Y;
+        public static SettingHandle<float> option_debug_offset_X;
+        public static SettingHandle<float> option_debug_offset_Y;
         //public static SettingHandle<float> option_debug_loc_X;
         //public static SettingHandle<float> option_debug_loc_Y;
         //public static SettingHandle<float> option_debug_loc_Z;
@@ -48,12 +49,12 @@ namespace RimWorldChildren
             //option_texture_scale_Y = settings.GetHandle<float>("texture_scale_Y", "TextureScaleY".Translate(), "TextureScaleY_desc".Translate(), 1.225f, Validators.FloatRangeValidator(-5f, 5f));
             //option_texture_offset_X = settings.GetHandle<float>("texture_offset_X", "TextureOffsetX".Translate(), "TextureOffsetX_desc".Translate(), -0.024f, Validators.FloatRangeValidator(-5f, 5f));
             //option_texture_offset_Y = settings.GetHandle<float>("texture_offset_Y", "TextureOffsetY".Translate(), "TextureOffsetY_desc".Translate(), -0.2f, Validators.FloatRangeValidator(-5f, 5f));
-            //option_texture_offset_westeast_X = settings.GetHandle<float>("texture_offset_westeast_X", "TextureOffsetWesteast_X".Translate(), "TextureOffsetWesteast_X_desc".Translate(), -0.015f, Validators.FloatRangeValidator(-5f, 5f));
+            //option_texture_offset_westeast_X = settings.GetHandle<float>("texture_offset_westeast_X", "TextureOffsetWesteast_X".Translate(), "TextureOffsetWesteast_X_desc".Translate(), -0.06f, Validators.FloatRangeValidator(-5f, 5f));
 
             //option_debug_scale_X = settings.GetHandle<float>("debug_scale_X", "DebugScaleX".Translate(), "DebugScaleX_desc".Translate(), 1.225f, Validators.FloatRangeValidator(-5f, 5f));
             //option_debug_scale_Y = settings.GetHandle<float>("debug_scale_Y", "DebugScaleY".Translate(), "DebugScaleY_desc".Translate(), 1.225f, Validators.FloatRangeValidator(-5f, 5f));
-            //option_debug_offset_X = settings.GetHandle<float>("debug_offset_X", "DebugOffsetX".Translate(), "DebugOffsetX_desc".Translate(), -0.11f, Validators.FloatRangeValidator(-5f, 5f));
-            //option_debug_offset_Y = settings.GetHandle<float>("debug_offset_Y", "DebugOffsetY".Translate(), "DebugOffsetY_desc".Translate(), -0.1f, Validators.FloatRangeValidator(-5f, 5f));
+            //option_debug_offset_X = settings.GetHandle<float>("debug_offset_X", "DebugOffsetX".Translate(), "DebugOffsetX_desc".Translate(), -0.105f, Validators.FloatRangeValidator(-5f, 5f));
+            //option_debug_offset_Y = settings.GetHandle<float>("debug_offset_Y", "DebugOffsetY".Translate(), "DebugOffsetY_desc".Translate(), -0.10f, Validators.FloatRangeValidator(-5f, 5f));
 
             //option_debug_loc_X = settings.GetHandle<float>("debug_loc_X", "DebugLocX".Translate(), "DebugLocX_desc".Translate(), 0f, Validators.FloatRangeValidator(-5f, 5f));
             //option_debug_loc_Y = settings.GetHandle<float>("debug_loc_Y", "DebugLocY".Translate(), "DebugLocY_desc".Translate(), 0f, Validators.FloatRangeValidator(-5f, 5f));

@@ -92,7 +92,7 @@ namespace RimWorldChildren
                 rootLoc = Children_Drawing.ModifyChildYPosOffset(rootLoc, pawn, portrait);
             }
         }
-        //
+
 
         [HarmonyTranspiler]
         static IEnumerable<CodeInstruction> RenderPawnInternal_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ILgen)
@@ -268,8 +268,8 @@ namespace RimWorldChildren
             }
             else
             {
+                //Vector2 newDrawSize = new Vector2(1f, 1f);
                 graphic = graphicSet.headGraphic as Graphic_Multi;
-                //graphic.drawSize = new Vector2(3, 3);
             }
 			return graphic;
 		}
@@ -369,7 +369,7 @@ namespace RimWorldChildren
                 const float ApperalTextureScaleY = 1.225f;
                 const float ApperalTextureOffsetX = -0.024f;
                 const float ApperalTextureOffsetY = -0.2f;
-                const float ApperalTextureOffsetEWX = -0.015f;
+                const float ApperalTextureOffsetEWX = -0.06f;
                 Material xDamagedMat = new Material(damagedMat);                
                 //
                 //PutValue(pawn, ref ApperalTextureScaleX, ref ApperalTextureScaleY, ref ApperalTextureOffsetX, ref ApperalTextureOffsetY, ref ApperalTextureOffsetEWX);                 
