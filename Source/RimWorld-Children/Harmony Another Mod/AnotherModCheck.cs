@@ -40,29 +40,10 @@ namespace RimWorldChildren
             if (Alien_Races_On && !BnC_Al_On)
             {
                 Log.Error("[From BnC] ** If you use Alien Race, plz use - BnC Alien Support - together.\n" +
-                                                "Or If you don't use Alien Race, take it out. Now that's not necessary anymore. and If you use Ratkin race only , Also needed - BnC Alien Support - Becourse of the baby ear problem**");
+                                                "Or If you don't use Alien Race, take it out. Now that's not necessary anymore. **");
             }
-                        
-            //else
-            //{ Log.Message("[From BnC] Show Hair 1.0 Not Detected"); }
-
-
-            // TEST
-            //   HashSet<String> tstring = new HashSet<string>(DefDatabase<SupportAlienDef>.GetNamed("makeAlienChild").supportAlienRaces);
-
-            //   foreach (string k in tstring)
-            //   {
-            //       Log.Message("    " + k);
-            //   }
         }
 
-        //// don't make addon for baby & toddler 
-        //public static bool DrawAddons_PreA(bool portrait, Pawn pawn, Vector3 vector, Quaternion quat, Rot4 rotation)
-        //{
-        //    if (pawn.ageTracker.CurLifeStageIndex < AgeStage.Child)
-        //    { return false; }
-        //    return true;
-        //}
 
         // replace RJW heddiff -> CnP heddiff
         //public static void RJW_Heddiff_Replace(Pawn pawn)

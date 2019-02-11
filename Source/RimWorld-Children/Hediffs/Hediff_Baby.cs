@@ -77,11 +77,13 @@ namespace RimWorldChildren
             }
             // Re-enable skills that were locked out from toddlers
             if (stage == 2) {
-				if (!generated) {
-					pawn.story.childhood = BackstoryDatabase.allBackstories ["CustomBackstory_Rimchild"];
-					// Remove the hidden hediff stopping pawns from manipulating
-				}
-				if (pawn.health.hediffSet.HasHediff (HediffDef.Named ("NoManipulationFlag"))) {
+				if (!generated && ChildrenUtility.IsHumanlikeChild(pawn))
+                { pawn.story.childhood = BackstoryDatabase.allBackstories["CustomBackstory_Rimchild"]; }
+                if (!generated && !ChildrenUtility.IsHumanlikeChild(pawn))
+                { ChildrenUtility.GiveBackstory(ref pawn); }
+
+                // Remove the hidden hediff stopping pawns from manipulating
+                if (pawn.health.hediffSet.HasHediff (HediffDef.Named ("NoManipulationFlag"))) {
 					pawn.health.hediffSet.hediffs.Remove (pawn.health.hediffSet.GetFirstHediffOfDef (HediffDef.Named ("NoManipulationFlag")));
 				}
 				Severity = Math.Max(0.75f, Severity);

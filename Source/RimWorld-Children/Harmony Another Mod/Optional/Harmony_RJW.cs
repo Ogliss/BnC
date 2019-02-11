@@ -3,6 +3,7 @@ using RimWorld;
 using Verse;
 using rjw;
 using Harmony;
+using System.Collections.Generic;
 
 namespace RimWorldChildren.Harmony.Optional
 {
@@ -32,6 +33,13 @@ namespace RimWorldChildren.Harmony.Optional
                     harmony.Patch(
                         typeof(Hediff_SimpleBaby).GetMethod("PostMake"),                        
                         new HarmonyMethod(typeof(rjw_Patches).GetMethod(nameof(rjw_Patches.PostMake_Pre))));
+
+                    HediffDef PostPregnancy = DefDatabase<HediffDef>.GetNamed("BnC_RJW_PostPregnancy");
+                    PawnCapacityModifier cap = new PawnCapacityModifier();
+                    cap.capacity = DefDatabase<PawnCapacityDef>.GetNamed("Reproduction");
+                    cap.setMax = 0.1f;
+
+                    PostPregnancy.stages[0].capMods.Add(cap);
                 }))();
             }
             catch (TypeLoadException)

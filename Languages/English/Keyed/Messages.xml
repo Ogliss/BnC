@@ -12,11 +12,13 @@
   <AcceleratedGrowthEndAge>End age of accelerated growth</AcceleratedGrowthEndAge>
   <AcceleratedGrowthEndAge_desc>End age of accelerated growth\n Range: 0~12\n\n Default : 8</AcceleratedGrowthEndAge_desc>
   <BabyAcceleratedFactor>Babies accelerated growth factor</BabyAcceleratedFactor>
-  <BabyAcceleratedFactor_desc>Babies accelerated growth factor\n Range: 1~8\n\n Default : 4</BabyAcceleratedFactor_desc>
+  <BabyAcceleratedFactor_desc>Babies accelerated growth factor\n Range: 1~12\n\n Default : 4</BabyAcceleratedFactor_desc>
   <ToddlerAcceleratedFactor>Toddlers accelerated growth factor</ToddlerAcceleratedFactor>
-  <ToddlerAcceleratedFactor_desc>Toddlers accelerated growth factor\n Range: 1~8\n\n Default : 4</ToddlerAcceleratedFactor_desc>
+  <ToddlerAcceleratedFactor_desc>Toddlers accelerated growth factor\n Range: 1~12\n\n Default : 4</ToddlerAcceleratedFactor_desc>
   <ChildAcceleratedFactor>Children accelerated growth factor</ChildAcceleratedFactor>
-  <ChildAcceleratedFactor_desc>Children accelerated growth factor\n Range: 1~8\n\n Default : 4</ChildAcceleratedFactor_desc>
+  <ChildAcceleratedFactor_desc>Children accelerated growth factor\n Range: 1~12\n\n Default : 4</ChildAcceleratedFactor_desc>
+  <GestationPeriodFactor>Gestation Period(%)</GestationPeriodFactor>
+  <GestationPeriodFactor_desc>A percentage of the basic gestation period of all races.\n Range: 10%~200%\n\n Default : 100%</GestationPeriodFactor_desc>
 
   <!-- <TextureScaleX>Texture Scale X</TextureScaleX>
   <TextureScaleX_desc>Texture Scale X for children\n\n Default : 1.06</TextureScaleX_desc>

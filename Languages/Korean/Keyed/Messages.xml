@@ -11,11 +11,13 @@
   <AcceleratedGrowthEndAge>성장 가속 종료 나이</AcceleratedGrowthEndAge>
   <AcceleratedGrowthEndAge_desc>성장 가속이 종료되는 나이입니다.\n 범위: 0~12\n\n 기본값 : 8</AcceleratedGrowthEndAge_desc>
   <BabyAcceleratedFactor>아기의 가속 성장 배율</BabyAcceleratedFactor>
-  <BabyAcceleratedFactor_desc>아기의 가속 성장 배율입니다.\n 범위: 1~8\n\n 기본값 : 4</BabyAcceleratedFactor_desc>
+  <BabyAcceleratedFactor_desc>아기의 가속 성장 배율입니다.\n 범위: 1~12\n\n 기본값 : 4</BabyAcceleratedFactor_desc>
   <ToddlerAcceleratedFactor>유아의 가속 성장 배율</ToddlerAcceleratedFactor>
-  <ToddlerAcceleratedFactor_desc>유아의 가속 성장 배율입니다.\n 범위: 1~8\n\n 기본값 : 4</ToddlerAcceleratedFactor_desc>
+  <ToddlerAcceleratedFactor_desc>유아의 가속 성장 배율입니다.\n 범위: 1~12\n\n 기본값 : 4</ToddlerAcceleratedFactor_desc>
   <ChildAcceleratedFactor>소아의 가속 성장 배율</ChildAcceleratedFactor>
-  <ChildAcceleratedFactor_desc>소아의 가속 성장 배율입니다.\n 범위: 1~8\n\n 기본값 : 4</ChildAcceleratedFactor_desc>
+  <ChildAcceleratedFactor_desc>소아의 가속 성장 배율입니다.\n 범위: 1~12\n\n 기본값 : 4</ChildAcceleratedFactor_desc>
+  <GestationPeriodFactor>임신 기간(%)</GestationPeriodFactor>
+  <GestationPeriodFactor_desc>각 종족의 기본 임신기간의 백분율.\n 범위: 10%~200%\n\n 기본값 : 100%</GestationPeriodFactor_desc>
   
    <TextureScaleX>텍스쳐 스케일 X</TextureScaleX>
   <TextureScaleX_desc>텍스쳐 스케일 X (어린이를 위한)\n\n 기본값 : 1.06</TextureScaleX_desc>

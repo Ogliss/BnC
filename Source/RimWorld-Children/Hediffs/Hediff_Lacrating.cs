@@ -2,10 +2,24 @@
 using Verse;
 using Harmony;
 using System.Reflection;
-
+using rjw;
+using System;
 
 namespace RimWorldChildren
 {
+    //public static class BNC_BodyPartHelper
+    //{
+    //    public static bool has_bodypart(Pawn pawn, string Bodypart)
+    //    {
+    //        BodyPartRecord Part = pawn.RaceProps.body.AllParts.Find(bpr => bpr.def.defName == Bodypart);
+    //        if (Part is null) return false;
+
+    //        return pawn.health.hediffSet.hediffs.Any((Hediff hed) =>
+    //            (hed.Part == Part) &&
+    //            (hed is Hediff_Implant || hed is Hediff_AddedPart));
+    //    }
+    //}
+
     // give mother Lacrating hediff
     [HarmonyPatch(typeof(Pawn_RelationsTracker), "AddDirectRelation")]
     static class Give_Hediff_Lacrating
@@ -26,11 +40,27 @@ namespace RimWorldChildren
                     {
                         if (AnotherModCheck.RJW_On)
                         {
-                            mother.health.AddHediff(HediffDef.Named("Lactating"), ChildrenUtility.GetPawnBodyPart(pawn, "Chest"), null);
+                            try
+                            {
+                                ((Action)(() =>
+                                {
+                                    if (Genital_Helper.has_breasts(mother))
+                                    {
+                                        mother.health.AddHediff(HediffDef.Named("Lactating"), ChildrenUtility.GetPawnBodyPart(mother, "Chest"), null);
+                                    }
+                                    if (Genital_Helper.has_vagina(mother))
+                                    {
+                                        mother.health.AddHediff(HediffDef.Named("BnC_RJW_PostPregnancy"), ChildrenUtility.GetPawnBodyPart(mother, "Genitals"), null);
+                                    }
+                                }))();
+                            }
+                            catch (TypeLoadException)
+                            {
+                            }
                         }
                         else
                         {
-                            mother.health.AddHediff(HediffDef.Named("Lactating"), ChildrenUtility.GetPawnBodyPart(pawn, "Torso"), null);
+                            mother.health.AddHediff(HediffDef.Named("Lactating"), ChildrenUtility.GetPawnBodyPart(mother, "Torso"), null);
                         }
                     }
                 }

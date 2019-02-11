@@ -85,6 +85,7 @@
     <Compile Include="babygear\CompProperties_BabyGear.cs" />
     <None Include="Harmony Another Mod\Optional\Harmony_ShowHair.cs" />
     <Compile Include="Hediffs\Hediff_Lacrating.cs" />
+    <Compile Include="Mod Settings\BnC_Settings.cs" />
     <Compile Include="RimWorldChildren.Defs\RimWorldChildren.Defs.cs" />
     <None Include="Harmony Another Mod\Optional\Harmony_AlienRace.cs" />
     <Compile Include="Harmony Another Mod\Optional\Harmony_RJW.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipes\Recipe_AddHediffToPart.cs" />
     <None Include="Temp\Class1.cs" />
-    <Compile Include="Mod Settings\BnC_Settings.cs" />
+    <None Include="Mod Settings\BnC_Settings no.cs" />
     <Compile Include="RimWorldChildren.Defs\BackstoryDef.cs" />
     <Compile Include="Hediffs\Hediff_AbortionPill.cs" />
     <Compile Include="Hediffs\Hediff_Baby.cs" />

@@ -198,7 +198,7 @@ namespace RimWorldChildren
         }
     }
     
-    internal static class Children_Drawing
+    public static class Children_Drawing
 	{
 		internal static void ResolveAgeGraphics(PawnGraphicSet graphics){
 			LongEventHandler.ExecuteWhenFinished (delegate {
@@ -260,7 +260,7 @@ namespace RimWorldChildren
 		{
             Graphic_Multi graphic = null;
             Pawn pawn = graphicSet.pawn;
-            if (ChildrenUtility.HasHumanlikeHead(pawn))
+            if (ChildrenUtility.IsHumanlikeChild(pawn))
             {                
                 string str = "Male_Child";
                 string path = "Things/Pawn/Humanlike/Children/Heads/" + str;
@@ -268,7 +268,6 @@ namespace RimWorldChildren
             }
             else
             {
-                //Vector2 newDrawSize = new Vector2(1f, 1f);
                 graphic = graphicSet.headGraphic as Graphic_Multi;
             }
 			return graphic;
@@ -276,14 +275,23 @@ namespace RimWorldChildren
         
         internal static Graphic GetChildBodyGraphics(PawnGraphicSet graphicSet, Shader shader, Color skinColor)
 		{
-			Graphic_Multi graphic = null;
-				string str = "Naked_Boy";
-				if (graphicSet.pawn.gender == Gender.Female) {
-					str = "Naked_Girl";
-				}
-				string path = "Things/Pawn/Humanlike/Children/Bodies/" + str;
-				graphic = GraphicDatabase.Get<Graphic_Multi> (path, shader, Vector2.one, skinColor) as Graphic_Multi;
-			return graphic;
+            Graphic_Multi graphic = null;
+            Pawn pawn = graphicSet.pawn;
+            if (ChildrenUtility.IsHumanlikeChild(pawn))
+            {
+                string str = "Naked_Boy";
+                if (graphicSet.pawn.gender == Gender.Female)
+                {
+                    str = "Naked_Girl";
+                }
+                string path = "Things/Pawn/Humanlike/Children/Bodies/" + str;
+                graphic = GraphicDatabase.Get<Graphic_Multi>(path, shader, Vector2.one, skinColor) as Graphic_Multi;
+            }
+            else
+            {
+                graphic = graphicSet.nakedGraphic as Graphic_Multi;
+            }
+            return graphic;            
 		}
 
 		// Injected methods
@@ -309,7 +317,7 @@ namespace RimWorldChildren
 			if (pawn.RaceProps != null && pawn.RaceProps.Humanlike) {
 				// move the draw target down to compensate for child shortness
 				if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Child && !pawn.InBed()) {
-					newPos.z -= 0.15f;
+					newPos.z -= 0.15f ;
 				}
 				if (pawn.InBed () && !portrait && pawn.CurrentBed().def.size.z == 1) {
 					Building_Bed bed = pawn.CurrentBed ();
@@ -365,18 +373,20 @@ namespace RimWorldChildren
 		public static Material ModifyClothingForChild(Material damagedMat, Pawn pawn, Rot4 bodyFacing){
             Material newDamagedMat= damagedMat;
             if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Child && pawn.RaceProps.Humanlike) {
-                const float ApperalTextureScaleX = 1.06f;
-                const float ApperalTextureScaleY = 1.225f;
-                const float ApperalTextureOffsetX = -0.024f;
+                const float ApperalTextureScaleX = 1.12f;
+                const float ApperalTextureScaleY = 1.32f;
+                const float ApperalTextureOffsetX = -0.055f;
                 const float ApperalTextureOffsetY = -0.2f;
                 const float ApperalTextureOffsetEWX = -0.06f;
-                Material xDamagedMat = new Material(damagedMat);                
+                Material xDamagedMat = new Material(damagedMat);
+                xDamagedMat.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
                 //
                 //PutValue(pawn, ref ApperalTextureScaleX, ref ApperalTextureScaleY, ref ApperalTextureOffsetX, ref ApperalTextureOffsetY, ref ApperalTextureOffsetEWX);                 
                 xDamagedMat.mainTextureScale = new Vector2(ApperalTextureScaleX, ApperalTextureScaleY);
                 xDamagedMat.mainTextureOffset = new Vector2(ApperalTextureOffsetX, ApperalTextureOffsetY);
                 if (bodyFacing == Rot4.West || bodyFacing == Rot4.East)
                     {  xDamagedMat.mainTextureOffset = new Vector2(ApperalTextureOffsetEWX, ApperalTextureOffsetY);  }
+                
                 newDamagedMat = xDamagedMat;
             }
             return newDamagedMat;

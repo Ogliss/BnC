@@ -164,7 +164,7 @@
     <hediffClass>HediffWithComps</hediffClass>
     <label>lactating</label>
     <initialSeverity>0.001</initialSeverity>
-    <defaultLabelColor>(1.0, 1.0, 1.0)</defaultLabelColor>
+    <defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
     <comps>
       <!-- Disappears after two quadrams -->
       <li Class="HediffCompProperties_Disappears">

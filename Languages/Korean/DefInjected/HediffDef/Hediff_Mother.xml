@@ -20,7 +20,6 @@
     </stages>
   </HediffDef> -->
 
-  <Lactating.label>수유 중</Lactating.label>
-
-
+  <Lactating.label>수유중</Lactating.label>
+  <BnC_RJW_PostPregnancy.label>출산후</BnC_RJW_PostPregnancy.label>
 </LanguageData>

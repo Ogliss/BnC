@@ -13,23 +13,23 @@ using RimWorldChildren.babygear;
 namespace RimWorldChildren
 {
 
-    public class ChildrenBase : ModBase
-    {
-        public static BnC_Settings settings;
+    //public class ChildrenBase : ModBase
+    //{
+    //    public static BnC_Settings settings;
 
-        public override string ModIdentifier
-        {
-            get
-            {
-                return "BabyAndChildren";
-            }
-        }
+    //    public override string ModIdentifier
+    //    {
+    //        get
+    //        {
+    //            return "BabyAndChildren";
+    //        }
+    //    }
 
-        public override void DefsLoaded()
-        {
-            settings = new BnC_Settings(Settings);
-        }
-    }
+    //    public override void DefsLoaded()
+    //    {
+    //        settings = new BnC_Settings(Settings);
+    //    }
+    //}
 
     [StaticConstructorOnStartup]
     internal static class HarmonyPatches_Children
@@ -165,7 +165,7 @@ namespace RimWorldChildren
             return false;
         }
 
-        public static bool HasHumanlikeHead(Pawn pawn)
+        public static bool IsHumanlikeChild(Pawn pawn)
         {
             if (pawn.def.defName == "Human" || pawn.def.defName == "Ratkin")
             { return true; }
@@ -183,15 +183,21 @@ namespace RimWorldChildren
             return 1;
         }
 
+        public static void GiveBackstory(ref Pawn pawn)
+        {
+            FactionDef faction = pawn.Faction.def;
+            Name Namebefore = pawn.Name;
+            string LastName = pawn.Name.ToStringShort;
+            PawnBioAndNameGenerator.GiveAppropriateBioAndNameTo(pawn, LastName, faction);
+            pawn.Name = Namebefore;
+        }
+
         // hostile child growup
         public static void GrowupHostileChild(ref PawnGenerationRequest request, ref Pawn pawn)
-        {
-            FactionDef def = pawn.Faction.def;
-            
+        {           
             long num = (long)Rand.Range(0, 30) + 20;
             pawn.ageTracker.AgeBiologicalTicks = pawn.ageTracker.AgeBiologicalTicks + (num*3600000);
-
-            PawnBioAndNameGenerator.GiveAppropriateBioAndNameTo(pawn, request.FixedLastName, def);
+            GiveBackstory(ref pawn);
 
             // Update the Colonist Bar
             // PortraitsCache.SetDirty(pawn);
@@ -337,26 +343,11 @@ namespace RimWorldChildren
                     // give innocence trait                    
                     ChildrenUtility.Give_Innocent_trait(ref pawn);
                     // give backstory
-                    if (pawn.ageTracker.CurLifeStageIndex == 2 && pawn.ageTracker.AgeBiologicalYears < 8)
+                    if (pawn.ageTracker.CurLifeStageIndex == 2 && pawn.ageTracker.AgeBiologicalYears < 8 && ChildrenUtility.IsHumanlikeChild(pawn))
                     {  pawn.story.childhood = BackstoryDatabase.allBackstories["CustomBackstory_NA_Childhood"];  }
                     
                     if (pawn.ageTracker.CurLifeStageIndex == AgeStage.Baby)
                     {
-                        //// give mother Lacrating hediff
-                        //Pawn mother = pawn.GetMother();
-                        //Log.Message("mother : " + pawn.LabelIndefinite());
-                        //if (mother != null && mother != pawn && !mother.health.hediffSet.HasHediff(HediffDef.Named("Lactating")))
-                        //{
-                        //    if (ChildrenUtility.GetPawnBodyPart(mother, "Chest") != null)
-                        //    {
-                        //        mother.health.AddHediff(HediffDef.Named("Lactating"), ChildrenUtility.GetPawnBodyPart(pawn, "Chest"), null);
-                        //    }
-                        //    else
-                        //    {
-                        //        mother.health.AddHediff(HediffDef.Named("Lactating"), ChildrenUtility.GetPawnBodyPart(pawn, "Torso"), null);
-                        //    }
-                        //}
-
                         // if rjw is on return
                         if (AnotherModCheck.RJW_On) return;                        
                     }                            
