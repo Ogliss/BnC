@@ -113,14 +113,14 @@ namespace RimWorldChildren.Harmony.Optional
         }
     }
 
-    [HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility), "AppendThoughts_ForHumanlike")]
-    public static class PawnDiedOrDownedThoughtUtility_AppendThoughtsPatch
+    public static class DeleteInnocent
     {
         public static void RemoveInnocence(ref Pawn pawn, ref List<IndividualThoughtToAdd> outIndividualThoughts)
         {
-            // Remove Innocence Humankills*15+4% chance                                    
+            if (!pawn.story.traits.HasTrait(TraitDef_BnC.Innocent)) return;
+            // Remove Innocence Humankills*3+2% chance                                    
             float Humankills = pawn.records.GetValue(RecordDefOf.KillsHumanlikes);
-            float Trait_remove_chance = ((Humankills * 15) + 4) / 100;
+            float Trait_remove_chance = ((Humankills * 3) + 2) / 100;
             if (Rand.Value < Trait_remove_chance)
             {
                 //pawn.story.traits.allTraits.RemoveRange(0, (pawn.story.traits.allTraits.Count));
@@ -130,7 +130,49 @@ namespace RimWorldChildren.Harmony.Optional
             }
         }
 
-    [HarmonyPostfix]
+        public static void ReplaceTraitInnocent(ref Pawn pawn)
+        {
+            List<Trait> traitpool = new List<Trait>();
+            Pawn mother = pawn.GetMother();
+            Pawn father = pawn.GetFather();
+            if (mother != null && mother.RaceProps.Humanlike)
+            { foreach (Trait momtrait in mother.story.traits.allTraits) traitpool.Add(momtrait); }
+            if (father != null && mother.RaceProps.Humanlike)
+            { foreach (Trait fatrait in father.story.traits.allTraits) traitpool.Add(fatrait); }
+            traitpool.Add(new Trait(TraitDef.Named("Kind")));
+            traitpool.Add(new Trait(TraitDef.Named("Bloodlust")));
+            traitpool.Add(new Trait(TraitDef.Named("Psychopath")));
+            traitpool.Add(new Trait(TraitDef.Named("Nimble")));
+            traitpool.Add(new Trait(TraitDef.Named("FastLearner")));
+            traitpool.Add(new Trait(TraitDef.Named("Tough")));
+            traitpool.Add(new Trait(TraitDef.Named("ShootingAccuracy"), 1));
+            traitpool.Add(new Trait(TraitDef.Named("ShootingAccuracy"), -1));
+
+            List<Trait> hadtrait = new List<Trait>();
+            int trait_count_before = pawn.story.traits.allTraits.Count;
+
+            foreach (Trait intrait in pawn.story.traits.allTraits)
+            { if (intrait.def != TraitDef_BnC.Innocent) hadtrait.Add(intrait); }
+            pawn.story.traits.allTraits.RemoveRange(0, (pawn.story.traits.allTraits.Count));
+            foreach (Trait intoit in hadtrait) pawn.story.traits.GainTrait(intoit);
+
+            int r;
+            do
+            {
+                r = new Random().Next(0, traitpool.Count);
+                Trait trait = traitpool[r];
+                if (trait != null && !pawn.story.traits.HasTrait(trait.def) && !pawn.story.traits.allTraits.Any(x => x.def.ConflictsWith(trait)))
+                {
+                    pawn.story.traits.GainTrait(trait);
+                }
+            } while (pawn.story.traits.allTraits.Count < trait_count_before);
+        }
+    }
+
+    [HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility), "AppendThoughts_ForHumanlike")]
+    public static class PawnDiedOrDownedThoughtUtility_AppendThoughtsPatch
+    {
+        [HarmonyPostfix]
         public static void InnocentThoughts_AppendThoughtsPatch(Pawn victim, DamageInfo? dinfo, PawnDiedOrDownedThoughtsKind thoughtsKind, ref List<IndividualThoughtToAdd> outIndividualThoughts, ref List<ThoughtDef> outAllColonistsThoughts)
         {
             bool flag = dinfo.HasValue && dinfo.Value.Def.execution;
@@ -147,8 +189,8 @@ namespace RimWorldChildren.Harmony.Optional
                         {
                             outIndividualThoughts.Add(new IndividualThoughtToAdd(ThoudhtDef_Innocent.KilledHumanlikeEnemyInnocent, pawn, victim, 1f, 1f));
                             //remove innocence
-                            RemoveInnocence(ref pawn, ref outIndividualThoughts);
-                        }                        
+                            DeleteInnocent.RemoveInnocence(ref pawn, ref outIndividualThoughts);
+                        }
                     }
                 }
             }
@@ -168,13 +210,13 @@ namespace RimWorldChildren.Harmony.Optional
                                 {
                                     outIndividualThoughts.Add(new IndividualThoughtToAdd(ThoudhtDef_Innocent.WitnessedDeathAllyInnocent, pawn2, null, 1f, 1f));
                                     //remove innocence
-                                    RemoveInnocence(ref pawn2, ref outIndividualThoughts);
+                                    DeleteInnocent.RemoveInnocence(ref pawn2, ref outIndividualThoughts);
                                 }
                                 else if (victim.Faction == null || (!victim.Faction.HostileTo(pawn2.Faction) || pawn2.story.traits.HasTrait(TraitDef_BnC.Innocent)))
                                 {
                                     outIndividualThoughts.Add(new IndividualThoughtToAdd(ThoudhtDef_Innocent.WitnessedDeathNonAllyInnocent, pawn2, null, 1f, 1f));
                                     //remove innocence
-                                    RemoveInnocence(ref pawn2, ref outIndividualThoughts);
+                                    DeleteInnocent.RemoveInnocence(ref pawn2, ref outIndividualThoughts);
                                 }
 
                             }
@@ -182,13 +224,13 @@ namespace RimWorldChildren.Harmony.Optional
                             {
                                 outIndividualThoughts.Add(new IndividualThoughtToAdd(ThoudhtDef_Innocent.KnowColonistDiedInnocent, pawn2, null, 1f, 1f));
                                 //remove innocence
-                                RemoveInnocence(ref pawn2, ref outIndividualThoughts);
+                                DeleteInnocent.RemoveInnocence(ref pawn2, ref outIndividualThoughts);
                             }
                             if (flag2 && pawn2.Faction == Faction.OfPlayer && !pawn2.IsPrisoner)
                             {
                                 outIndividualThoughts.Add(new IndividualThoughtToAdd(ThoudhtDef_Innocent.KnowPrisonerDiedInnocentInnocent, pawn2, null, 1f, 1f));
                                 //remove innocence
-                                RemoveInnocence(ref pawn2, ref outIndividualThoughts);
+                                DeleteInnocent.RemoveInnocence(ref pawn2, ref outIndividualThoughts);
                             }
                         }
                     }
@@ -209,44 +251,6 @@ namespace RimWorldChildren.Harmony.Optional
                     outAllColonistsThoughts.Add(ThoudhtDef_Innocent.PrisonerAbandonedToDieInnocent);
                 }
             }
-        }
-
-        public static void ReplaceTraitInnocent(ref Pawn pawn)
-        {            
-            List<Trait> traitpool = new List<Trait>();
-            Pawn mother = pawn.GetMother();
-            Pawn father = pawn.GetFather();
-            if (mother != null && mother.RaceProps.Humanlike)
-            { foreach (Trait momtrait in mother.story.traits.allTraits) traitpool.Add(momtrait); }
-            if (father != null && mother.RaceProps.Humanlike)
-            { foreach (Trait fatrait in father.story.traits.allTraits) traitpool.Add(fatrait); }
-            traitpool.Add(new Trait(TraitDef.Named("Kind")));
-            traitpool.Add(new Trait(TraitDef.Named("Bloodlust")));
-            traitpool.Add(new Trait(TraitDef.Named("Psychopath")));
-            traitpool.Add(new Trait(TraitDef.Named("Nimble")));
-            traitpool.Add(new Trait(TraitDef.Named("FastLearner")));
-            traitpool.Add(new Trait(TraitDef.Named("Tough")));
-            traitpool.Add(new Trait(TraitDef.Named("ShootingAccuracy"), 1));
-            traitpool.Add(new Trait(TraitDef.Named("ShootingAccuracy"), -1));
-
-            List<Trait> hadtrait = new List<Trait>();
-            int trait_count_before = pawn.story.traits.allTraits.Count ;
-
-            foreach (Trait intrait in pawn.story.traits.allTraits)
-            { if (intrait.def != TraitDef_BnC.Innocent) hadtrait.Add(intrait); }
-            pawn.story.traits.allTraits.RemoveRange(0, (pawn.story.traits.allTraits.Count));
-            foreach (Trait intoit in hadtrait) pawn.story.traits.GainTrait(intoit);          
-                       
-            int r;
-            do 
-            {
-                r = new Random().Next(0, traitpool.Count);
-                Trait trait = traitpool[r];
-                if (trait != null && !pawn.story.traits.HasTrait(trait.def) && !pawn.story.traits.allTraits.Any(x => x.def.ConflictsWith(trait)))
-                {
-                    pawn.story.traits.GainTrait(trait);
-                }
-            } while (pawn.story.traits.allTraits.Count < trait_count_before);
         }
     }
 
