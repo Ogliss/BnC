@@ -75,7 +75,7 @@ namespace RimWorldChildren
         }
     }
 
-    [HarmonyPatch(typeof(PawnRenderer), "RenderPawnInternal", new[] { typeof(Vector3), typeof(float), typeof(Boolean), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(Boolean), typeof(Boolean) })]
+    [HarmonyPatch(typeof(PawnRenderer), "RenderPawnInternal", new[] { typeof(Vector3), typeof(float), typeof(Boolean), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(Boolean), typeof(Boolean), typeof(Boolean) })]
     [HarmonyBefore(new string[] { "rimworld.erdelf.alien_race.main" })]
 
     public static class PawnRenderer_RenderPawnInternal_Patch {
