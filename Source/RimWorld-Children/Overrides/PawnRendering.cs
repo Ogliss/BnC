@@ -163,41 +163,72 @@ namespace RimWorldChildren
             //     drawEquipment(rootLoc) babies with weapons?
 
             /**********************************************************************************************************/
-            //////////////////// Skip past the head drawing code if the pawn is a human toddler or younger /////////////
-            // translator's note:  apparently, babies have no heads.
-            //todo: unfinished:
-            int injectIndex1 = ILs.FindIndex(x => x.opcode == OpCodes.Ldarg_3);
-            Label babyDrawBodyJump = ILgen.DefineLabel();
-            ILs[injectIndex1 + 2].labels = new List<Label> { babyDrawBodyJump };
+            //////////////////// Ensure bodies are drawn if pawn is in lifestage 0 or 1 ////////////////////////////////
+            // translator's note: is 0 an egg?
+            // Replace the first
+            //   if (renderBody) { // draw body (gear is handled by 2nd renderBody)
+            // with
+            //   if (renderBody || this.pawn.ageTracker.CurLifeStageIndex < 2) {
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Ldarg_3)+1; // renderBody+1, so brfalse ...
+            // Set up label for jump right after {
+            Label drawBodyJump = ILgen.DefineLabel();
+            if (ILs[injectIndex + 1].labels == null)
+                ILs[injectIndex + 1].labels = new List<Label>();
+            ILs[injectIndex + 1].labels.Add(drawBodyJump);
+
             List<CodeInstruction> injection1 = new List<CodeInstruction> {
+                new CodeInstruction (OpCodes.Brtrue, drawBodyJump); // if (renderBody
                 new CodeInstruction (OpCodes.Ldarg_0),
                 new CodeInstruction (OpCodes.Ldfld, AccessTools.Field(typeof(PawnRenderer), "pawn")),
                 new CodeInstruction (OpCodes.Ldfld, AccessTools.Field(typeof(Pawn), "ageTracker")),
                 new CodeInstruction (OpCodes.Call, typeof(Pawn_AgeTracker).GetProperty("CurLifeStageIndex").GetGetMethod()),
-                new CodeInstruction (OpCodes.Ldc_I4_2),
-                new CodeInstruction (OpCodes.Blt, babyDrawBodyJump),
+                new CodeInstruction (OpCodes.Ldc_I4_2), // if ( ...<2) continue on
+                new CodeInstruction (OpCodes.Bge, ILs[injectIndex].operand), // branch to where original brfalse jumped
             };
-            ILs.InsertRange(injectIndex1, injection1);
+            ILs.RemoveAt(injectIndex); // remove Brfalse
+            ILs.InsertRange(injectIndex, injection1); // replace with our code
+            // NOTE: to force drawing any clothes on a baby (2nd if (renderBody)), it would be easier to add
+            //   a Prefix() operation that simply sets renderBody to true.
+            /**********************************************************************************************************/
+            //////////////////// Skip past the head drawing code if the pawn is a human toddler or younger /////////////
+            // translator's note:  apparently, babies have no heads.
 
             // Ensure pawn is a child or higher before drawing head
-            int injectIndex2 = ILs.FindIndex(x => x.opcode == OpCodes.Ldfld && x.operand == AccessTools.Field(typeof(PawnGraphicSet), "headGraphic")) + 2;
-            Label notHumanJump = ILgen.DefineLabel();
+            // replace:
+            //     if (this.graphics.headGraphic != null)
+            // with
+            //     if (this.graphics.headGraphic != null &&
+            //         (!RaceUsesChildren(this.pawn) || EnsurePawnIsChildOrOlder(pawn)))
+
+            // Logic we use:
+            // if headGraphic == null, branch away
+            // if not uses children, branch to drawHeadCode
+            // if not ChildOrOlder, branch away
+
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Ldfld && // right after branch away - this is start of drawHeadCode
+                                             x.operand == AccessTools.Field(typeof(PawnGraphicSet), "headGraphic")) + 2;
+            Label drawHeadCode = ILgen.DefineLabel();
             List<CodeInstruction> injection2 = new List<CodeInstruction> {
-                new CodeInstruction (OpCodes.Ldarg_0),
+                new CodeInstruction (OpCodes.Ldarg_0), // we will give this all labels start of drawHeadCode had
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, typeof(ChildrenUtility).GetMethod("RaceUsesChildren")),
-                new CodeInstruction (OpCodes.Brfalse, notHumanJump),
+                new CodeInstruction (OpCodes.Brfalse, drawHeadCode),
                 new CodeInstruction (OpCodes.Ldarg_0),
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod("EnsurePawnIsChildOrOlder")),
-                new CodeInstruction (OpCodes.Brfalse, ILs [injectIndex2 - 1].operand),
-                new CodeInstruction (OpCodes.Nop){labels = new List<Label>{notHumanJump}},
+                new CodeInstruction (OpCodes.Brfalse, ILs [injectIndex2 - 1].operand), // branch "away"
             };
-            ILs.InsertRange(injectIndex2, injection2);
+            injection2[0].labels=ILs[injectIndex].labels; // if anyone else Transpiles, this may keep our test intact
+            ILs[injectIndex].labels==new List<Label>();
+            ILs[injectIndex].labels.Add(drawHeadCode);
 
+            ILs.InsertRange(injectIndex, injection2);
+
+            /**********************************************************************************************************/
+            ////////////////////////////// Modify scales of drawn things for children //////////////////////////////////
             // Modify the scale of a hat graphic when worn by a child
             //int injectIndex3 = ILs.FindIndex (x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 18) + 1;
-
+            /*
             int injectIndex3 = ILs.FindIndex(x => x.opcode == OpCodes.Call && x.operand == typeof(GenDraw).GetMethod("DrawMeshNowOrLater", AccessTools.all)) + 4;
             List<CodeInstruction> injection3 = new List<CodeInstruction> {
                 new CodeInstruction (OpCodes.Ldloc_S, 19),
@@ -243,7 +274,7 @@ namespace RimWorldChildren
             };
             ILs.InsertRange(injectIndex6, injection6);
             //
-
+            */
             foreach (CodeInstruction IL in ILs) {
                 yield return IL;
             }
