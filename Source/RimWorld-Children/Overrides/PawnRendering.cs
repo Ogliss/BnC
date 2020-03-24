@@ -247,6 +247,7 @@ namespace RimWorldChildren
             //int injectIndex3 = ILs.FindIndex (x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 18) + 1;
             //int injectIndex3 = ILs.FindIndex(x => x.opcode == OpCodes.Call && x.operand == typeof(GenDraw).GetMethod("DrawMeshNowOrLater", AccessTools.all)) + 4;
             // insert code right before Material is stored:
+            //    (we use FindLastIndex to find the last place it's edited, to modify the final graphic)
             injectIndex=ILs.FindLastIndex(x=>x.opcode==OpCodes.Stloc_S &&
                                           (((LocalBuilder)x.operand).LocalIndex ==16));
             List<CodeInstruction> injection3 = new List<CodeInstruction> {
@@ -261,7 +262,7 @@ namespace RimWorldChildren
             // very similar to above.
             //    Mesh mesh3 = this.graphics.HairMeshSet.MeshAt(headFacing);
             //    Material mat2 = this.graphics.HairMatAt(headFacing); // stored in loc 19
-            //      mat2 = Children_Drawing.ModifyHairForChild(mat2, this.pawn);
+            //      mat2 = Children_Drawing.ModifyHairForChild(mat2, this.pawn); <--------Add this
             //    GenDraw.DrawMeshNowOrLater(mesh3, loc2, quaternion, mat2, portrait);
             injectIndex=ILs.FindLastIndex(x=>x.opcode==OpCodes.Stloc_S &&
                                           (((LocalBuilder)x.operand).LocalIndex ==19));
@@ -270,10 +271,22 @@ namespace RimWorldChildren
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, AccessTools.Method(typeof(Children_Drawing), "ModifyHairForChild")),
             };
+            //Log.Message("Inserting ModifyHairForChild at "+injectIndex);
             ILs.InsertRange(injectIndex, injection4);
-            /*
 
             // Modify the scale of clothing graphics when worn by a child
+            // Translator's note:
+            // The following block of code seems to adjust materials for *bodies*, not for *clothing*.
+            // I believe the next block of code is all that is needed.
+            // If this IS needed, it can be done as above with loc.s 7.
+            // The code below would patch:
+            //    for (int i = 0; i < list.Count; i++) {
+            //        Material mat = this.OverrideMaterialIfNeeded(list[i], this.pawn);
+            //        GenDraw.DrawMeshNowOrLater(mesh, loc, quaternion, mat, portrait);
+            //        loc.y += 0.003787879f;
+            //    }
+            //    if (bodyDrawType == RotDrawMode.Fresh) //....
+            /*
             int injectIndex5 = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 5) + 1;
             List<CodeInstruction> injection5 = new List<CodeInstruction> {
                 new CodeInstruction (OpCodes.Ldloc_S, 5),
@@ -284,20 +297,29 @@ namespace RimWorldChildren
                 new CodeInstruction (OpCodes.Stloc_S, 5),
             };
             ILs.InsertRange(injectIndex5, injection5);
-
-            // patch
-            int injectIndex6 = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 28) + 1;
+            */
+            // Modify the scale of clothing graphics when worn by a child
+            //if (renderBody) {
+            //  for (int k = 0; k < this.graphics.apparelGraphics.Count; k++) {
+            //    ApparelGraphicRecord apparelGraphicRecord = this.graphics.apparelGraphics[k];
+            //    if (apparelGraphicRecord.sourceApparel.def.apparel.LastLayer == ApparelLayerDefOf.Shell)
+            //    {
+            //        Material material4 = apparelGraphicRecord.graphic.MatAt(bodyFacing, null); // loc.s 22
+            //        material4 = this.OverrideMaterialIfNeeded(material4, this.pawn);
+            //          material4 = Children_Drawing.ModifyClothingForChild(material4, this.pawn);
+            //        GenDraw.DrawMeshNowOrLater(mesh, vector, quaternion, material4, portrait);
+            //    }
+            injectIndex=ILs.FindLastIndex(x=>x.opcode==OpCodes.Stloc_S &&
+                                          (((LocalBuilder)x.operand).LocalIndex ==22));
             List<CodeInstruction> injection6 = new List<CodeInstruction> {
-               new CodeInstruction (OpCodes.Ldloc_S, 28),
                new CodeInstruction (OpCodes.Ldarg_0),
                new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField ("pawn", AccessTools.all)),
-               new CodeInstruction (OpCodes.Ldarg_S, 4),
+               new CodeInstruction (OpCodes.Ldarg_S, 4), //bodyFacing
                new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod ("ModifyClothingForChild")),
-               new CodeInstruction (OpCodes.Stloc_S, 28),
             };
-            ILs.InsertRange(injectIndex6, injection6);
-            //
-            */
+            //Log.Message("Inserting ModifyClothingForChild at "+injectIndex);
+            ILs.InsertRange(injectIndex, injection6);
+            // return code.
             foreach (CodeInstruction IL in ILs) {
                 yield return IL;
             }
