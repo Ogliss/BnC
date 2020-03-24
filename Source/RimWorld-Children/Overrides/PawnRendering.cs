@@ -256,18 +256,22 @@ namespace RimWorldChildren
             }; // leaves Material on stack - ready to be saved to loc 16!
             //Log.Message("Inserting ModifyHatForChild at "+injectIndex);
             ILs.InsertRange(injectIndex, injection3);
-            /*
 
             // Modify the scale of a hair graphic when drawn on a child
-            int injectIndex4 = ILs.FindIndex(x => x.opcode == OpCodes.Callvirt && x.operand == AccessTools.Method(typeof(PawnGraphicSet), "HairMatAt")) + 2;
+            // very similar to above.
+            //    Mesh mesh3 = this.graphics.HairMeshSet.MeshAt(headFacing);
+            //    Material mat2 = this.graphics.HairMatAt(headFacing); // stored in loc 19
+            //      mat2 = Children_Drawing.ModifyHairForChild(mat2, this.pawn);
+            //    GenDraw.DrawMeshNowOrLater(mesh3, loc2, quaternion, mat2, portrait);
+            injectIndex=ILs.FindLastIndex(x=>x.opcode==OpCodes.Stloc_S &&
+                                          (((LocalBuilder)x.operand).LocalIndex ==19));
             List<CodeInstruction> injection4 = new List<CodeInstruction> {
-                new CodeInstruction (OpCodes.Ldloc_S, 25),
                 new CodeInstruction (OpCodes.Ldarg_0),
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, AccessTools.Method(typeof(Children_Drawing), "ModifyHairForChild")),
-                new CodeInstruction (OpCodes.Stloc_S, 25),
             };
-            ILs.InsertRange(injectIndex4, injection4);
+            ILs.InsertRange(injectIndex, injection4);
+            /*
 
             // Modify the scale of clothing graphics when worn by a child
             int injectIndex5 = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 5) + 1;
