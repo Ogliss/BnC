@@ -232,18 +232,31 @@ namespace RimWorldChildren
 
             /**********************************************************************************************************/
             ////////////////////////////// Modify scales of drawn things for children //////////////////////////////////
+
             // Modify the scale of a hat graphic when worn by a child
+            // Translator's note:  I *think* this should be inserted here:
+            //    if (!apparelGraphics[j].sourceApparel.def.apparel.hatRenderedFrontOfFace)
+            //    {
+            //        flag = true;
+            //        Material material2 = apparelGraphics[j].graphic.MatAt(bodyFacing, null); // in v1.1, material2 is loc 16
+            //        material2 = this.OverrideMaterialIfNeeded(material2, this.pawn);
+            //        material2 = Children_Drawing.ModifyHatForChild(this.pawn); // <------------_INSERT HERE
+            //        GenDraw.DrawMeshNowOrLater(mesh2, loc2, quaternion, material2, portrait);
+            //    }
+            /// old places to insert, if anyone wants to try figuring this out?
             //int injectIndex3 = ILs.FindIndex (x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 18) + 1;
-            /*
-            int injectIndex3 = ILs.FindIndex(x => x.opcode == OpCodes.Call && x.operand == typeof(GenDraw).GetMethod("DrawMeshNowOrLater", AccessTools.all)) + 4;
+            //int injectIndex3 = ILs.FindIndex(x => x.opcode == OpCodes.Call && x.operand == typeof(GenDraw).GetMethod("DrawMeshNowOrLater", AccessTools.all)) + 4;
+            // insert code right before Material is stored:
+            injectIndex=ILs.FindLastIndex(x=>x.opcode==OpCodes.Stloc_S &&
+                                          (((LocalBuilder)x.operand).LocalIndex ==16));
             List<CodeInstruction> injection3 = new List<CodeInstruction> {
-                new CodeInstruction (OpCodes.Ldloc_S, 19),
                 new CodeInstruction (OpCodes.Ldarg_0),
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod("ModifyHatForChild")),
-                new CodeInstruction (OpCodes.Stloc_S, 19),
-            };
-            ILs.InsertRange(injectIndex3, injection3);
+            }; // leaves Material on stack - ready to be saved to loc 16!
+            //Log.Message("Inserting ModifyHatForChild at "+injectIndex);
+            ILs.InsertRange(injectIndex, injection3);
+            /*
 
             // Modify the scale of a hair graphic when drawn on a child
             int injectIndex4 = ILs.FindIndex(x => x.opcode == OpCodes.Callvirt && x.operand == AccessTools.Method(typeof(PawnGraphicSet), "HairMatAt")) + 2;
