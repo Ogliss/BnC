@@ -77,7 +77,6 @@ namespace RimWorldChildren
 
     [HarmonyPatch(typeof(PawnRenderer), "RenderPawnInternal", new[] { typeof(Vector3), typeof(float), typeof(Boolean), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(Boolean), typeof(Boolean), typeof(Boolean) })]
     [HarmonyBefore(new string[] { "rimworld.erdelf.alien_race.main" })]
-
     public static class PawnRenderer_RenderPawnInternal_Patch {
 
         // ShowHair Patch
@@ -98,76 +97,196 @@ namespace RimWorldChildren
         static IEnumerable<CodeInstruction> RenderPawnInternal_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ILgen)
         {
             List<CodeInstruction> ILs = instructions.ToList();
-            // Change the root location of the child's draw position
-            int injectIndex0 = ILs.FindIndex(x => x.opcode == OpCodes.Ldarg_1) + 1;
-            List<CodeInstruction> injection0 = new List<CodeInstruction> {
+            int injectIndex; //tmp
+            /**********************************************************************************************************/
+            //////////////////////////// Change the root location of the child's draw position /////////////////////////
+            // We have to do change this in a lot of places, so here's our IL method:
+            // ModifyChildYPosOffeset( XXXX, this.pawn, portrait);
+            //   takes Vector3 on the stack and replaces it with new Vector3
+            //   the original Vector3 will almost always be related to rootLoc, which is Ldarg_1
+            List<CodeInstruction> childYPosCorrection = new List<CodeInstruction> {
                 new CodeInstruction(OpCodes.Ldarg_0),
                 new CodeInstruction(OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction(OpCodes.Ldarg_S, 7), //portrait
 				new CodeInstruction(OpCodes.Call, typeof(Children_Drawing).GetMethod("ModifyChildYPosOffset")),
             };
 
-            // We actually have to change this in a lot of places, so we repeat the same injection
-            ILs.InsertRange(injectIndex0, injection0);
-            foreach (int i in new List<int> { 6, 7, 8, 12, 31 }) {
-                ILs.InsertRange(ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand as LocalBuilder != null && ((LocalBuilder)x.operand).LocalIndex == i), injection0);
-            }
+            //   if (renderBody)
+			//   {
+			//      //Vector3 loc = rootLoc;  ---> change to
+            //      Vector3 loc = ModifyChildYPosOffset(rootLoc);
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Ldarg_1) + 1;  //insert after rootLoc is loaded
+            //Log.Message("Inserting childYPosCorrection at index "+injectIndex);
+            ILs.InsertRange(injectIndex, childYPosCorrection);
+            // Do this a bunch more times, based on where the Vector3 is STORED:
+            // (If RW gets rebuilt, these could all change, hopefully it'll stay at framework 4.7.2)
+            // Vector3 drawLoc = rootLoc for wounds overly:
+            //   if (bodyDrawType == RotDrawMode.Fresh)
+            //   {
+            //     Vector3 drawLoc = ModifyChildYPosOffset(rootLoc);
+            //     drawLoc.y += 0.0189393945f;
+            //     this.woundOverlays.RenderOverBody(drawLoc, mesh, quaternion, portrait);
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && //stloc.s 8
+                ((LocalBuilder)x.operand).LocalIndex == 8);
+            //Log.Message("Inserting childYPosCorrection at index "+injectIndex+" (drawLoc)");
+            ILs.InsertRange(injectIndex, childYPosCorrection);
+            //         Vector3 vector = ModifyChildYPosOffset(rootLoc); // drawing head graphic?
+            //                                                          // Plus body's outer armor?
+            //                                                          // plus drawing animal packs(??)
+            //         Vector3 a = ModifyChildYPosOffset(rootLoc);      // used to draw the head (HeadMatAt)
+            //         if (bodyFacing != Rot4.North)
+            //         {
+            //             a.y += 0.0265151523f;
+            //             vector.y += 0.0227272734f;
+            //         }
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_2); // vector
+            //Log.Message("Inserting childYPosCorrection at index "+injectIndex+" (vector)");
+            ILs.InsertRange(injectIndex, childYPosCorrection);
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_3); // a
+            //Log.Message("Inserting childYPosCorrection at index "+injectIndex+" (a)");
+            ILs.InsertRange(injectIndex, childYPosCorrection);
+            //    Vector3 loc2 = ModifyChildYPosOffset(rootLoc + b); // loc2 is used for hats that don't cover face
+            //                              // (if (!apparelGraphics[j].sourceApparel.def.apparel.hatRenderedFrontOfFace))
+            //                              // and drawing the face under that hat.
+            //                              // if babies can ever wear marine helmets, Vector3 loc3 may need to be added, too.
+            //    loc2.y += 0.0303030312f;
+            //    bool flag = false;
+            //    if (!portrait || !Prefs.HatsOnlyOnMap)
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && //stloc.s 11
+                ((LocalBuilder)x.operand).LocalIndex == 11);
+            //Log.Message("Inserting childYPosCorrection at index "+injectIndex+" (loc2)");
+            ILs.InsertRange(injectIndex, childYPosCorrection);
+            //    Vector3 bodyLoc = rootLoc; // Status overlays!
+            //    bodyLoc.y += 0.0416666679f;
+            //    this.statusOverlays.RenderStatusOverlays(bodyLoc, quaternion, MeshPool.humanlikeHeadSet.MeshAt(headFacing));
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && //stloc.s 23
+                ((LocalBuilder)x.operand).LocalIndex == 23);
+            //Log.Message("Inserting childYPosCorrection at index "+injectIndex+" (bodyloc)");
+            ILs.InsertRange(injectIndex, childYPosCorrection);
+            ////// not changed:
+            //     for Hats that DO cover face (rootLoc+b)  Is this an oversight?  Who knows!
+            //     drawEquipment(rootLoc) babies with weapons?
 
-            // Skip past the head drawing code if the pawn is a human toddler or younger
-            int injectIndex1 = ILs.FindIndex(x => x.opcode == OpCodes.Ldarg_3);
-            Label babyDrawBodyJump = ILgen.DefineLabel();
-            ILs[injectIndex1 + 2].labels = new List<Label> { babyDrawBodyJump };
+            /**********************************************************************************************************/
+            //////////////////// Ensure bodies are drawn if pawn is in lifestage 0 or 1 ////////////////////////////////
+            // translator's note: is 0 an egg?
+            // Replace the first
+            //   if (renderBody) { // draw body (gear is handled by 2nd renderBody)
+            // with
+            //   if (renderBody || this.pawn.ageTracker.CurLifeStageIndex < 2) {
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Ldarg_3)+1; // renderBody+1, so brfalse ...
+            // Set up label for jump right after {
+            Label drawBodyJump = ILgen.DefineLabel();
+            if (ILs[injectIndex + 1].labels == null)
+                ILs[injectIndex + 1].labels = new List<Label>();
+            ILs[injectIndex + 1].labels.Add(drawBodyJump);
+
             List<CodeInstruction> injection1 = new List<CodeInstruction> {
+                new CodeInstruction (OpCodes.Brtrue, drawBodyJump), // if (renderBody
                 new CodeInstruction (OpCodes.Ldarg_0),
                 new CodeInstruction (OpCodes.Ldfld, AccessTools.Field(typeof(PawnRenderer), "pawn")),
                 new CodeInstruction (OpCodes.Ldfld, AccessTools.Field(typeof(Pawn), "ageTracker")),
                 new CodeInstruction (OpCodes.Call, typeof(Pawn_AgeTracker).GetProperty("CurLifeStageIndex").GetGetMethod()),
-                new CodeInstruction (OpCodes.Ldc_I4_2),
-                new CodeInstruction (OpCodes.Blt, babyDrawBodyJump),
+                new CodeInstruction (OpCodes.Ldc_I4_2), // if ( ...<2) continue on
+                new CodeInstruction (OpCodes.Bge, ILs[injectIndex].operand), // branch to where original brfalse jumped
             };
-            ILs.InsertRange(injectIndex1, injection1);
+            //Log.Message("Inserting code for renderBody jump at "+injectIndex);
+            ILs.RemoveAt(injectIndex); // remove Brfalse
+            ILs.InsertRange(injectIndex, injection1); // replace with our code
+            // NOTE: to force drawing any clothes on a baby (2nd if (renderBody)), it would be easier to add
+            //   a Prefix() operation that simply sets renderBody to true.
+            /**********************************************************************************************************/
+            //////////////////// Skip past the head drawing code if the pawn is a human toddler or younger /////////////
+            // translator's note:  apparently, babies have no heads.
 
             // Ensure pawn is a child or higher before drawing head
-            int injectIndex2 = ILs.FindIndex(x => x.opcode == OpCodes.Ldfld && (FieldInfo)x.operand == AccessTools.Field(typeof(PawnGraphicSet), "headGraphic")) + 2;
-            Label notHumanJump = ILgen.DefineLabel();
+            // replace:
+            //     if (this.graphics.headGraphic != null)
+            // with
+            //     if (this.graphics.headGraphic != null &&
+            //         (!RaceUsesChildren(this.pawn) || EnsurePawnIsChildOrOlder(pawn)))
+
+            // Logic we use:
+            // if headGraphic == null, branch away
+            // if not uses children, branch to drawHeadCode
+            // if not ChildOrOlder, branch away
+
+            injectIndex = ILs.FindIndex(x => x.opcode == OpCodes.Ldfld && // right after branch away - this is start of drawHeadCode
+                                        (FieldInfo)x.operand == AccessTools.Field(typeof(PawnGraphicSet), "headGraphic")) + 2;
+            Label drawHeadCode = ILgen.DefineLabel();
             List<CodeInstruction> injection2 = new List<CodeInstruction> {
-                new CodeInstruction (OpCodes.Ldarg_0),
+                new CodeInstruction (OpCodes.Ldarg_0), // we will give this all labels start of drawHeadCode had
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, typeof(ChildrenUtility).GetMethod("RaceUsesChildren")),
-                new CodeInstruction (OpCodes.Brfalse, notHumanJump),
+                new CodeInstruction (OpCodes.Brfalse, drawHeadCode),
                 new CodeInstruction (OpCodes.Ldarg_0),
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod("EnsurePawnIsChildOrOlder")),
-                new CodeInstruction (OpCodes.Brfalse, ILs [injectIndex2 - 1].operand),
-                new CodeInstruction (OpCodes.Nop){labels = new List<Label>{notHumanJump}},
+                new CodeInstruction (OpCodes.Brfalse, ILs [injectIndex - 1].operand), // branch "away"
             };
-            ILs.InsertRange(injectIndex2, injection2);
+            injection2[0].labels=ILs[injectIndex].labels; // if anyone else Transpiles, this may keep our test intact
+            ILs[injectIndex].labels=new List<Label>();
+            ILs[injectIndex].labels.Add(drawHeadCode);
+            //Log.Message("Inserting code for headGraphic drawHeadCode at "+injectIndex);
+            ILs.InsertRange(injectIndex, injection2);
+
+            /**********************************************************************************************************/
+            ////////////////////////////// Modify scales of drawn things for children //////////////////////////////////
 
             // Modify the scale of a hat graphic when worn by a child
+            // Translator's note:  I *think* this should be inserted here:
+            //    if (!apparelGraphics[j].sourceApparel.def.apparel.hatRenderedFrontOfFace)
+            //    {
+            //        flag = true;
+            //        Material material2 = apparelGraphics[j].graphic.MatAt(bodyFacing, null); // in v1.1, material2 is loc 16
+            //        material2 = this.OverrideMaterialIfNeeded(material2, this.pawn);
+            //        material2 = Children_Drawing.ModifyHatForChild(this.pawn); // <------------_INSERT HERE
+            //        GenDraw.DrawMeshNowOrLater(mesh2, loc2, quaternion, material2, portrait);
+            //    }
+            /// old places to insert, if anyone wants to try figuring this out?
             //int injectIndex3 = ILs.FindIndex (x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 18) + 1;
-
-            int injectIndex3 = ILs.FindIndex(x => x.opcode == OpCodes.Call && (MethodInfo)x.operand == typeof(GenDraw).GetMethod("DrawMeshNowOrLater", AccessTools.all)) + 4;
+            //int injectIndex3 = ILs.FindIndex(x => x.opcode == OpCodes.Call && x.operand == typeof(GenDraw).GetMethod("DrawMeshNowOrLater", AccessTools.all)) + 4;
+            // insert code right before Material is stored:
+            //    (we use FindLastIndex to find the last place it's edited, to modify the final graphic)
+            injectIndex=ILs.FindLastIndex(x=>x.opcode==OpCodes.Stloc_S &&
+                                          (((LocalBuilder)x.operand).LocalIndex ==16));
             List<CodeInstruction> injection3 = new List<CodeInstruction> {
-                new CodeInstruction (OpCodes.Ldloc_S, 19),
                 new CodeInstruction (OpCodes.Ldarg_0),
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod("ModifyHatForChild")),
-                new CodeInstruction (OpCodes.Stloc_S, 19),
-            };
-            ILs.InsertRange(injectIndex3, injection3);
+            }; // leaves Material on stack - ready to be saved to loc 16!
+            //Log.Message("Inserting ModifyHatForChild at "+injectIndex);
+            ILs.InsertRange(injectIndex, injection3);
 
             // Modify the scale of a hair graphic when drawn on a child
-            int injectIndex4 = ILs.FindIndex(x => x.opcode == OpCodes.Callvirt && (MethodInfo)x.operand == AccessTools.Method(typeof(PawnGraphicSet), "HairMatAt")) + 2;
+            // very similar to above.
+            //    Mesh mesh3 = this.graphics.HairMeshSet.MeshAt(headFacing);
+            //    Material mat2 = this.graphics.HairMatAt(headFacing); // stored in loc 19
+            //      mat2 = Children_Drawing.ModifyHairForChild(mat2, this.pawn); <--------Add this
+            //    GenDraw.DrawMeshNowOrLater(mesh3, loc2, quaternion, mat2, portrait);
+            injectIndex=ILs.FindLastIndex(x=>x.opcode==OpCodes.Stloc_S &&
+                                          (((LocalBuilder)x.operand).LocalIndex ==19));
             List<CodeInstruction> injection4 = new List<CodeInstruction> {
-                new CodeInstruction (OpCodes.Ldloc_S, 25),
                 new CodeInstruction (OpCodes.Ldarg_0),
                 new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField("pawn", AccessTools.all)),
                 new CodeInstruction (OpCodes.Call, AccessTools.Method(typeof(Children_Drawing), "ModifyHairForChild")),
-                new CodeInstruction (OpCodes.Stloc_S, 25),
             };
-            ILs.InsertRange(injectIndex4, injection4);
+            //Log.Message("Inserting ModifyHairForChild at "+injectIndex);
+            ILs.InsertRange(injectIndex, injection4);
 
             // Modify the scale of clothing graphics when worn by a child
+            // Translator's note:
+            // The following block of code seems to adjust materials for *bodies*, not for *clothing*.
+            // I believe the next block of code is all that is needed.
+            // If this IS needed, it can be done as above with loc.s 7.
+            // The code below would patch:
+            //    for (int i = 0; i < list.Count; i++) {
+            //        Material mat = this.OverrideMaterialIfNeeded(list[i], this.pawn);
+            //        GenDraw.DrawMeshNowOrLater(mesh, loc, quaternion, mat, portrait);
+            //        loc.y += 0.003787879f;
+            //    }
+            //    if (bodyDrawType == RotDrawMode.Fresh) //....
+            /*
             int injectIndex5 = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 5) + 1;
             List<CodeInstruction> injection5 = new List<CodeInstruction> {
                 new CodeInstruction (OpCodes.Ldloc_S, 5),
@@ -178,26 +297,35 @@ namespace RimWorldChildren
                 new CodeInstruction (OpCodes.Stloc_S, 5),
             };
             ILs.InsertRange(injectIndex5, injection5);
-
-            // patch
-            int injectIndex6 = ILs.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder && ((LocalBuilder)x.operand).LocalIndex == 28) + 1;
+            */
+            // Modify the scale of clothing graphics when worn by a child
+            //if (renderBody) {
+            //  for (int k = 0; k < this.graphics.apparelGraphics.Count; k++) {
+            //    ApparelGraphicRecord apparelGraphicRecord = this.graphics.apparelGraphics[k];
+            //    if (apparelGraphicRecord.sourceApparel.def.apparel.LastLayer == ApparelLayerDefOf.Shell)
+            //    {
+            //        Material material4 = apparelGraphicRecord.graphic.MatAt(bodyFacing, null); // loc.s 22
+            //        material4 = this.OverrideMaterialIfNeeded(material4, this.pawn);
+            //          material4 = Children_Drawing.ModifyClothingForChild(material4, this.pawn);
+            //        GenDraw.DrawMeshNowOrLater(mesh, vector, quaternion, material4, portrait);
+            //    }
+            injectIndex=ILs.FindLastIndex(x=>x.opcode==OpCodes.Stloc_S &&
+                                          (((LocalBuilder)x.operand).LocalIndex ==22));
             List<CodeInstruction> injection6 = new List<CodeInstruction> {
-               new CodeInstruction (OpCodes.Ldloc_S, 28),
                new CodeInstruction (OpCodes.Ldarg_0),
                new CodeInstruction (OpCodes.Ldfld, typeof(PawnRenderer).GetField ("pawn", AccessTools.all)),
-               new CodeInstruction (OpCodes.Ldarg_S, 4),
+               new CodeInstruction (OpCodes.Ldarg_S, 4), //bodyFacing
                new CodeInstruction (OpCodes.Call, typeof(Children_Drawing).GetMethod ("ModifyClothingForChild")),
-               new CodeInstruction (OpCodes.Stloc_S, 28),
             };
-            ILs.InsertRange(injectIndex6, injection6);
-            // 
-
+            //Log.Message("Inserting ModifyClothingForChild at "+injectIndex);
+            ILs.InsertRange(injectIndex, injection6);
+            // return code.
             foreach (CodeInstruction IL in ILs) {
                 yield return IL;
             }
         }
     }
-    
+
     public static class Children_Drawing
 	{
 		internal static void ResolveAgeGraphics(PawnGraphicSet graphics){
@@ -254,14 +382,14 @@ namespace RimWorldChildren
 				}
 			});
 		}
-        
+
 		// My own methods
 		internal static Graphic GetChildHeadGraphics(PawnGraphicSet graphicSet, Shader shader, Color skinColor)
 		{
             Graphic_Multi graphic = null;
             Pawn pawn = graphicSet.pawn;
             if (ChildrenUtility.IsHumanlikeChild(pawn))
-            {                
+            {
                 string str = "Male_Child";
                 string path = "Things/Pawn/Humanlike/Children/Heads/" + str;
                 graphic = GraphicDatabase.Get<Graphic_Multi>(path, shader, Vector2.one, skinColor) as Graphic_Multi;
@@ -272,7 +400,7 @@ namespace RimWorldChildren
             }
 			return graphic;
 		}
-        
+
         internal static Graphic GetChildBodyGraphics(PawnGraphicSet graphicSet, Shader shader, Color skinColor)
 		{
             Graphic_Multi graphic = null;
@@ -291,7 +419,7 @@ namespace RimWorldChildren
             {
                 graphic = graphicSet.nakedGraphic as Graphic_Multi;
             }
-            return graphic;            
+            return graphic;
 		}
 
 		// Injected methods
@@ -309,7 +437,7 @@ namespace RimWorldChildren
                 }
                 return BodyTypeDefOf.Thin;
             }
-            
+
 			return pawn.story.bodyType;
 		}
 		public static Vector3 ModifyChildYPosOffset(Vector3 pos, Pawn pawn, bool portrait){
@@ -381,12 +509,12 @@ namespace RimWorldChildren
                 Material xDamagedMat = new Material(damagedMat);
                 xDamagedMat.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
                 //
-                //PutValue(pawn, ref ApperalTextureScaleX, ref ApperalTextureScaleY, ref ApperalTextureOffsetX, ref ApperalTextureOffsetY, ref ApperalTextureOffsetEWX);                 
+                //PutValue(pawn, ref ApperalTextureScaleX, ref ApperalTextureScaleY, ref ApperalTextureOffsetX, ref ApperalTextureOffsetY, ref ApperalTextureOffsetEWX);
                 xDamagedMat.mainTextureScale = new Vector2(ApperalTextureScaleX, ApperalTextureScaleY);
                 xDamagedMat.mainTextureOffset = new Vector2(ApperalTextureOffsetX, ApperalTextureOffsetY);
                 if (bodyFacing == Rot4.West || bodyFacing == Rot4.East)
                     {  xDamagedMat.mainTextureOffset = new Vector2(ApperalTextureOffsetEWX, ApperalTextureOffsetY);  }
-                
+
                 newDamagedMat = xDamagedMat;
             }
             return newDamagedMat;
@@ -403,7 +531,7 @@ namespace RimWorldChildren
         }
 
     }
-    
+
 }
 
 //      float TextureScaleX = 1.06f;
